@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema Catadores</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    @* Plugin de tabelas *@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.14/jquery.mask.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".navbar").hover(
+                function () {
+
+                    $(".imagens-menu").animate({ height: 100 }, 400);
+                    $(".navbar").animate({ height: 150 }, 400);
+                    $(".navbar").css({ "border-bottom": "16px solid #74361e" });
+                    $(".navbar , .imagens-menu").clearQueue();
+
+                },
+                function () {
+
+                    $(".imagens-menu").animate({ height: 50 }, 400);
+                    $(".navbar").animate({ height: 100 }, 400);
+                    $(".navbar").css({ "border-bottom": "5px solid #74361e" });
+                    $(".navbar , .imagens-menu").clearQueue();
+                }
+            );
+
+
+        });
+
+    </script>
+</head>
+<body >
+    <div class="navbar navbar-default navbar-fixed-top menu">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href='~/Home/Index' class="navbar-brand"><img class="imagens-menu" style="height:100px;" src="@Url.Content("~/Images/logo.png")" alt="Alternate Text" class="img-responsive" /></a>
+
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a href='~/Login/CadastrarUsuario'><img class="imagens-menu" style="height:100px;" src="@Url.Content("~/Images/usuarios.png")" alt="Alternate Text" class="img-responsive" /></a></li>
+                    <li><a href='~/Cooperativa/CadastrarCooperativa'><img class="imagens-menu" style="height:100px;" src="@Url.Content("~/Images/cooperativas.png")" alt="Alternate Text" class="img-responsive" /></a></li>
+                    <li><a href='~/Lancamento/Index'><img class="imagens-menu" style="height:100px;" src="@Url.Content("~/Images/lancamentos.png")" alt="Alternate Text" class="img-responsive" /></a></li>
+                    <li><a href='~/Relatorios/RelatorioPordata'><img class="imagens-menu" style="height:100px;" src="@Url.Content("~/Images/relatorios.png")" alt="Alternate Text" class="img-responsive" /></a></li>
+                    <li><a href='~/Login/Deslogar'>Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class=" body-content">
+        @if (TempData["erro"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["erro"].ToString()
+            </div>
+        }
+        @if (TempData["sucesso"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @TempData["sucesso"].ToString()
+            </div>
+        }
+
+        <div class="col-md-2 menu-esquerda" >
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="active"><a href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+                <li role="presentation"><a href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+                <li role="presentation"><a href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+                <li role="presentation"><a href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+            </ul>
+        </div>
+        <div class="conteudo-site col-md-10" >
+            @RenderBody()
+
+            <hr />
+            <footer class="text-center" style="margin-top: 50px;">
+                <p>&copy; @DateTime.Now.Year - Desenvolvido por HS Tecnologia LTDA.</p>
+            </footer>
+        </div>
+
+
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.2/b-html5-1.5.2/r-2.2.2/sl-1.2.6/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tabela').dataTable({
+                "bSort": false,
+                "aLengthMenu": [20, 50, 100],
+
+                "bJQueryUI": true,
+                "oLanguage": {
+                    "sProcessing": "Processando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "Não foram encontrados resultados",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "Primeiro",
+                        "sPrevious": "Anterior",
+                        "sNext": "Seguinte",
+                        "sLast": "Último"
+                    }
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>

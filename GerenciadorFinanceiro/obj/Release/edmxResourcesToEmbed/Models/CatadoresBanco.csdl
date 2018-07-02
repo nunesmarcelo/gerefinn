@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="catadoresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cooperativa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cnpj" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="responsavel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="rua" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="Int32" />
+    <Property Name="bairro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cidade" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="lancamento" Relationship="Self.fk_lancamento_cooperativa1" FromRole="cooperativa" ToRole="lancamento" />
+    <NavigationProperty Name="usuario" Relationship="Self.usuario_has_cooperativa" FromRole="cooperativa" ToRole="usuario" />
+  </EntityType>
+  <EntityType Name="lancamento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="quantidade" Type="Int32" />
+    <Property Name="valor" Type="Decimal" Nullable="false" />
+    <Property Name="cooperativa_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="cooperativa" Relationship="Self.fk_lancamento_cooperativa1" FromRole="lancamento" ToRole="cooperativa" />
+    <Property Name="data" Type="DateTime" />
+    <Property Name="pago" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="senha" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cpf" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="permissao" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="rua" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="Int32" />
+    <Property Name="bairro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cidade" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="cooperativa" Relationship="Self.usuario_has_cooperativa" FromRole="usuario" ToRole="cooperativa" />
+  </EntityType>
+  <Association Name="fk_lancamento_cooperativa1">
+    <End Role="cooperativa" Type="Self.cooperativa" Multiplicity="1" />
+    <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cooperativa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="cooperativa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="usuario_has_cooperativa">
+    <End Role="cooperativa" Type="Self.cooperativa" Multiplicity="*" />
+    <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="CatadoresBanco" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cooperativa" EntityType="Self.cooperativa" />
+    <EntitySet Name="lancamento" EntityType="Self.lancamento" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <AssociationSet Name="fk_lancamento_cooperativa1" Association="Self.fk_lancamento_cooperativa1">
+      <End Role="cooperativa" EntitySet="cooperativa" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="usuario_has_cooperativa" Association="Self.usuario_has_cooperativa">
+      <End Role="cooperativa" EntitySet="cooperativa" />
+      <End Role="usuario" EntitySet="usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

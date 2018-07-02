@@ -1,0 +1,111 @@
+﻿html {
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.superior-site {
+    height: 40px;
+    font-size: 1.1rem;
+}
+
+/*Small devices (tablets, 576px and up)*/
+@media (min-width: 576px) {
+    html {
+        font-size: 0.6rem;
+    }
+}
+
+ /*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    html {
+        font-size: 0.8rem;
+    }
+}
+
+ /*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    html {
+        font-size: 0.9rem;
+    }
+}
+
+body {
+    padding-bottom: 20px;
+}
+
+/*.panel-heading {
+    background-color: rgba(116, 54, 30, 0.80) !important;
+}*/
+
+.panel {
+    /*border: 1px solid rgba(1, 25, 54, 1) !important;*/
+}
+
+/*.menu {
+    font-size: 14pt;
+    height: 150px;
+    padding-top: 20px;
+    border-bottom: 20px solid #74361e;
+    /*background-color: rgba(168, 52, 186, 0.55);
+}*/
+
+
+
+.active {
+    background-color:rgba(209, 255, 215, 0.5)  !important;
+}
+
+.menu-esquerda {
+    margin-top: 100px;
+}
+
+.texto-menu-esq {
+    text-decoration: none !important;
+    font-family: 'Lora', sans-serif;
+    margin-top:-12px;
+    font-size: 11pt;
+    color: #555;
+}
+
+
+
+/* Set padding to keep content from hitting the edges */
+/*.folha {
+    /*background-color: #BEE9FB;
+    padding-top:10px;
+    background-color: rgba(225, 225, 255, 1);
+    border:2px solid rgba(209, 255, 215, 0.5);
+}*/
+
+
+.conteudo-site {
+    margin-top: 10px;
+    /*background-color: #97BDCA !important;*/
+    min-height: 360px;
+    border-top: 3px solid rgba(1, 25, 54, 1);
+    border-left: 3px solid rgba(1, 25, 54, 1);
+    /*background: linear-gradient(to top left, rgba(3, 25, 38, 0.2), rgba(70, 129, 137, 0.2));*/
+    /*background: linear-gradient(to left top, rgba(119, 172, 162, 1), rgba(235, 235, 235, 1));*/
+    /*padding: 5px;
+    border-radius: 10px;
+    border: 2px solid #a57054 !important;*/
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+body {
+    /*background-color: rgba(103, 181, 233, 0.6) !important;*/
+    background-color: #EAF1F4 !important;
+}

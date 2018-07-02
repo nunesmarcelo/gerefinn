@@ -1,0 +1,103 @@
+﻿@model List<GerenciadorFinanceiro.Models.lancamento>
+
+@{
+    ViewBag.title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (Model != null)
+{
+    <div class="jumbotron">
+        <h1>Lançamentos dos últimos 7 dias</h1>
+    </div>
+
+    @* TABELA *@
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">
+            <h3 class="panel-title">Lançamentos Cadastrados</h3>
+        </div>
+        <div class="panel-body" id="dadosusuario">
+            <fieldset class="scheduler-border">
+                <div class="form-group">
+                    <table class="table table-hover" id="tabela">
+                        <thead>
+                            <tr>
+                                <td>Descrição</td>
+                                <td>Tipo</td>
+                                <td>Quantidade</td>
+                                <td>Valor</td>
+                                <td>Data</td>
+                                <td>Cooperativa</td>
+                                <td>Pago</td>
+                                <td>Configurações</td>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela">
+
+                            @foreach (var lancamento in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <span style="text-transform: capitalize;"> @lancamento.descricao</span>
+                                </td>
+                                <td>
+                                    <span style="text-transform: capitalize;"> @lancamento.tipo</span>
+                                </td>
+                                <td>
+                                    <span style="text-transform: capitalize;">@lancamento.quantidade</span>
+                                </td>
+                                <td>
+                                    <span style="text-transform: capitalize;">@lancamento.valor</span>
+                                </td>
+                                <td>
+                                    <span style="text-transform: capitalize;"> @lancamento.data.Value.ToShortDateString()</span>
+                                </td>
+                                <td>
+                                    <span style="text-transform: capitalize;"> @lancamento.cooperativa.nome</span>
+                                </td>
+                                @if (lancamento.pago == true)
+                                {
+                                    <td style="color:blue;">
+                                        <span style="text-transform: capitalize;"> Sim</span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="color:red;">
+                                        <span style="text-transform: capitalize;"> Não</span>
+                                    </td>
+                                }
+
+                                <td>
+                                    @if (lancamento.pago == true)
+                                    {
+                                        <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=Index&pasta=Home" class="btn btn-warning"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Não-Pagar</span></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=Index&pasta=Home" class="btn btn-success"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Pagar</span></a>
+                                    }
+
+                                    <a href="~/Lancamento/Deletar?idLancamento=@lancamento.id" class="btn btn-danger" style="float:right;"><span class="glyphicon glyphicon-trash">Excluir</span></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    
+}
+else
+{
+    <div class="jumbotron">
+        <h1>Não existem lançamentos para a semana atual</h1>
+        <a href="~/Lancamento/Index" class="btn btn-primary">Adicionar Lançamento</a>
+    </div>
+}
+
+

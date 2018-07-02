@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a7b3bd1779f74ba3b0f8a57be511d735" Name="Diagram1">
+        <EntityTypeShape EntityType="FinanceiroModel.lancamento" Width="1.75" PointX="5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceiroModel.usuario" Width="1.5" PointX="0.875" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinanceiroModel.categoriadespesa" Width="1.5" PointX="3.125" PointY="5.25" />
+        <EntityTypeShape EntityType="FinanceiroModel.categoriareceita" Width="1.5" PointX="7.25" PointY="5.125" />
+        <EntityTypeShape EntityType="FinanceiroModel.cliente" Width="1.5" PointX="7.25" PointY="8" />
+        <EntityTypeShape EntityType="FinanceiroModel.fornecedor" Width="1.5" PointX="3.125" PointY="8" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_categoriadespesa1" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_categoriareceita" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_cliente1" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_fornecedor1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

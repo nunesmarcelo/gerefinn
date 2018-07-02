@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema Catadores</title>
+
+    @* Fonts *@
+    <link href="https://fonts.googleapis.com/css?family=Anton|Raleway|Encode+Sans+Condensed|Fjalla+One|Lora" rel="stylesheet">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+
+    @* Plugin de tabelas *@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $(".navbar").hover(
+                    function () {
+
+                        $(".imagens-menu").animate({ height: 100 }, 400);
+                        $(".navbar").animate({ height: 150 }, 400);
+                        $(".navbar").css({ "border-bottom": "16px solid #74361e" });
+                        $(".navbar , .imagens-menu").clearQueue();
+
+                    },
+                    function () {
+
+                        $(".imagens-menu").animate({ height: 50 }, 400);
+                        $(".navbar").animate({ height: 100 }, 400);
+                        $(".navbar").css({ "border-bottom": "5px solid #74361e" });
+                        $(".navbar , .imagens-menu").clearQueue();
+                    }
+                );
+
+
+            });
+
+        </script>*@
+</head>
+<body>
+    <div class="superior-site">
+        <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="~/Home">Gerenciador Financeiro</a>
+
+                <form class="form-inline ml-5 mr-auto mt-2 mt-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Palavra chave" aria-label="Palavra chave">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Pesquisar</button>
+                </form>
+                <ul class="navbar-nav my-2 my-lg-0 mr-2 ">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropleft">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-question-sign"></span></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Como fazer um lançamento</a>
+                            <a class="dropdown-item" href="#">Como cadastrar uma instituição para recebimento</a>
+                            <a class="dropdown-item" href="#">Como cadastrar uma instituição para pagamento</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">FAQ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropleft">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">---</a>
+                            <a class="dropdown-item" href="#">---</a>
+                            <a class="dropdown-item" href="#">---</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="~/Login/CadastrarUsuario">Cadastrar usuário</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class=" body-content">
+
+
+        <div class="col-md-2 menu-esquerda">
+            <ul class="nav  nav-pills nav-stacked">
+                <li><div class="lead">Cadastros</div></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Login/CadastrarUsuario' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/ativo.png")" alt="Alternate Text" />Cat. de Receb.</a></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Cooperativa/CadastrarCooperativa' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/passivo.png")" alt="Alternate Text" />Cat. de Desp.</a></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Lancamento/Index' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/clientes.png")" alt="Alternate Text" />  Clientes</a></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Relatorios/RelatorioPordata' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/fornecedores.png")" alt="Alternate Text" />  Fornecedores</a></li>
+
+                <li><div class="lead">Lançar</div></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Login/CadastrarUsuario' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/lancamentos.png")" alt="Alternate Text" />  Lançamentos</a></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Login/CadastrarUsuario' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/relatorios.png")" alt="Alternate Text" />  Relatórios</a></li>
+                <li class="nav-item col-12" role="presentation"><a href='~/Login/CadastrarUsuario' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/dre.png")" alt="Alternate Text" />  DRE</a></li>
+
+
+                @*<li role="presentation"><a href='~/Lancamento/Index'><img class="imagens-menu img-responsive" style="height:40px;" src="@Url.Content("~/Images/lancamentos.png")" alt="Alternate Text" /></a></li>
+        <li role="presentation"><a href='~/Relatorios/RelatorioPordata'><img class="imagens-menu img-responsive" style="height:40px;" src="@Url.Content("~/Images/relatorios.png")" alt="Alternate Text" /></a></li>
+        <li role="presentation"><a  class="active item-esquerda" href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+        <li role="presentation" ><a class="item-esquerda" href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+        <li role="presentation" class="item-esquerda"><a href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>
+        <li role="presentation" class="item-esquerda"><a href="~/Home/Index"><span class="glyphicon glyphicon-home"></span> Principal</a></li>*@
+            </ul>
+        </div>
+        <div class="conteudo-site col-md-10" style="">
+            <div class="container m-2 mt-5 rounded folha">
+                @if (TempData["erro"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["erro"].ToString()
+                    </div>
+                }
+                @if (TempData["sucesso"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @TempData["sucesso"].ToString()
+                    </div>
+                }
+
+                @RenderBody()
+
+                <hr />
+                <footer class="text-center" style="margin-top: 50px;">
+                    <p>&copy; @DateTime.Now.Year - Desenvolvido por HS Tecnologia LTDA.</p>
+                </footer>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.14/jquery.mask.js"></script>
+
+
+
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/b-1.5.2/b-html5-1.5.2/r-2.2.2/sl-1.2.6/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tabela').dataTable({
+                "paging": true,
+                "info": false,
+                "aLengthMenu": [20, 50, 100],
+
+                "bJQueryUI": true,
+                "oLanguage": {
+                    "sProcessing": "Processando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "Não foram encontrados resultados",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
+                    "sInfoFiltered": "",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "Primeiro",
+                        "sPrevious": "Anterior",
+                        "sNext": "Seguinte",
+                        "sLast": "Último"
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

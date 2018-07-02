@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="catadoresModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cooperativa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cnpj" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="45" />
+    <Property Name="telefone1" Type="varchar" MaxLength="45" />
+    <Property Name="telefone2" Type="varchar" MaxLength="45" />
+    <Property Name="responsavel" Type="varchar" MaxLength="45" />
+    <Property Name="rua" Type="varchar" MaxLength="45" />
+    <Property Name="numero" Type="int" />
+    <Property Name="bairro" Type="varchar" MaxLength="45" />
+    <Property Name="cidade" Type="varchar" MaxLength="45" />
+    <Property Name="estado" Type="varchar" MaxLength="45" />
+    <Property Name="cep" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="lancamento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descricao" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="quantidade" Type="int" />
+    <Property Name="valor" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="cooperativa_id" Type="int" Nullable="false" />
+    <Property Name="data" Type="datetime" Precision="0" />
+    <Property Name="pago" Type="bit" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="login" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="senha" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="cpf" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="permissao" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="45" />
+    <Property Name="telefone" Type="varchar" MaxLength="45" />
+    <Property Name="rua" Type="varchar" MaxLength="45" />
+    <Property Name="numero" Type="int" />
+    <Property Name="bairro" Type="varchar" MaxLength="45" />
+    <Property Name="cidade" Type="varchar" MaxLength="45" />
+    <Property Name="estado" Type="varchar" MaxLength="45" />
+    <Property Name="cep" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="usuario_has_cooperativa">
+    <Key>
+      <PropertyRef Name="usuario_id" />
+      <PropertyRef Name="cooperativa_id" />
+    </Key>
+    <Property Name="usuario_id" Type="int" Nullable="false" />
+    <Property Name="cooperativa_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_lancamento_cooperativa1">
+    <End Role="cooperativa" Type="Self.cooperativa" Multiplicity="1" />
+    <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cooperativa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="cooperativa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario_has_cooperativa_cooperativa1">
+    <End Role="cooperativa" Type="Self.cooperativa" Multiplicity="1" />
+    <End Role="usuario_has_cooperativa" Type="Self.usuario_has_cooperativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cooperativa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="usuario_has_cooperativa">
+        <PropertyRef Name="cooperativa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario_has_cooperativa_usuario1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="1" />
+    <End Role="usuario_has_cooperativa" Type="Self.usuario_has_cooperativa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="usuario_has_cooperativa">
+        <PropertyRef Name="usuario_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="catadoresModelStoreContainer">
+    <EntitySet Name="cooperativa" EntityType="Self.cooperativa" Schema="catadores" store:Type="Tables" />
+    <EntitySet Name="lancamento" EntityType="Self.lancamento" Schema="catadores" store:Type="Tables" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" Schema="catadores" store:Type="Tables" />
+    <EntitySet Name="usuario_has_cooperativa" EntityType="Self.usuario_has_cooperativa" Schema="catadores" store:Type="Tables" />
+    <AssociationSet Name="fk_lancamento_cooperativa1" Association="Self.fk_lancamento_cooperativa1">
+      <End Role="cooperativa" EntitySet="cooperativa" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario_has_cooperativa_cooperativa1" Association="Self.fk_usuario_has_cooperativa_cooperativa1">
+      <End Role="cooperativa" EntitySet="cooperativa" />
+      <End Role="usuario_has_cooperativa" EntitySet="usuario_has_cooperativa" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario_has_cooperativa_usuario1" Association="Self.fk_usuario_has_cooperativa_usuario1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="usuario_has_cooperativa" EntitySet="usuario_has_cooperativa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

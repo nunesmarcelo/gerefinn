@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FinanceiroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="lancamento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="quantidade" Type="Int32" />
+    <Property Name="valor" Type="Decimal" Nullable="false" />
+    <Property Name="pago" Type="Boolean" Nullable="false" />
+    <Property Name="numerotitulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="datavencimento" Type="DateTime" />
+    <Property Name="dataemissao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="datacadastro" Type="DateTime" Nullable="false" />
+    <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="categoriareceita_id" Type="Int32" Nullable="false" />
+    <Property Name="categoriadespesa_id" Type="Int32" Nullable="false" />
+    <Property Name="cliente_id" Type="Int32" Nullable="false" />
+    <Property Name="fornecedor_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="categoriadespesa" Relationship="FinanceiroModel.fk_lancamento_categoriadespesa1" FromRole="lancamento" ToRole="categoriadespesa" />
+    <NavigationProperty Name="categoriareceita" Relationship="FinanceiroModel.fk_lancamento_categoriareceita" FromRole="lancamento" ToRole="categoriareceita" />
+    <NavigationProperty Name="cliente" Relationship="FinanceiroModel.fk_lancamento_cliente1" FromRole="lancamento" ToRole="cliente" />
+    <NavigationProperty Name="fornecedor" Relationship="FinanceiroModel.fk_lancamento_fornecedor1" FromRole="lancamento" ToRole="fornecedor" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="login" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="senha" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cpf" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="permissao" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="rua" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="Int32" />
+    <Property Name="bairro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cidade" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="FinanceiroBanco" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="lancamento" EntityType="Self.lancamento" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <EntitySet Name="categoriadespesa" EntityType="FinanceiroModel.categoriadespesa" />
+    <EntitySet Name="categoriareceita" EntityType="FinanceiroModel.categoriareceita" />
+    <EntitySet Name="cliente" EntityType="FinanceiroModel.cliente" />
+    <EntitySet Name="fornecedor" EntityType="FinanceiroModel.fornecedor" />
+    <AssociationSet Name="fk_lancamento_categoriadespesa1" Association="FinanceiroModel.fk_lancamento_categoriadespesa1">
+      <End Role="categoriadespesa" EntitySet="categoriadespesa" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamento_categoriareceita" Association="FinanceiroModel.fk_lancamento_categoriareceita">
+      <End Role="categoriareceita" EntitySet="categoriareceita" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamento_cliente1" Association="FinanceiroModel.fk_lancamento_cliente1">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamento_fornecedor1" Association="FinanceiroModel.fk_lancamento_fornecedor1">
+      <End Role="fornecedor" EntitySet="fornecedor" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="categoriadespesa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Boolean" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="lancamento" Relationship="FinanceiroModel.fk_lancamento_categoriadespesa1" FromRole="categoriadespesa" ToRole="lancamento" />
+  </EntityType>
+  <EntityType Name="categoriareceita">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Boolean" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="lancamento" Relationship="FinanceiroModel.fk_lancamento_categoriareceita" FromRole="categoriareceita" ToRole="lancamento" />
+  </EntityType>
+  <EntityType Name="cliente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cnpj" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="responsavel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="rua" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="Int32" />
+    <Property Name="bairro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cidade" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="lancamento" Relationship="FinanceiroModel.fk_lancamento_cliente1" FromRole="cliente" ToRole="lancamento" />
+  </EntityType>
+  <EntityType Name="fornecedor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cnpj" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="telefone2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="responsavel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="rua" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="numero" Type="Int32" />
+    <Property Name="bairro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cidade" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="lancamento" Relationship="FinanceiroModel.fk_lancamento_fornecedor1" FromRole="fornecedor" ToRole="lancamento" />
+  </EntityType>
+  <Association Name="fk_lancamento_categoriadespesa1">
+    <End Type="FinanceiroModel.categoriadespesa" Role="categoriadespesa" Multiplicity="1" />
+    <End Type="FinanceiroModel.lancamento" Role="lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoriadespesa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="categoriadespesa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamento_categoriareceita">
+    <End Type="FinanceiroModel.categoriareceita" Role="categoriareceita" Multiplicity="1" />
+    <End Type="FinanceiroModel.lancamento" Role="lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoriareceita">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="categoriareceita_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamento_cliente1">
+    <End Type="FinanceiroModel.cliente" Role="cliente" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="FinanceiroModel.lancamento" Role="lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamento_fornecedor1">
+    <End Type="FinanceiroModel.fornecedor" Role="fornecedor" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="FinanceiroModel.lancamento" Role="lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="fornecedor">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="fornecedor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

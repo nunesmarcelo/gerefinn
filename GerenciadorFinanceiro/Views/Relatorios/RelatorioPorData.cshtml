@@ -1,0 +1,180 @@
+﻿@model GerenciadorFinanceiro.Models.PesquisarPeriodo
+@{
+    ViewBag.Title = "Sistema Catadores - Pesquisa por Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    Busca por período
+</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">
+            <h3 class="panel-title">Nova Busca</h3>
+        </div>
+        <div class="panel-body" id="dadosusuario">
+            <fieldset class="scheduler-border">
+
+
+                @Html.HiddenFor(model => model.usuarioCpf)
+                <div class="row">
+                    @* Início *@
+                    @Html.LabelFor(model => model.inicio, new { @class = "col-md-2" })
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.inicio, new { @type = "date", @class = "form-control" })
+                    </div>
+                    @* Fim *@
+                    @Html.LabelFor(model => model.fim, new { @class = "col-md-2" })
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.fim, new { @type = "date", @class = "form-control" })
+                    </div>
+                  
+                </div>
+                <div class="row" style="margin-top:20px;">
+                    @* Cooperativa *@
+                    @Html.LabelFor(model => model.cooperativas, new { @class = "col-md-2" })
+                    <div class="col-md-3">
+                        @Html.DropDownListFor(m => m.cooperativa, Model.cooperativas.Select(x => new SelectListItem() { Text = x, Value = x, Selected = x == Model.cooperativa }), new { @class = "form-control", @style = "text-transform:uppercase;" })
+                    </div>
+
+                    @* Pago *@
+                    @Html.LabelFor(model => model.pago, new { @class = "col-md-2 control-label", @style = "margin-bottom:15px;height:30px;" })
+                    <div class="col-md-3">
+                        <label class="custom-control custom-radio" style="font-weight: normal;margin-right:10px;">
+                            @Html.RadioButtonFor(model => model.pago, "ambos", new { @id = "radio0", @name = "Tipo", @value = "ambos", @checked = true })
+                            <span class="custom-control-indicator"></span>
+                            Ver todos
+                            <span class="custom-control-description" style="display: none;"></span>
+                        </label>
+                        <label class="custom-control custom-radio" style="font-weight: normal;">
+                            @Html.RadioButtonFor(model => model.pago, "false", new { @id = "radio1", @name = "Tipo", @value = "false" })
+                            <span class="custom-control-indicator"></span>
+                            Não
+                            <span class="custom-control-description" style="display: none;"></span>
+                        </label>
+                        <label class="custom-control custom-radio" style="margin-left: 30px; font-weight: normal;">
+                            @Html.RadioButtonFor(model => model.pago, "true", new { @id = "radio2", @name = "Tipo", @value = "true" })
+                            <span class="custom-control-indicator"></span>
+                            Sim
+                            <span class="custom-control-description" style="display: none;"></span>
+                        </label>
+                        @Html.ValidationMessageFor(model => model.pago, null, new { @style = "color: #f00" })
+                    </div>
+                </div>
+              
+                <div class="col-md-12">
+                    <button class="btn btn-primary" type="submit" style="margin:10px auto;">Buscar</button>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+}
+
+
+@if (Model.lancamentos != null)
+{
+
+    <div class="form-group" style="margin-top:90px;">
+
+        <div>
+            <h3>
+                Total Fixas: <span style="color:#0026ff">@Model.totalFixas</span>
+            </h3>
+            <h3>
+                Total Variadas: <span style="color:#0026ff">@Model.totalVariadas</span>
+            </h3>
+            <h3>
+                Total Geral do período: <span style="color:#0026ff">@Model.totalGeral</span>
+            </h3>
+        </div>
+
+    </div>
+
+
+    @* TABELA *@
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">
+            <h3 class="panel-title">Lançamentos Cadastrados</h3>
+        </div>
+        <div class="panel-body" id="dadosusuario">
+            <fieldset class="scheduler-border">
+                <div class="form-group">
+                    <table class="table table-hover" id="tabela">
+                        <thead>
+                            <tr>
+                                <td>Descrição</td>
+                                <td>Tipo</td>
+                                <td>Quantidade</td>
+                                <td>Valor</td>
+                                <td>Data</td>
+                                <td>Cooperativa</td>
+                                <td>Pago</td>
+                                <td>Configurações</td>
+                            </tr>
+                        </thead>
+                        <tbody id="corpo-tabela">
+                            @if (Model.lancamentos != null)
+                            {
+                                foreach (var lancamento in Model.lancamentos)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span style="text-transform: capitalize;"> @lancamento.descricao</span>
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: capitalize;"> @lancamento.tipo</span>
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: capitalize;">@lancamento.quantidade</span>
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: capitalize;">@lancamento.valor</span>
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: capitalize;"> @lancamento.data.Value.ToShortDateString()</span>
+                                        </td>
+                                        <td>
+                                            <span style="text-transform: capitalize;"> @lancamento.cooperativa.nome</span>
+                                        </td>
+                                        @if (lancamento.pago == true)
+                                        {
+                                            <td style="color:blue;">
+                                                <span style="text-transform: capitalize;"> Sim</span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red;">
+                                                <span style="text-transform: capitalize;"> Não</span>
+                                            </td>
+                                        }
+
+                                        <td>
+                                            @if (lancamento.pago == true)
+                                            {
+                                                <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=RelatorioPorData&pasta=Relatorios" class="btn btn-warning"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Não-Pagar</span></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=RelatorioPorData&pasta=Relatorios" class="btn btn-success"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Pagar</span></a>
+                                            }
+
+                                            <a href="~/Lancamento/Deletar?idLancamento=@lancamento.id" class="btn btn-danger" style="float:right;"><span class="glyphicon glyphicon-trash">Excluir</span></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+}
+
