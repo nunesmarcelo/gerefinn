@@ -4,17 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a7b3bd1779f74ba3b0f8a57be511d735" Name="Diagram1">
-        <EntityTypeShape EntityType="FinanceiroModel.lancamento" Width="1.75" PointX="5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceiroModel.usuario" Width="1.5" PointX="0.875" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinanceiroModel.categoriadespesa" Width="1.5" PointX="3.125" PointY="5.25" />
-        <EntityTypeShape EntityType="FinanceiroModel.categoriareceita" Width="1.5" PointX="7.25" PointY="5.125" />
-        <EntityTypeShape EntityType="FinanceiroModel.cliente" Width="1.5" PointX="7.25" PointY="8" />
-        <EntityTypeShape EntityType="FinanceiroModel.fornecedor" Width="1.5" PointX="3.125" PointY="8" />
-        <AssociationConnector Association="FinanceiroModel.fk_lancamento_categoriadespesa1" />
-        <AssociationConnector Association="FinanceiroModel.fk_lancamento_categoriareceita" />
-        <AssociationConnector Association="FinanceiroModel.fk_lancamento_cliente1" />
-        <AssociationConnector Association="FinanceiroModel.fk_lancamento_fornecedor1" />
+      <Diagram DiagramId="b7d6ee9b4eb1443aa04798f159cef2c5" Name="Diagram1">
+        <EntityTypeShape EntityType="financeiroModel.contasaldo" Width="1.5" PointX="1" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeiroModel.instituicao" Width="1.5" PointX="4.625" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeiroModel.usuario" Width="1.5" PointX="10" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="financeiroModel.lancamento" Width="1.5" PointX="3.75" PointY="1.625" />
+        <AssociationConnector Association="financeiroModel.fk_lancamento_contasaldo1" />
+        <AssociationConnector Association="financeiroModel.fk_lancamento_instituicao" />
+        <EntityTypeShape EntityType="financeiroModel.categoria" Width="1.5" PointX="0.75" PointY="6" />
+        <AssociationConnector Association="financeiroModel.fk_lancamento_categoria" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

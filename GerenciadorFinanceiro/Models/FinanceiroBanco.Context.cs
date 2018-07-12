@@ -25,11 +25,10 @@ namespace GerenciadorFinanceiro.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<lancamento> lancamento { get; set; }
+        public virtual DbSet<contasaldo> contasaldo { get; set; }
+        public virtual DbSet<instituicao> instituicao { get; set; }
         public virtual DbSet<usuario> usuario { get; set; }
-        public virtual DbSet<categoriadespesa> categoriadespesa { get; set; }
-        public virtual DbSet<categoriareceita> categoriareceita { get; set; }
-        public virtual DbSet<cliente> cliente { get; set; }
-        public virtual DbSet<fornecedor> fornecedor { get; set; }
+        public virtual DbSet<lancamento> lancamento { get; set; }
+        public virtual DbSet<categoria> categoria { get; set; }
     }
 }

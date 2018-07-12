@@ -1,31 +1,35 @@
 ﻿html {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: 'Raleway', sans-serif;
 }
 
+.form-control, .input-group-addon , .control-label {
+    margin-top: 10px !important;
+}
+
 .superior-site {
-    height: 40px;
-    font-size: 1.1rem;
+    height: 35px;
+    font-size: 1.0rem;
 }
 
 /*Small devices (tablets, 576px and up)*/
 @media (min-width: 576px) {
     html {
-        font-size: 0.6rem;
+        font-size: 0.5rem;
     }
 }
 
  /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
     html {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }
 
  /*Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
     html {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -33,38 +37,22 @@ body {
     padding-bottom: 20px;
 }
 
-/*.panel-heading {
-    background-color: rgba(116, 54, 30, 0.80) !important;
-}*/
-
-.panel {
-    /*border: 1px solid rgba(1, 25, 54, 1) !important;*/
-}
-
-/*.menu {
-    font-size: 14pt;
-    height: 150px;
-    padding-top: 20px;
-    border-bottom: 20px solid #74361e;
-    /*background-color: rgba(168, 52, 186, 0.55);
-}*/
-
-
 
 .active {
     background-color:rgba(209, 255, 215, 0.5)  !important;
 }
 
 .menu-esquerda {
-    margin-top: 100px;
+    margin-top: 40px;
 }
 
 .texto-menu-esq {
     text-decoration: none !important;
     font-family: 'Lora', sans-serif;
     margin-top:-12px;
-    font-size: 11pt;
-    color: #555;
+    
+    font-size: 10pt;
+    color: #000;
 }
 
 
@@ -79,11 +67,13 @@ body {
 
 
 .conteudo-site {
+    font-family:'Ubuntu', serif;
+    font-size: 11pt;
+    min-height: 80%;
     margin-top: 10px;
     /*background-color: #97BDCA !important;*/
-    min-height: 360px;
-    border-top: 3px solid rgba(1, 25, 54, 1);
-    border-left: 3px solid rgba(1, 25, 54, 1);
+    /*border-top: 3px solid primary;
+    border-left: 3px solid rgba(1, 25, 54, 1);*/
     /*background: linear-gradient(to top left, rgba(3, 25, 38, 0.2), rgba(70, 129, 137, 0.2));*/
     /*background: linear-gradient(to left top, rgba(119, 172, 162, 1), rgba(235, 235, 235, 1));*/
     /*padding: 5px;
@@ -100,12 +90,76 @@ body {
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
-select,
-textarea {
+select {
     max-width: 280px;
+}
+
+textarea{
+    max-width:500px;
 }
 
 body {
     /*background-color: rgba(103, 181, 233, 0.6) !important;*/
-    background-color: #EAF1F4 !important;
+    /*background-color: #e4e1e1 !important;*/ 
+    background-color: #edecec !important;
+    /*background-color: #EAF1F4 !important;*/
 }
+
+
+
+
+
+/* 
+   ***  PLUGIN PARA INPUT DO TIPO CHECKBOX  ****
+
+*/
+
+.material-switch > input[type="checkbox"] {
+    display: none;
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative;
+    width: 40px;
+}
+
+    .material-switch > label::before {
+        background: rgb(0, 0, 0);
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        content: '';
+        height: 16px;
+        margin-top: -8px;
+        position: absolute;
+        opacity: 0.3;
+        transition: all 0.4s ease-in-out;
+        width: 40px;
+    }
+
+    .material-switch > label::after {
+        background: rgb(255, 255, 255);
+        border-radius: 16px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        content: '';
+        height: 24px;
+        left: -4px;
+        margin-top: -8px;
+        position: absolute;
+        top: -4px;
+        transition: all 0.3s ease-in-out;
+        width: 24px;
+    }
+
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+/* FIM PLUGIN CHECKBOX*/

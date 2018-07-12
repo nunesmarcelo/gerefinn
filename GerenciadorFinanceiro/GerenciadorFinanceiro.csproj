@@ -162,26 +162,26 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AuxCodes\Data.cs" />
     <Compile Include="AuxCodes\PermissaoProvider.cs" />
     <Compile Include="AuxCodes\PermissoesRegra.cs" />
     <Compile Include="AuxCodes\Sec.cs" />
-    <Compile Include="Controllers\CooperativaController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\ContaSaldoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstituicaoController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RelatoriosController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CadastrarLancamento.cs" />
-    <Compile Include="Models\CadastrarUsuario.cs" />
-    <Compile Include="Models\categoriadespesa.cs">
+    <Compile Include="Models\categoria.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\categoriareceita.cs">
-      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\cliente.cs">
+    <Compile Include="Models\contasaldo.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FinanceiroBanco.Context.cs">
@@ -199,7 +199,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\fornecedor.cs">
+    <Compile Include="Models\instituicao.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lancamento.cs">
@@ -298,9 +298,14 @@
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
       <LastGenOutput>FinanceiroBanco.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.css" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-grid.css" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-grid.min.css" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-reboot.css" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-reboot.min.css" />
+    <Content Include="Scripts\bootstrap-css\bootstrap.css" />
+    <Content Include="Scripts\bootstrap-css\bootstrap.min.css" />
+    <Content Include="Scripts\bootstrap-grid.min.css" />
+    <Content Include="Scripts\bootstrap-reboot.min.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -312,7 +317,22 @@
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="Scripts\bootstrap\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\bootstrap\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-grid.css.map" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-grid.min.css.map" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-reboot.css.map" />
+    <Content Include="Scripts\bootstrap-css\bootstrap-reboot.min.css.map" />
+    <Content Include="Scripts\bootstrap-css\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-css\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\font-awesome-icones.css" />
+    <Content Include="Scripts\funcoes.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -322,6 +342,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery\popper.min.js" />
+    <Content Include="Scripts\mask\jquery.mask.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -348,14 +371,43 @@
     <Content Include="Views\Cooperativa\Edit.cshtml" />
     <Content Include="Views\Cooperativa\Index.cshtml" />
     <Content Include="Views\Cooperativa\CadastrarCooperativa.cshtml" />
-    <Content Include="Views\Lancamento\Index.cshtml" />
+    <Content Include="Views\Lancamento2\Index2.cshtml" />
     <Content Include="Views\Relatorios\RelatorioPorData.cshtml" />
     <Content Include="Views\Login\Negado.cshtml" />
     <Content Include="Views\Shared\_Layout - Cópia .cshtml" />
+    <Content Include="Views\Categoria\CreateDespesa.cshtml" />
+    <Content Include="Views\Categoria\Delete.cshtml" />
+    <Content Include="Views\Categoria\Details.cshtml" />
+    <Content Include="Views\Categoria\Edit.cshtml" />
+    <Content Include="Views\Categoria\IndexReceita.cshtml" />
+    <Content Include="Views\ContaSaldo\Create.cshtml" />
+    <Content Include="Views\ContaSaldo\Delete.cshtml" />
+    <Content Include="Views\ContaSaldo\Details.cshtml" />
+    <Content Include="Views\ContaSaldo\Edit.cshtml" />
+    <Content Include="Views\ContaSaldo\Index.cshtml" />
+    <Content Include="Views\Instituicao\CreateCliente.cshtml" />
+    <Content Include="Views\Instituicao\Delete.cshtml" />
+    <Content Include="Views\Instituicao\Details.cshtml" />
+    <Content Include="Views\Instituicao\Edit.cshtml" />
+    <Content Include="Views\Instituicao\IndexCliente.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Categoria\IndexDespesa.cshtml" />
+    <Content Include="Views\Categoria\CreateReceita.cshtml" />
+    <Content Include="Views\Instituicao\IndexFornecedor.cshtml" />
+    <Content Include="Views\Instituicao\CreateFornecedor.cshtml" />
+    <Content Include="Views\Lancamento\CreateDespesa.cshtml" />
+    <Content Include="Views\Lancamento\Delete.cshtml" />
+    <Content Include="Views\Lancamento\Details.cshtml" />
+    <Content Include="Views\Lancamento\Edit.cshtml" />
+    <Content Include="Views\Lancamento\Index.cshtml" />
+    <Content Include="Views\Lancamento\CreateReceita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

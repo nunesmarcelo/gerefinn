@@ -11,22 +11,37 @@ namespace GerenciadorFinanceiro.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class usuario
     {
         public int id { get; set; }
+        [Display(Name = "Nome:")]
         public string nome { get; set; }
+        [Display(Name = "Login:")]
         public string login { get; set; }
+        [Display(Name = "Senha:")]
         public string senha { get; set; }
+        [Display(Name = "CPF:")]
         public string cpf { get; set; }
+        [Display(Name = "Nível de permissão:")]
         public string permissao { get; set; }
+        [Display(Name = "Email:")]
         public string email { get; set; }
+        [Display(Name = "Telefone:")]
         public string telefone { get; set; }
+        [Display(Name = "Número:")]
         public string rua { get; set; }
         public Nullable<int> numero { get; set; }
+        [Display(Name = "Bairro:")]
         public string bairro { get; set; }
+        [Display(Name = "Cidade:")]
         public string cidade { get; set; }
+        [Display(Name = "Estado:")]
         public string estado { get; set; }
+        [Display(Name = "CEP:")]
         public string cep { get; set; }
+        public string confirmar_senha { get; set; }
+
     }
 }

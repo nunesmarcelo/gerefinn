@@ -24,7 +24,6 @@
                         <thead>
                             <tr>
                                 <td>Descrição</td>
-                                <td>Tipo</td>
                                 <td>Quantidade</td>
                                 <td>Valor</td>
                                 <td>Data</td>
@@ -42,20 +41,17 @@
                                     <span style="text-transform: capitalize;"> @lancamento.descricao</span>
                                 </td>
                                 <td>
-                                    <span style="text-transform: capitalize;"> @lancamento.tipo</span>
-                                </td>
-                                <td>
                                     <span style="text-transform: capitalize;">@lancamento.quantidade</span>
                                 </td>
                                 <td>
                                     <span style="text-transform: capitalize;">@lancamento.valor</span>
                                 </td>
                                 <td>
-                                    <span style="text-transform: capitalize;"> @lancamento.data.Value.ToShortDateString()</span>
+                                    <span style="text-transform: capitalize;"> @lancamento.dataemissao.ToString()</span>
                                 </td>
-                                <td>
-                                    <span style="text-transform: capitalize;"> @lancamento.cooperativa.nome</span>
-                                </td>
+                                @*<td>
+                                    <span style="text-transform: capitalize;"> @lancamento.nome</span>
+                                </td>*@
                                 @if (lancamento.pago == true)
                                 {
                                     <td style="color:blue;">

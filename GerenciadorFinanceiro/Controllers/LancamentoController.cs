@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GerenciadorFinanceiro.Models;
@@ -9,131 +13,170 @@ namespace GerenciadorFinanceiro.Controllers
 {
     public class LancamentoController : Controller
     {
+        private FinanceiroBanco db = new FinanceiroBanco();
+
         // GET: Lancamento
-        [Authorize]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            FinanceiroBanco db = new FinanceiroBanco();
-            FinanceiroBanco db2 = new FinanceiroBanco();
-            CadastrarLancamento cadastrarLancamento = new CadastrarLancamento();
-            List<lancamento> listaLancamentos;
-            //Inicializar listas -> vamos usar o .add , ele necessita a inicialização.
-            cadastrarLancamento.lancamentos = new List<lancamento>();
-            cadastrarLancamento.cooperativasNomes = new List<string>();
+            var lancamento = db.lancamento.Include(l => l.categoria).Include(l => l.instituicao).Include(l => l.contasaldo);
+            return View(await lancamento.ToListAsync());
+        }
 
-            //MONTANDO A TABELA DE LANÇAMENTOS  E O DROPDOWN LIST DE COOPERATIVAS.
-            try
+        // GET: Lancamento/Details/5
+        public async Task<ActionResult> Details(int? id)
+        {
+            if (id == null)
             {
-                var usuarioCpf = HttpContext.User.Identity.Name;
-                //Busca lista de cooperativas se o usuário pertencer a alguma (se ele for usuário)
-                var cooperativas = db.cooperativa.Where(x => x.usuario.FirstOrDefault().cpf == usuarioCpf).Select(w => new { w.nome, w.id }).OrderBy(x => x.nome).ToList();
-
-                //Se não tiver nenhum na lista (usuário administrado) , mostre todas as cooperativas para ele escolher uma.
-                if (cooperativas.Count() == 0)
-                {
-                    cooperativas = db.cooperativa.Select(z => new { z.nome, z.id }).OrderBy(x => x.nome).ToList();
-                }
-
-
-
-                //Para cada cooperativa selecionada (Tanto todas (para administrador) quanto as filtradas (para usuários))
-                foreach (var cooperativaId in cooperativas)
-                {
-                    // Preencha o dropdown list (para inserção)
-                    cadastrarLancamento.cooperativasNomes.Add(cooperativaId.nome);
-
-                    //Pegue a Lista de lançamentos (para tabela)
-                    listaLancamentos = db2.lancamento.Where(x => x.cooperativa_id == cooperativaId.id).OrderByDescending(x => x.data).ToList();
-                    //Para cada lançamento
-                    foreach (var lancamento in listaLancamentos)
-                    {
-                        //Adicione ele à lista de lançamentos a serem mostrados.
-                        cadastrarLancamento.lancamentos.Add(lancamento);
-                    }
-
-                }
-
-                return View(cadastrarLancamento);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch (Exception e)
+            lancamento lancamento = await db.lancamento.FindAsync(id);
+            if (lancamento == null)
             {
-                TempData["erro"] = "Erro ao rastrear a permissão do usuário e selecionar os dados das cooperativas. <br> Erro:" + e;
-                return View(cadastrarLancamento);
+                return HttpNotFound();
             }
+            return View(lancamento);
+        }
+
+        // GET: Lancamento/Create
+        public ActionResult CreateReceita()
+        {
+            ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "R"), "id", "nome");
+            ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "C"), "id", "nome");
+            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");
+
+
+           
+            return View();
+        }
+
+        // GET: Lancamento/Create
+        public ActionResult CreateDespesa()
+        {
+            ViewBag.categoria_id = new SelectList(db.categoria.Where(x=> x.rd == "D"), "id", "nome");
+            ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x=>x.fc == "F"), "id", "nome");
+            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");
+
+         
+
+            return View();
+        }
+
+        // POST: Lancamento/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "id,descricao,quantidade,valor,pago,numerotitulo,datavencimento,dataemissao,datacadastro,observacao,categoria_id,instituicao_id,contasaldo_id")] lancamento lancamento)
+        {
+            if (ModelState.IsValid)
+            {
+                lancamento.datacadastro = AuxCodes.Data.HoraBrasilia();
+                db.lancamento.Add(lancamento);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
+            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
+            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+            return View(lancamento);
+        }
+
+        // GET: Lancamento/Edit/5
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            lancamento lancamento = await db.lancamento.FindAsync(id);
+            if (lancamento == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
+            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
+            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+            return View(lancamento);
+        }
+
+        // POST: Lancamento/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "id,descricao,quantidade,valor,pago,numerotitulo,datavencimento,dataemissao,datacadastro,observacao,categoria_id,instituicao_id,contasaldo_id")] lancamento lancamento)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(lancamento).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
+            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
+            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+            return View(lancamento);
+        }
+
+        // GET: Lancamento/Delete/5
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            lancamento lancamento = await db.lancamento.FindAsync(id);
+            if (lancamento == null)
+            {
+                return HttpNotFound();
+            }
+            return View(lancamento);
+        }
+
+        // POST: Lancamento/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            lancamento lancamento = await db.lancamento.FindAsync(id);
+            db.lancamento.Remove(lancamento);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         [HttpPost]
-        [Authorize]
-        public ActionResult Index(CadastrarLancamento cadastrarLancamento)
+        public ActionResult pagar(int? id)
         {
             FinanceiroBanco db = new FinanceiroBanco();
-            lancamento lancamento = new lancamento();
-            if (ModelState.IsValid)
+            lancamento lancamento;
+            try
             {
-                try
-                {
-                    lancamento.descricao = cadastrarLancamento.lancamento.descricao;
-                    lancamento.quantidade = cadastrarLancamento.lancamento.quantidade;
-                    lancamento.tipo = cadastrarLancamento.lancamento.tipo;
-                    lancamento.pago = cadastrarLancamento.lancamento.pago;
-                    lancamento.valor = cadastrarLancamento.lancamento.valor;
-                    lancamento.dataemissao = cadastrarLancamento.lancamento.dataemissao;
-                    lancamento.datacadastro = cadastrarLancamento.lancamento.datacadastro;
-                    lancamento.datavencimento = cadastrarLancamento.lancamento.datavencimento;
-                    if (cadastrarLancamento.cooperativasNomes != null)
-                    {
-                        lancamento.cooperativa = db.cooperativa.Where(x => x.nome == cadastrarLancamento.cooperativaSelecionada.ToString()).FirstOrDefault();
-                        lancamento.cooperativa_id = lancamento.cooperativa.id;
-                    }
-                    db.lancamento.Add(lancamento);
-                    db.SaveChanges();
-                    TempData["sucesso"] = "Lançamento cadastrado com sucesso!";
-                    return RedirectToAction("Index", "Lancamento");
-                }
-                catch (Exception e)
-                {
-                    TempData["erro"] = "Erro na inserção ao banco de dados !! Por favor tente novamente. Erro:" + e;
-                    return View(cadastrarLancamento);
-                }
+                lancamento = db.lancamento.Where(i => i.id == id).FirstOrDefault();
+                if (lancamento.pago == true)
+                    lancamento.pago = false;
+                else
+                    lancamento.pago = true;
+
+                db.SaveChanges();
+            }catch(Exception e)
+            {
+                return Json("Erro:"+e, JsonRequestBehavior.AllowGet);
             }
+           
+            if(lancamento.pago == false)
+                return Json("false", JsonRequestBehavior.AllowGet);
             else
-            {
-                TempData["erro"] = "O preenchimento dos dados não foi válido.";
-                return View(cadastrarLancamento);
-            }
-
-        }
-
-        [HttpGet]
-        public ActionResult Pagar(int idLancamento, string retorno, string pasta)
-        {
-            FinanceiroBanco db = new FinanceiroBanco();
-
-            bool? pago = db.lancamento.Where(x => x.id == idLancamento).Select(x => x.pago).FirstOrDefault();
-
-            if (pago == null)
-            {
-                TempData["erro"] = "Erro ao pagar lançamento - algum problema com o banco de dados. Se o problema persistir, contate o administrador.";
-
-            }
-            else
-            {
-                try
-                {
-                    if (pago == false)
-                        db.lancamento.Where(x => x.id == idLancamento).FirstOrDefault().pago = true;
-
-                    else if (pago == true)
-                        db.lancamento.Where(x => x.id == idLancamento).FirstOrDefault().pago = false;
-
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    TempData["erro"] = "Erro ao completar a operação. Saída: " + e;
-                }
-            }
-            return RedirectToAction(retorno, pasta);
+                return Json("true", JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -11,21 +11,34 @@ namespace GerenciadorFinanceiro.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class categoriadespesa
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class contasaldo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public categoriadespesa()
+        public contasaldo()
         {
             this.lancamento = new HashSet<lancamento>();
         }
     
         public int id { get; set; }
+        [Display(Name = "Apelido para a conta:")]
         public string nome { get; set; }
+        [Display(Name = "Banco:")]
+        public string banco { get; set; }
+        [Display(Name = "Saldo inicial:")]
+        public decimal saldo { get; set; }
+        [Display(Name = "Status:")]
         public bool status { get; set; }
+        [Display(Name = "Agência:")]
+        public string agencia { get; set; }
+        [Display(Name = "Conta:")]
+        public string conta { get; set; }
+        [Display(Name = "Titular:")]
+        public string titular { get; set; }
+        [Display(Name = "Tipo de conta:")]
         public string tipo { get; set; }
-        public string descricao { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lancamento> lancamento { get; set; }
     }

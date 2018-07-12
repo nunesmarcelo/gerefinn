@@ -1,26 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="FinanceiroModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="categoriadespesa">
+<Schema Namespace="financeiroModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categoria">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="status" Type="bit" Nullable="false" />
-    <Property Name="tipo" Type="varchar" MaxLength="45" />
+    <Property Name="tipo" Type="enum" Nullable="false" />
     <Property Name="descricao" Type="varchar" MaxLength="45" />
+    <Property Name="rd" Type="enum" Nullable="false" />
   </EntityType>
-  <EntityType Name="categoriareceita">
+  <EntityType Name="contasaldo">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="banco" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="saldo" Type="decimal" Precision="12" Scale="2" Nullable="false" />
     <Property Name="status" Type="bit" Nullable="false" />
-    <Property Name="tipo" Type="varchar" MaxLength="45" />
-    <Property Name="descricao" Type="varchar" MaxLength="45" />
+    <Property Name="agencia" Type="varchar" MaxLength="45" />
+    <Property Name="conta" Type="varchar" MaxLength="45" />
+    <Property Name="titular" Type="varchar" MaxLength="45" />
+    <Property Name="tipo" Type="enum" />
   </EntityType>
-  <EntityType Name="cliente">
+  <EntityType Name="instituicao">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -37,24 +42,7 @@
     <Property Name="cidade" Type="varchar" MaxLength="45" />
     <Property Name="estado" Type="varchar" MaxLength="45" />
     <Property Name="cep" Type="varchar" MaxLength="45" />
-  </EntityType>
-  <EntityType Name="fornecedor">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="cnpj" Type="varchar" MaxLength="45" />
-    <Property Name="email" Type="varchar" MaxLength="45" />
-    <Property Name="telefone1" Type="varchar" MaxLength="45" />
-    <Property Name="telefone2" Type="varchar" MaxLength="45" />
-    <Property Name="responsavel" Type="varchar" MaxLength="45" />
-    <Property Name="rua" Type="varchar" MaxLength="45" />
-    <Property Name="numero" Type="int" />
-    <Property Name="bairro" Type="varchar" MaxLength="45" />
-    <Property Name="cidade" Type="varchar" MaxLength="45" />
-    <Property Name="estado" Type="varchar" MaxLength="45" />
-    <Property Name="cep" Type="varchar" MaxLength="45" />
+    <Property Name="fc" Type="enum" Nullable="false" />
   </EntityType>
   <EntityType Name="lancamento">
     <Key>
@@ -62,19 +50,17 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="descricao" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="tipo" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="quantidade" Type="int" />
     <Property Name="valor" Type="decimal" Precision="12" Scale="2" Nullable="false" />
     <Property Name="pago" Type="bit" Nullable="false" />
     <Property Name="numerotitulo" Type="varchar" MaxLength="45" />
     <Property Name="datavencimento" Type="datetime" Precision="0" />
-    <Property Name="dataemissao" Type="varchar" MaxLength="45" />
+    <Property Name="dataemissao" Type="datetime" Precision="0" />
     <Property Name="datacadastro" Type="datetime" Precision="0" Nullable="false" />
     <Property Name="observacao" Type="varchar" MaxLength="200" />
-    <Property Name="categoriareceita_id" Type="int" Nullable="false" />
-    <Property Name="categoriadespesa_id" Type="int" Nullable="false" />
-    <Property Name="cliente_id" Type="int" Nullable="false" />
-    <Property Name="fornecedor_id" Type="int" Nullable="false" />
+    <Property Name="categoria_id" Type="int" Nullable="false" />
+    <Property Name="instituicao_id" Type="int" Nullable="false" />
+    <Property Name="contasaldo_id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="usuario">
     <Key>
@@ -95,79 +81,62 @@
     <Property Name="estado" Type="varchar" MaxLength="45" />
     <Property Name="cep" Type="varchar" MaxLength="45" />
   </EntityType>
-  <Association Name="fk_lancamento_categoriadespesa1">
-    <End Role="categoriadespesa" Type="Self.categoriadespesa" Multiplicity="1" />
+  <Association Name="fk_lancamento_categoria">
+    <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
     <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="categoriadespesa">
+      <Principal Role="categoria">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="lancamento">
-        <PropertyRef Name="categoriadespesa_id" />
+        <PropertyRef Name="categoria_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_lancamento_categoriareceita">
-    <End Role="categoriareceita" Type="Self.categoriareceita" Multiplicity="1" />
-    <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="categoriareceita">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="lancamento">
-        <PropertyRef Name="categoriareceita_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_lancamento_cliente1">
-    <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+  <Association Name="fk_lancamento_contasaldo1">
+    <End Role="contasaldo" Type="Self.contasaldo" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="cliente">
+      <Principal Role="contasaldo">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="lancamento">
-        <PropertyRef Name="cliente_id" />
+        <PropertyRef Name="contasaldo_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_lancamento_fornecedor1">
-    <End Role="fornecedor" Type="Self.fornecedor" Multiplicity="1">
+  <Association Name="fk_lancamento_instituicao">
+    <End Role="instituicao" Type="Self.instituicao" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="fornecedor">
+      <Principal Role="instituicao">
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="lancamento">
-        <PropertyRef Name="fornecedor_id" />
+        <PropertyRef Name="instituicao_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="FinanceiroModelStoreContainer">
-    <EntitySet Name="categoriadespesa" EntityType="Self.categoriadespesa" Schema="financeiro" store:Type="Tables" />
-    <EntitySet Name="categoriareceita" EntityType="Self.categoriareceita" Schema="financeiro" store:Type="Tables" />
-    <EntitySet Name="cliente" EntityType="Self.cliente" Schema="financeiro" store:Type="Tables" />
-    <EntitySet Name="fornecedor" EntityType="Self.fornecedor" Schema="financeiro" store:Type="Tables" />
+  <EntityContainer Name="financeiroModelStoreContainer">
+    <EntitySet Name="categoria" EntityType="Self.categoria" Schema="financeiro" store:Type="Tables" />
+    <EntitySet Name="contasaldo" EntityType="Self.contasaldo" Schema="financeiro" store:Type="Tables" />
+    <EntitySet Name="instituicao" EntityType="Self.instituicao" Schema="financeiro" store:Type="Tables" />
     <EntitySet Name="lancamento" EntityType="Self.lancamento" Schema="financeiro" store:Type="Tables" />
     <EntitySet Name="usuario" EntityType="Self.usuario" Schema="financeiro" store:Type="Tables" />
-    <AssociationSet Name="fk_lancamento_categoriadespesa1" Association="Self.fk_lancamento_categoriadespesa1">
-      <End Role="categoriadespesa" EntitySet="categoriadespesa" />
+    <AssociationSet Name="fk_lancamento_categoria" Association="Self.fk_lancamento_categoria">
+      <End Role="categoria" EntitySet="categoria" />
       <End Role="lancamento" EntitySet="lancamento" />
     </AssociationSet>
-    <AssociationSet Name="fk_lancamento_categoriareceita" Association="Self.fk_lancamento_categoriareceita">
-      <End Role="categoriareceita" EntitySet="categoriareceita" />
+    <AssociationSet Name="fk_lancamento_contasaldo1" Association="Self.fk_lancamento_contasaldo1">
+      <End Role="contasaldo" EntitySet="contasaldo" />
       <End Role="lancamento" EntitySet="lancamento" />
     </AssociationSet>
-    <AssociationSet Name="fk_lancamento_cliente1" Association="Self.fk_lancamento_cliente1">
-      <End Role="cliente" EntitySet="cliente" />
-      <End Role="lancamento" EntitySet="lancamento" />
-    </AssociationSet>
-    <AssociationSet Name="fk_lancamento_fornecedor1" Association="Self.fk_lancamento_fornecedor1">
-      <End Role="fornecedor" EntitySet="fornecedor" />
+    <AssociationSet Name="fk_lancamento_instituicao" Association="Self.fk_lancamento_instituicao">
+      <End Role="instituicao" EntitySet="instituicao" />
       <End Role="lancamento" EntitySet="lancamento" />
     </AssociationSet>
   </EntityContainer>

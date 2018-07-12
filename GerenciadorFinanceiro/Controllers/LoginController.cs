@@ -107,24 +107,21 @@ namespace GerenciadorFinanceiro.Controllers
 
         public ActionResult CadastrarUsuario()
         {
-            CadastrarUsuario cadastrarUsuario = new CadastrarUsuario();
             FinanceiroBanco db = new FinanceiroBanco();
-
-            cadastrarUsuario.cooperativasNomes = db.cooperativa.Select(x => x.nome).ToList();
-            return View(cadastrarUsuario);
+            
+            return View();
         }
 
         [HttpPost]
-        public ActionResult CadastrarUsuario(CadastrarUsuario modelUsuario)
+        public ActionResult CadastrarUsuario(usuario modelUsuario)
         {
-
             if (ModelState.IsValid)
             {
                 string tipoUsuario = "";
 
                 using (var db = new FinanceiroBanco())
                 {
-                    if (modelUsuario.usuario.senha != modelUsuario.usuario.confirmar_senha)
+                    if (modelUsuario.senha != modelUsuario.confirmar_senha)
                     {
                         TempData["erro"] = "Senhas não conferem!";
                         return View(modelUsuario);
@@ -137,47 +134,44 @@ namespace GerenciadorFinanceiro.Controllers
 
                             usuario.id = 0;
 
-                            if (Sec.ExisteCPF(modelUsuario.usuario.cpf))
+                            if (Sec.ExisteCPF(modelUsuario.cpf))
                             {
                                 TempData["erro"] = "Usuário já existe";
                                 return View(modelUsuario);
                             }
                             else
                             {
-                                usuario.cpf = modelUsuario.usuario.cpf;
-                                if (modelUsuario.usuario.nome != null)
+                                usuario.cpf = modelUsuario.cpf;
+                                if (modelUsuario.nome != null)
                                 {
-                                    usuario.nome = Sec.SemAcento(modelUsuario.usuario.nome);
+                                    usuario.nome = Sec.SemAcento(modelUsuario.nome);
                                 }
                                 else
                                 {
                                     usuario.nome = null;
                                 }
-                                if (modelUsuario.usuario.email != null)
+                                if (modelUsuario.email != null)
                                 {
-                                    usuario.email = Sec.SemAcento(modelUsuario.usuario.email);
+                                    usuario.email = Sec.SemAcento(modelUsuario.email);
                                 }
                                 else
                                 {
                                     usuario.email = null;
                                 }
-                                usuario.login = modelUsuario.usuario.login;
-                                usuario.telefone = modelUsuario.usuario.telefone;
-                                string permissao = (modelUsuario.usuario.permissao == "Usuário") ? "U" : "A";
+                                usuario.login = modelUsuario.login;
+                                usuario.telefone = modelUsuario.telefone;
+                                string permissao = (modelUsuario.permissao == "Usuário") ? "U" : "A";
                                 usuario.permissao = permissao;
                                 tipoUsuario = permissao;
-                                usuario.senha = Sec.Encrypt(modelUsuario.usuario.senha);
+                                usuario.senha = Sec.Encrypt(modelUsuario.senha);
 
-                                if (permissao.Equals("U"))
-                                {
-                                    usuario.cooperativa.Add(db.cooperativa.Where(x => x.nome.Equals(modelUsuario.cooperativaSelecionada)).FirstOrDefault());
-                                }
-                                usuario.cep = modelUsuario.usuario.cep;
-                                usuario.rua = modelUsuario.usuario.rua;
-                                usuario.numero = modelUsuario.usuario.numero;
-                                usuario.bairro = modelUsuario.usuario.bairro;
-                                usuario.cidade = modelUsuario.usuario.cidade;
-                                usuario.estado = modelUsuario.usuario.estado;
+                                
+                                usuario.cep = modelUsuario.cep;
+                                usuario.rua = modelUsuario.rua;
+                                usuario.numero = modelUsuario.numero;
+                                usuario.bairro = modelUsuario.bairro;
+                                usuario.cidade = modelUsuario.cidade;
+                                usuario.estado = modelUsuario.estado;
 
                                 db.usuario.Add(usuario);
                                 db.SaveChanges();

@@ -20,24 +20,24 @@ namespace GerenciadorFinanceiro.AuxCodes
                 return usuario != null;
             }
         }
-        public static bool ExisteCNPJCliente(string CNPJ)
-        {
-            using (var db = new FinanceiroBanco())
-            {
-                var usuario = db.cliente.FirstOrDefault(u => u.cnpj == CNPJ);
+        //public static bool ExisteCNPJCliente(string CNPJ)
+        //{
+        //    using (var db = new FinanceiroBanco())
+        //    {
+        //        var usuario = db.cliente.FirstOrDefault(u => u.cnpj == CNPJ);
 
-                return usuario != null;
-            }
-        }
-        public static bool ExisteCNPJFornecedor(string CNPJ)
-        {
-            using (var db = new FinanceiroBanco())
-            {
-                var usuario = db.cliente.FirstOrDefault(u => u.cnpj == CNPJ);
+        //        return usuario != null;
+        //    }
+        //}
+        //public static bool ExisteCNPJFornecedor(string CNPJ)
+        //{
+        //    using (var db = new FinanceiroBanco())
+        //    {
+        //        var usuario = db.cliente.FirstOrDefault(u => u.cnpj == CNPJ);
 
-                return usuario != null;
-            }
-        }
+        //        return usuario != null;
+        //    }
+        //}
 
         // chave de encriptação
         static byte[] bytes = ASCIIEncoding.ASCII.GetBytes("cosme123");

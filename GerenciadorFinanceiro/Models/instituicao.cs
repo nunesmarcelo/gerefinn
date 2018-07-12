@@ -11,28 +11,42 @@ namespace GerenciadorFinanceiro.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class cliente
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class instituicao
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cliente()
+        public instituicao()
         {
             this.lancamento = new HashSet<lancamento>();
         }
     
         public int id { get; set; }
+        [Display(Name = "Nome:")]
         public string nome { get; set; }
+        [Display(Name = "CNPJ:")]
         public string cnpj { get; set; }
+        [Display(Name = "Email:")]
         public string email { get; set; }
+        [Display(Name = "Telefone principal:")]
         public string telefone1 { get; set; }
+        [Display(Name = "Telefone secundário:")]
         public string telefone2 { get; set; }
+        [Display(Name = "Responsável:")]
         public string responsavel { get; set; }
+        [Display(Name = "Rua:")]
         public string rua { get; set; }
+        [Display(Name = "Número:")]
         public Nullable<int> numero { get; set; }
+        [Display(Name = "Bairro:")]
         public string bairro { get; set; }
+        [Display(Name = "Cidade:")]
         public string cidade { get; set; }
+        [Display(Name = "Estado:")]
         public string estado { get; set; }
+        [Display(Name = "CEP:")]
         public string cep { get; set; }
+        public string fc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lancamento> lancamento { get; set; }

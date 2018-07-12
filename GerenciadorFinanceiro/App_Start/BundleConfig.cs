@@ -20,11 +20,19 @@ namespace GerenciadorFinanceiro
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/respond.js"));
+                         
+                      "~/Scripts/jquery/jquery-3.3.1.min.js",
+                      "~/Scripts/jquery/popper.min.js",
+                      "~/Scripts/bootstrap/bootstrap.bundle.js",
+                      "~/Scripts/bootstrap/bootstrap.min.js"
+
+
+                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
+                      //"~/Scripts/bootstrap-css/bootstrap-reboot.min.css",
+                      "~/Scripts/bootstrap-css/bootstrap.min.css",
+                      //"~/Scripts/bootstrap-css/bootstrap-grid.min.css",
                       "~/Content/site.css"));
         }
     }
