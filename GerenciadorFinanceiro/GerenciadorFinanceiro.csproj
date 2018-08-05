@@ -282,11 +282,13 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\cooperativas.png" />
     <Content Include="Images\lancamentos.png" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\login.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\pattern.png" />
     <Content Include="Images\quadrado-login.jpg" />
     <Content Include="Images\relatorios.png" />
+    <Content Include="Images\teste.ico" />
     <Content Include="Images\usuarios.png" />
     <Content Include="Models\FinanceiroBanco.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -344,6 +346,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery\popper.min.js" />
+    <Content Include="Scripts\mask\echarts.common.min.js" />
     <Content Include="Scripts\mask\jquery.mask.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -366,12 +369,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\CadastrarUsuario.cshtml" />
-    <Content Include="Views\Cooperativa\Delete.cshtml" />
-    <Content Include="Views\Cooperativa\Details.cshtml" />
-    <Content Include="Views\Cooperativa\Edit.cshtml" />
-    <Content Include="Views\Cooperativa\Index.cshtml" />
-    <Content Include="Views\Cooperativa\CadastrarCooperativa.cshtml" />
-    <Content Include="Views\Lancamento2\Index2.cshtml" />
     <Content Include="Views\Relatorios\RelatorioPorData.cshtml" />
     <Content Include="Views\Login\Negado.cshtml" />
     <Content Include="Views\Shared\_Layout - Cópia .cshtml" />
@@ -405,6 +402,8 @@
     <Content Include="Views\Lancamento\Edit.cshtml" />
     <Content Include="Views\Lancamento\Index.cshtml" />
     <Content Include="Views\Lancamento\CreateReceita.cshtml" />
+    <Content Include="Views\Relatorios\Index.cshtml" />
+    <Content Include="Views\Relatorios\PesquisarPeriodo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

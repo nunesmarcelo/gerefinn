@@ -5,11 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Categorias de Receitas</h2>
+<div class="col-12" style="text-align:right;margin-bottom:15px;">
+    <a href="~/Categoria/CreateReceita" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Categoria</a>
+</div>
 
-<p>
-    @Html.ActionLink("Criar Categoria", "CreateReceita")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -27,26 +26,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descricao)
-        </td>
-        <td>
-            <a href="~/Categoria/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-            <a href="~/Categoria/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-            <a href="~/Categoria/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-uppercase">
+                @Html.DisplayFor(modelItem => item.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td class="text-uppercase">
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+            <td>
+                <a href="~/Categoria/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
+                <a href="~/Categoria/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
+                <a href="~/Categoria/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
+            </td>
+        </tr>
+    }
 
 </table>

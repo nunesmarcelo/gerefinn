@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="financeiroModelStoreContainer" CdmEntityContainer="FinanceiroBanco">
-    <EntitySetMapping Name="categoria">
-      <EntityTypeMapping TypeName="financeiroModel.categoria">
-        <MappingFragment StoreEntitySet="categoria">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nome" ColumnName="nome" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="tipo" ColumnName="tipo" />
-          <ScalarProperty Name="descricao" ColumnName="descricao" />
-          <ScalarProperty Name="rd" ColumnName="rd" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="contasaldo">
       <EntityTypeMapping TypeName="financeiroModel.contasaldo">
         <MappingFragment StoreEntitySet="contasaldo">
@@ -48,25 +36,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="lancamento">
-      <EntityTypeMapping TypeName="financeiroModel.lancamento">
-        <MappingFragment StoreEntitySet="lancamento">
-          <ScalarProperty Name="contasaldo_id" ColumnName="contasaldo_id" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="descricao" ColumnName="descricao" />
-          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
-          <ScalarProperty Name="valor" ColumnName="valor" />
-          <ScalarProperty Name="pago" ColumnName="pago" />
-          <ScalarProperty Name="numerotitulo" ColumnName="numerotitulo" />
-          <ScalarProperty Name="datavencimento" ColumnName="datavencimento" />
-          <ScalarProperty Name="dataemissao" ColumnName="dataemissao" />
-          <ScalarProperty Name="datacadastro" ColumnName="datacadastro" />
-          <ScalarProperty Name="observacao" ColumnName="observacao" />
-          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
-          <ScalarProperty Name="instituicao_id" ColumnName="instituicao_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="usuario">
       <EntityTypeMapping TypeName="financeiroModel.usuario">
         <MappingFragment StoreEntitySet="usuario">
@@ -84,6 +53,37 @@
           <ScalarProperty Name="cidade" ColumnName="cidade" />
           <ScalarProperty Name="estado" ColumnName="estado" />
           <ScalarProperty Name="cep" ColumnName="cep" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lancamento">
+      <EntityTypeMapping TypeName="financeiroModel.lancamento">
+        <MappingFragment StoreEntitySet="lancamento">
+          <ScalarProperty Name="contasaldo_id" ColumnName="contasaldo_id" />
+          <ScalarProperty Name="instituicao_id" ColumnName="instituicao_id" />
+          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
+          <ScalarProperty Name="observacao" ColumnName="observacao" />
+          <ScalarProperty Name="datacadastro" ColumnName="datacadastro" />
+          <ScalarProperty Name="dataemissao" ColumnName="dataemissao" />
+          <ScalarProperty Name="datavencimento" ColumnName="datavencimento" />
+          <ScalarProperty Name="numerotitulo" ColumnName="numerotitulo" />
+          <ScalarProperty Name="pago" ColumnName="pago" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categoria">
+      <EntityTypeMapping TypeName="financeiroModel.categoria">
+        <MappingFragment StoreEntitySet="categoria">
+          <ScalarProperty Name="rd" ColumnName="rd" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -140,9 +140,18 @@ namespace GerenciadorFinanceiro.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             categoria categoria = await db.categoria.FindAsync(id);
+            var retorno = categoria.rd;
             db.categoria.Remove(categoria);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (retorno.Equals("D"))
+            {
+                return RedirectToAction("IndexDespesa");
+            }
+            else
+            {
+                return RedirectToAction("IndexReceita");
+            }
+           
         }
 
         protected override void Dispose(bool disposing)

@@ -1,17 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="financeiroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="categoria">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="status" Type="Boolean" Nullable="false" />
-    <Property Name="tipo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="rd" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="lancamento" Relationship="Self.fk_lancamento_categoria" FromRole="categoria" ToRole="lancamento" />
-  </EntityType>
   <EntityType Name="contasaldo">
     <Key>
       <PropertyRef Name="id" />
@@ -45,28 +33,7 @@
     <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="fc" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="lancamento" Relationship="Self.fk_lancamento_instituicao" FromRole="instituicao" ToRole="lancamento" />
-  </EntityType>
-  <EntityType Name="lancamento">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="quantidade" Type="Int32" />
-    <Property Name="valor" Type="Decimal" Nullable="false" />
-    <Property Name="pago" Type="Boolean" Nullable="false" />
-    <Property Name="numerotitulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="datavencimento" Type="DateTime" />
-    <Property Name="dataemissao" Type="DateTime" />
-    <Property Name="datacadastro" Type="DateTime" Nullable="false" />
-    <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="categoria_id" Type="Int32" Nullable="false" />
-    <Property Name="instituicao_id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="categoria" Relationship="Self.fk_lancamento_categoria" FromRole="lancamento" ToRole="categoria" />
-    <NavigationProperty Name="instituicao" Relationship="Self.fk_lancamento_instituicao" FromRole="lancamento" ToRole="instituicao" />
-    <Property Name="contasaldo_id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="contasaldo" Relationship="financeiroModel.fk_lancamento_contasaldo1" FromRole="lancamento" ToRole="contasaldo" />
+    <NavigationProperty Name="lancamento" Relationship="financeiroModel.fk_lancamento_instituicao" FromRole="instituicao" ToRole="lancamento" />
   </EntityType>
   <EntityType Name="usuario">
     <Key>
@@ -87,51 +54,46 @@
     <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="cep" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
   </EntityType>
-  <Association Name="fk_lancamento_categoria">
-    <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
-    <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="categoria">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="lancamento">
-        <PropertyRef Name="categoria_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_lancamento_instituicao">
-    <End Role="instituicao" Type="Self.instituicao" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="instituicao">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="lancamento">
-        <PropertyRef Name="instituicao_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="FinanceiroBanco" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="categoria" EntityType="Self.categoria" />
     <EntitySet Name="contasaldo" EntityType="Self.contasaldo" />
     <EntitySet Name="instituicao" EntityType="Self.instituicao" />
-    <EntitySet Name="lancamento" EntityType="Self.lancamento" />
     <EntitySet Name="usuario" EntityType="Self.usuario" />
-    <AssociationSet Name="fk_lancamento_categoria" Association="Self.fk_lancamento_categoria">
-      <End Role="categoria" EntitySet="categoria" />
-      <End Role="lancamento" EntitySet="lancamento" />
-    </AssociationSet>
-    <AssociationSet Name="fk_lancamento_instituicao" Association="Self.fk_lancamento_instituicao">
-      <End Role="instituicao" EntitySet="instituicao" />
-      <End Role="lancamento" EntitySet="lancamento" />
-    </AssociationSet>
+    <EntitySet Name="lancamento" EntityType="financeiroModel.lancamento" />
     <AssociationSet Name="fk_lancamento_contasaldo1" Association="financeiroModel.fk_lancamento_contasaldo1">
       <End Role="contasaldo" EntitySet="contasaldo" />
       <End Role="lancamento" EntitySet="lancamento" />
     </AssociationSet>
+    <AssociationSet Name="fk_lancamento_instituicao" Association="financeiroModel.fk_lancamento_instituicao">
+      <End Role="instituicao" EntitySet="instituicao" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <EntitySet Name="categoria" EntityType="financeiroModel.categoria" />
+    <AssociationSet Name="fk_lancamento_categoria" Association="financeiroModel.fk_lancamento_categoria">
+      <End Role="categoria" EntitySet="categoria" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="lancamento">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descricao" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="quantidade" Type="Int32" />
+    <Property Name="valor" Type="Decimal" Nullable="false" />
+    <Property Name="pago" Type="Boolean" Nullable="false" />
+    <Property Name="numerotitulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="datavencimento" Type="DateTime" />
+    <Property Name="dataemissao" Type="DateTime" />
+    <Property Name="datacadastro" Type="DateTime" Nullable="false" />
+    <Property Name="observacao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="categoria_id" Type="Int32" Nullable="false" />
+    <Property Name="instituicao_id" Type="Int32" Nullable="false" />
+    <Property Name="contasaldo_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="contasaldo" Relationship="financeiroModel.fk_lancamento_contasaldo1" FromRole="lancamento" ToRole="contasaldo" />
+    <NavigationProperty Name="instituicao" Relationship="financeiroModel.fk_lancamento_instituicao" FromRole="lancamento" ToRole="instituicao" />
+    <NavigationProperty Name="categoria" Relationship="financeiroModel.fk_lancamento_categoria" FromRole="lancamento" ToRole="categoria" />
+  </EntityType>
   <Association Name="fk_lancamento_contasaldo1">
     <End Type="financeiroModel.contasaldo" Role="contasaldo" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -143,6 +105,44 @@
       </Principal>
       <Dependent Role="lancamento">
         <PropertyRef Name="contasaldo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamento_instituicao">
+    <End Type="financeiroModel.instituicao" Role="instituicao" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="financeiroModel.lancamento" Role="lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="instituicao">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="instituicao_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Boolean" Nullable="false" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+    <Property Name="descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="rd" Type="String" Nullable="false" MaxLength="65532" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="lancamento" Relationship="financeiroModel.fk_lancamento_categoria" FromRole="categoria" ToRole="lancamento" />
+  </EntityType>
+  <Association Name="fk_lancamento_categoria">
+    <End Type="financeiroModel.categoria" Role="categoria" Multiplicity="1" />
+    <End Type="financeiroModel.lancamento" Role="lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categoria">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="categoria_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

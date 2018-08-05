@@ -119,7 +119,7 @@
                 <div id="selecionarCooperativas">
                     @Html.LabelFor(model => model.cooperativasNomes, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.cooperativaSelecionada, Model.cooperativasNomes.Select(x => new SelectListItem() { Text = x, Value = x, Selected = x == Model.cooperativaSelecionada }), new { @class = "form-control", @style = "text-transform:uppercase;" })
+                        @Html.DropDownListFor(m => m.cooperativaSelecionada, Model.cooperativasNomes.Select(x => new SelectListItem() { Text = x, Value = x, Selected = x == Model.cooperativaSelecionada }), new { @class = "form-control  ", @style = "text-transform:uppercase;" })
                     </div>
                 </div>
 

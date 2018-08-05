@@ -21,14 +21,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.tipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tipo)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.quantidade)
         </dt>
 
@@ -121,9 +113,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Deletar" class="btn btn-outline-danger" /> 
+        <a href="~/Lancamento/Index" class="btn btn-outline-info">Voltar</a>
+    </div>
     }
 </div>

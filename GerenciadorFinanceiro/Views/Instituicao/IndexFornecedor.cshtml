@@ -5,49 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="col-12" style="text-align:right;margin-bottom:15px;">
+    <a href="~/Lancamento/CreateFornecedor" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Fornecedor</a>
+</div>
 
-<script type="text/javascript">
-    // busca endereco automaticamente
-    function retira_acentos(palavra) {
-        com_acento = 'áàãâäéèêëíìîïóòõôöúùûüçÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÖÔÚÙÛÜÇ';
-        sem_acento = 'aaaaaeeeeiiiiooooouuuucAAAAAEEEEIIIIOOOOOUUUUC';
-        nova = '';
-        for (i = 0; i < palavra.length; i++) {
-            if (com_acento.search(palavra.substr(i, 1)) >= 0) {
-                nova += sem_acento.substr(com_acento.search(palavra.substr(i, 1)), 1);
-            }
-            else {
-                nova += palavra.substr(i, 1);
-            }
-        }
-        return nova.toUpperCase();
-    }
 
-    function getEndereco() {
-        if ($.trim($("#CEP").val()) != "") {
-
-            var cep_code = $("#CEP").val();
-            if (cep_code.length <= 0) return;
-            $.get("http://apps.widenet.com.br/busca-cep/api/cep.json", { code: cep_code },
-                function (result) {
-                    if (result.status != 1) {
-                        alert(result.message || "Houve um erro desconhecido");
-                        return;
-                    }
-                    $("#Cidade").val(retira_acentos(unescape(result.city)));
-                    $("#Bairro").val(unescape(result.district));
-                    $("#Rua").val(unescape(result.address));
-                    $("#Estado").val(unescape(result.state));
-                });
-        }
-    }
-</script>
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Cadastrar Novo", "CreateFornecedor")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -68,37 +30,20 @@
         <th>
             @Html.DisplayNameFor(model => model.responsavel)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.rua)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.numero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.bairro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cidade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cep)
-        </th>
+
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="text-uppercase">
                 @Html.DisplayFor(modelItem => item.nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.cnpj)
             </td>
-            <td>
+            <td class="text-uppercase">
                 @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
@@ -107,26 +52,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.telefone2)
             </td>
-            <td>
+            <td class="text-uppercase">
                 @Html.DisplayFor(modelItem => item.responsavel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rua)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bairro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cep)
             </td>
             <td>
                 <a href="~/Instituicao/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>

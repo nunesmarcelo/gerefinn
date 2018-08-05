@@ -5,11 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="col-12" style="text-align:right;margin-bottom:15px;">
+    <a href="~/ContaSaldo/Create" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Conta</a>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -25,52 +25,35 @@
             @Html.DisplayNameFor(model => model.status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.agencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.conta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.titular)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.tipo)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.banco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.saldo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.agencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.conta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.titular)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipo)
-        </td>
-        <td>
-            <a href="~/ContaSaldo/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-            <a href="~/ContaSaldo/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-            <a href="~/ContaSaldo/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-uppercase">
+                @Html.DisplayFor(modelItem => item.nome)
+            </td>
+            <td class="text-uppercase">
+                @Html.DisplayFor(modelItem => item.banco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.saldo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipo)
+            </td>
+            <td>
+                <a href="~/ContaSaldo/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
+                <a href="~/ContaSaldo/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
+                <a href="~/ContaSaldo/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
+            </td>
+        </tr>
+    }
 
 </table>

@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - Sistema Catadores</title>
 
     @* Fonts *@
-    <link href="https://fonts.googleapis.com/css?family=Anton|Raleway|Encode+Sans+Condensed|Fjalla+One|Lora|Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Raleway|Encode+Sans+Condensed|Fjalla+One|Lora|Ubuntu|Montserrat:500" rel="stylesheet">
 
     @* Icons *@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -15,13 +15,16 @@
     @* Tables *@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" />
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
-   
+
 
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
 
     @* Plugin de tabelas *@
 
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <div class="superior-site">
@@ -30,18 +33,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="~/Home">Gerenciador Financeiro</a>
+                <a class="navbar-brand texto-financeiro" href="~/Home">Gerenciador Financeiro</a>
 
                 <form class="form-inline ml-5 mr-auto mt-2 mt-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Palavra chave" aria-label="Palavra chave">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Pesquisar</button>
                 </form>
                 <ul class="navbar-nav my-2 my-lg-0 mr-2 ">
-                    <li class="nav-item ">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item dropleft">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="far fa-question-circle"></span></a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="far fa-question-circle"></span></a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Como fazer um lançamento</a>
                             <a class="dropdown-item" href="#">Como cadastrar uma instituição para recebimento</a>
@@ -69,20 +69,20 @@
 
         <div class="mt-4 col-2 bg-white shadow-lg pb-3 rounded menu-esquerda-escondido" style="min-height:100%;">
             <ul class="nav  nav-pills nav-stacked menu-esquerda">
-                <li><div class="lead col-12 mb-3 texto-escondido"><br /> Cadastros</div></li>
-                <li class="col-12" role="presentation"><a href='~/Categoria/IndexReceita' class="texto-menu-esq "><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/ativo.png")" alt="Alternate Text" /><b class="texto-escondido">Categ. de Receb</b></a></li>
-                <li class="col-12" role="presentation"><a href='~/Categoria/IndexDespesa' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/passivo.png")" alt="Alternate Text" /><b class="texto-escondido">Categ. de Desp</b></a></li>
-                <li class="col-12" role="presentation"><a href='~/Instituicao/IndexCliente' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/clientes.png")" alt="Alternate Text" />  <b class="texto-escondido">Clientes</b></a></li>
-                <li class="col-12" role="presentation"><a href='~/Instituicao/IndexFornecedor' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/fornecedores.png")" alt="Alternate Text" />  <b class="texto-escondido">Fornecedores</b></a></li>
+                @*<li><div class="lead col-12 mb-3 texto-escondido"><br /> Cadastros</div></li>*@
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Categoria/IndexReceita' class="texto-menu-esq "><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/teste.ico")" alt="Alternate Text" /><b class="texto-escondido">Recebimento</b></a></li>
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Categoria/IndexDespesa' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/passivos.png")" alt="Alternate Text" /><b class="texto-escondido">Despesa</b></a></li>
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Instituicao/IndexCliente' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/clientes.ico")" alt="Alternate Text" />  <b class="texto-escondido">Clientes</b></a></li>
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Instituicao/IndexFornecedor' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/fornecedores.ico")" alt="Alternate Text" />  <b class="texto-escondido">Fornecedores</b></a></li>
 
-                <li><div class="lead col-12 mb-3 texto-escondido"><br /> Contas para saldos</div></li>
-                <li class="col-12" role="presentation"><a href='~/ContaSaldo/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/contasaldo.png")" alt="Alternate Text" />  <b class="texto-escondido">Recebimento</b></a></li>
+                @*<li><div class="lead col-12 mb-3 texto-escondido"><br /> Contas para saldos</div></li>*@
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/ContaSaldo/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/contasaldos.png")" alt="Alternate Text" />  <b class="texto-escondido">Centro de Custo</b></a></li>
 
 
-                <li><div class="lead col-12 mb-3 texto-escondido"> <br />Lançar  </div></li>
-                <li class="col-12" role="presentation"><a href='~/Lancamento/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/lancamentos.png")" alt="Alternate Text" />  <b class="texto-escondido">Lançamentos</b></a></li>
-                <li class="col-12" role="presentation"><a href='~/Relatorio/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/relatorios.png")" alt="Alternate Text" />  <b class="texto-escondido">Relatórios</b></a></li>
-                <li class="col-12" role="presentation"><a href='~/DRE' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;" src="@Url.Content("~/Images/dre.png")" alt="Alternate Text" />  <b class="texto-escondido">DRE</b></a></li>
+                @*<li><div class="lead col-12 mb-3 texto-escondido"> <br />Lançar  </div></li>*@
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Lancamento/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/lancamento.png")" alt="Alternate Text" />  <b class="texto-escondido">Lançamentos</b></a></li>
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Relatorios/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/relatorio.png")" alt="Alternate Text" />  <b class="texto-escondido">Relatórios</b></a></li>
+                <li class="col-12 item-menu-esq" role="presentation"><a href='~/DRE' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/dres.png")" alt="Alternate Text" />  <b class="texto-escondido">DRE</b></a></li>
 
             </ul>
         </div>
@@ -125,7 +125,6 @@
 
 
     @*@Scripts.Render("~/bundles/bootstrap")*@
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.bundle.js"></script>
     <script src="~/Scripts/jquery/popper.min.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>

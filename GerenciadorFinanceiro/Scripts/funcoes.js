@@ -9,13 +9,15 @@ $(document).ready(function () {
             //$(".navbar").css({ "border-bottom": "16px solid #74361e" });
             //$(".navbar , .imagens-menu").clearQueue();
             $(".texto-escondido").fadeIn("fast");
-            $(".menu-esquerda-escondido").addClass("col-2", 30000).removeClass("col-1", 30000).fadeIn("slow");;
+            $(".menu-esquerda-escondido").addClass("col-2", 30000).removeClass("col-1", 30000).fadeIn("slow");
+            $(".item-menu-esq").removeClass("ml-3", 30000);
 
             $(".menu-esquerda-escondido , .texto-escondido").clearQueue();
         },
         function () {
-            $(".texto-escondido").fadeOut("fast");
+            $(".texto-escondido").fadeOut("slow");
             $(".menu-esquerda-escondido").addClass("col-1", 3000).removeClass("col-2", 3000);
+            $(".item-menu-esq").addClass("ml-3", 30000);
 
             $(".menu-esquerda-escondido , .texto-escondido").clearQueue();
             //$(".imagens-menu").animate({ height: 50 }, 400);
