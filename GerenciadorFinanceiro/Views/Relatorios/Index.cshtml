@@ -19,11 +19,11 @@
                 <div class="h5 "><b>Data de vencimento:</b></div>
                 @* Início Vencimento *@
                 <div class="col-12 row">
-                    @Html.LabelFor(model => model.inicioVencimento, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(model => model.inicioVencimento, new { @class = "col-1 control-label" })
                     <div class="col-md-3">
                         @Html.TextBoxFor(model => model.inicioVencimento, new { @type = "date", @class = "form-control" })
                     </div>
-                    @Html.LabelFor(model => model.fimVencimento, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(model => model.fimVencimento, new { @class = "col-1 control-label" })
                     <div class="col-md-3">
                         @Html.TextBoxFor(model => model.fimVencimento, new { @type = "date", @class = "form-control" })
                     </div>
@@ -33,12 +33,12 @@
 
                 @* Início Cadastro *@
                 <div class="col-12 row">
-                    @Html.LabelFor(model => model.inicioCadastro, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(model => model.inicioCadastro, new { @class = "col-1 control-label" })
                     <div class="col-md-3">
                         @Html.TextBoxFor(model => model.inicioCadastro, new { @type = "date", @class = "form-control" })
                     </div>
 
-                    @Html.LabelFor(model => model.fimCadastro, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(model => model.fimCadastro, new { @class = "col-1 control-label" })
                     <div class="col-md-3">
                         @Html.TextBoxFor(model => model.fimCadastro, new { @type = "date", @class = "form-control" })
                     </div>
@@ -47,13 +47,13 @@
                 <div class="h5 mt-5"><b>Data de emissão:</b></div>
 
                 @* Início Emissão *@
-                <div class="col-12 row">
-                    @Html.LabelFor(model => model.inicioEmissao, new { @class = "col-md-2 control-label" })
+                <div class="col-12 row ">
+                    @Html.LabelFor(model => model.inicioEmissao, new { @class = "col-1 control-label" })
                     <div class="col-md-3">
                         @Html.TextBoxFor(model => model.inicioEmissao, new { @type = "date", @class = "form-control" })
                     </div>
 
-                    @Html.LabelFor(model => model.fimEmissao, new { @class = "col-md-2 control-label" })
+                    @Html.LabelFor(model => model.fimEmissao, new { @class = "col-1 control-label" })
                     <div class="col-md-3">
                         @Html.TextBoxFor(model => model.fimEmissao, new { @type = "date", @class = "form-control" })
                     </div>

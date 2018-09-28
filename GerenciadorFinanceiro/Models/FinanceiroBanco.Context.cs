@@ -30,5 +30,9 @@ namespace GerenciadorFinanceiro.Models
         public virtual DbSet<usuario> usuario { get; set; }
         public virtual DbSet<lancamento> lancamento { get; set; }
         public virtual DbSet<categoria> categoria { get; set; }
+        public virtual DbSet<produto> produto { get; set; }
+        public virtual DbSet<estoque> estoque { get; set; }
+        public virtual DbSet<lancamentoestoque> lancamentoestoque { get; set; }
+        public virtual DbSet<produtoemestoque> produtoemestoque { get; set; }
     }
 }

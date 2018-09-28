@@ -32,13 +32,16 @@
                 </th>
 
                 <th style="min-width:90px">
-                    @Html.DisplayNameFor(model => model.numerotitulo)
+                    NF:
                 </th>
                 <th scope="col">
                     @Html.DisplayNameFor(model => model.categoria.tipo)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.datavencimento)
+                </th>
+                <th>
+                    Centro de Custo:
                 </th>
 
                 <th style="min-width:100px"></th>
@@ -73,7 +76,7 @@
                 @Html.DisplayFor(modelItem => item.quantidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.valor)
+                R$@Html.DisplayFor(modelItem => item.valor)
             </td>
 
 
@@ -84,7 +87,7 @@
 
             @if (item.categoria.tipo.Equals("PC"))
             {
-                <td class="table-danger">
+                <td style="background-color: #FFE4E4">
                     Passivo Circulante
                 </td>
             }
@@ -97,7 +100,7 @@
 
             @if (item.categoria.tipo.Equals("AC"))
             {
-                <td class="table-success">
+                <td style="background-color: #ccd2ff;">
                     Ativo Circulante
                 </td>
             }
@@ -120,10 +123,12 @@
                 @item.datavencimento.Value.ToShortDateString()
             </td>
 
+            <td>
+                @item.contasaldo.nome
+            </td>
 
 
             <td>
-                @* @Html.ActionLink(" ", "Edit", new { id = item.id , @class = "far fa-edit" }) |*@
                 <a href="~/Lancamento/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
                 <a href="~/Lancamento/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
                 <a href="~/Lancamento/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>

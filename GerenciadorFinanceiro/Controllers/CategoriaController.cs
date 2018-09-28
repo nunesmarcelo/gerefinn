@@ -76,10 +76,12 @@ namespace GerenciadorFinanceiro.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,nome,status,tipo,descricao,rd")] categoria categoria)
+        public async Task<ActionResult> Create([Bind(Include = "id,nome,tipo,descricao,rd")] categoria categoria)
         {
             if (ModelState.IsValid)
             {
+                categoria.status = true;
+                categoria.nome = categoria.nome.ToUpper();
                 db.categoria.Add(categoria);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index","Lancamento");

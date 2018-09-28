@@ -19,15 +19,15 @@
                 @Html.Hidden("fc", "C")
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control ", @style = "text-transform: uppercase",@required = true } })
                         @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.cnpj, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.cnpj, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.cnpj, new { htmlAttributes = new { @class = "form-control" , @required = true, @id = "CNPJ" } })
                         @Html.ValidationMessageFor(model => model.cnpj, "", new { @class = "text-danger" })
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control", @type = "email", @required = true } })
                         @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
@@ -61,7 +61,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.responsavel, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.responsavel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.responsavel, new { htmlAttributes = new { @class = "form-control" , @style = "text-transform: uppercase" } })
                         @Html.ValidationMessageFor(model => model.responsavel, "", new { @class = "text-danger" })
                     </div>
                 </div>

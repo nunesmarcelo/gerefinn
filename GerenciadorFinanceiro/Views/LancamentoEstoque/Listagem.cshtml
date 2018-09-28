@@ -1,0 +1,110 @@
+﻿@model IEnumerable<GerenciadorFinanceiro.Models.produtoemestoque>
+
+@{
+    ViewBag.Title = "Estocagem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-12" style="text-align:right;margin-bottom:15px;">
+
+    <a href="~/LancamentoEstoque/Entrada" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Entrada</a>
+    <a href="~/LancamentoEstoque/Saida" class="btn btn-outline-danger"><span class="fas fa-minus"></span> Saída</a>
+</div>
+
+<div class="col-12" style="background-color:white;margin: 10px auto;">
+    <table class="table table-hover table-bordered text-center" style="width:100%" id="tabela">
+        <thead>
+            <tr>
+                <th>
+                    Depósito:
+                </th>
+                <th>
+                    Produto:
+                </th>
+                <th>
+                    Quantidade no estoque:
+                </th>
+                <th>
+                    Custo total:
+                </th>
+                <th>
+                    Valor de retorno:
+                </th>
+                <th>
+                    Lucro esperado:
+                </th>
+                <th>
+                    % de lucro:
+                </th>
+                <th>
+                    % do custo total:
+                </th>
+                <th>
+                    % do valor total:
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var estoque in @Model.GroupBy(x => new { x.estoque }))
+            {
+                foreach (var produto in estoque)
+                {
+                    <tr>
+                        @*Depósito*@
+                        <td class="text-uppercase">
+                            @produto.estoque.nome
+                        </td>
+                        @* Produto *@
+                        <td class="text-uppercase">
+                            @produto.produto.nome
+                        </td>
+                        @* Quantidade *@
+                        <td>
+                            @produto.quantidade
+                        </td>
+                        @* Custo *@
+                        <td>
+                            R$@(produto.quantidade * produto.produto.custounitario)
+                        </td>
+                        @* Valor *@
+                        <td>
+                            R$@(produto.quantidade * produto.produto.valorunitario)
+                        </td>
+                        @* Lucro *@
+                        <td>
+                            R$@((produto.quantidade * produto.produto.valorunitario) - (produto.quantidade * produto.produto.custounitario))
+                        </td>
+                        @* % de lucro *@
+                        <td>
+                            @Math.Round(Convert.ToDecimal((((produto.quantidade * produto.produto.valorunitario) / (produto.quantidade * produto.produto.custounitario))-1)*100), 2)%
+                        </td>
+                        @* % do custo *@
+                        <td>
+                            @Math.Round(Convert.ToDecimal(((produto.quantidade * produto.produto.custounitario) / Convert.ToDecimal(TempData["custoTotal"]))*100), 2)%
+                        </td>
+                        @* % do valor *@
+                        <td>
+                            @Math.Round(Convert.ToDecimal(((produto.quantidade * produto.produto.valorunitario) / Convert.ToDecimal(TempData["valorTotal"]))*100), 2)%
+                        </td>
+                    </tr>
+                }
+
+            }
+            <tr>
+                <td><b>TOTAL:</b></td>
+                <td></td>
+                <td></td>
+                <td><b>R$@TempData["custoTotal"]</b></td>
+                <td><b>R$@TempData["valorTotal"]</b></td>
+                <td><b>R$@Math.Round((Convert.ToDecimal(TempData["valorTotal"]) - Convert.ToDecimal(TempData["custoTotal"])), 2)</b></td>
+                <td><b>@Math.Round(((Convert.ToDecimal(TempData["valorTotal"]) / Convert.ToDecimal(TempData["custoTotal"]) - 1) * 100), 2)%</b></td>
+                <td><b>100%</b></td>
+                <td><b>100%</b></td>
+            </tr>
+
+        </tbody>
+        
+
+    </table>
+</div>

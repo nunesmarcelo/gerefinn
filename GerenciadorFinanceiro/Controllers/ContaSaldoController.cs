@@ -55,7 +55,7 @@ namespace GerenciadorFinanceiro.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
+        public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,agencia,conta,titular,tipo")] contasaldo contasaldo)
         {
             var list = new[]
            {
@@ -68,6 +68,14 @@ namespace GerenciadorFinanceiro.Controllers
 
             if (ModelState.IsValid)
             {
+                contasaldo.status = true;
+                contasaldo.nome = contasaldo.nome.ToUpper();
+                contasaldo.banco = contasaldo.banco.ToUpper();
+                if(contasaldo.titular != null)
+                {
+                    contasaldo.titular = contasaldo.titular.ToUpper();
+                }
+                
                 db.contasaldo.Add(contasaldo);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

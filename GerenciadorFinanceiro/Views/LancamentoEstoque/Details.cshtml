@@ -1,0 +1,91 @@
+﻿@model GerenciadorFinanceiro.Models.lancamentoestoque
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>lancamentoestoque</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dataentrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dataentrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datasaida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datasaida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.validade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.validade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contasaldo.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contasaldo.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estoque.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estoque.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.produto.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.produto.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario.nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

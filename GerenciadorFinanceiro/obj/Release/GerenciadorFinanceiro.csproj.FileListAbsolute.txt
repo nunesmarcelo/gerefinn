@@ -1,4 +1,3 @@
-C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\obj\Release\GerenciadorFinanceiro.csproj.CoreCompileInputs.cache
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\ApplicationInsights.config
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\GerenciadorFinanceiro.dll.config
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\GerenciadorFinanceiro.dll
@@ -51,6 +50,7 @@ C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\pt
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\pt-br\System.Web.WebPages.resources.dll
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\pt-br\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\bin\pt-br\System.Web.WebPages.Razor.resources.dll
+C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\obj\Release\GerenciadorFinanceiro.csproj.CoreCompileInputs.cache
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\obj\Release\GerenciadorFinanceiro.csproj.CopyComplete
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\obj\Release\GerenciadorFinanceiro.dll
 C:\Users\Marcelo\source\repos\GerenciadorFinanceiro\GerenciadorFinanceiro\obj\Release\GerenciadorFinanceiro.pdb

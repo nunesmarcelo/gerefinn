@@ -61,6 +61,11 @@ namespace GerenciadorFinanceiro.Controllers
         {
             if (ModelState.IsValid)
             {
+                instituicao.nome = instituicao.nome.ToUpper();
+                if(instituicao.responsavel != null)
+                {
+                    instituicao.responsavel = instituicao.responsavel.ToUpper();
+                }
                 db.instituicao.Add(instituicao);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index", "Lancamento");

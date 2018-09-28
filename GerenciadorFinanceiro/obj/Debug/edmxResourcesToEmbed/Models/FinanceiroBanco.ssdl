@@ -25,6 +25,23 @@
     <Property Name="titular" Type="varchar" MaxLength="45" />
     <Property Name="tipo" Type="enum" />
   </EntityType>
+  <EntityType Name="estoque">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="responsavel" Type="varchar" MaxLength="45" />
+    <Property Name="telefone" Type="varchar" MaxLength="45" />
+    <Property Name="email" Type="varchar" MaxLength="45" />
+    <Property Name="rua" Type="varchar" MaxLength="45" />
+    <Property Name="numero" Type="int" />
+    <Property Name="bairro" Type="varchar" MaxLength="45" />
+    <Property Name="cidade" Type="varchar" MaxLength="45" />
+    <Property Name="estado" Type="varchar" MaxLength="45" />
+    <Property Name="cep" Type="varchar" MaxLength="45" />
+    <Property Name="status" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="instituicao">
     <Key>
       <PropertyRef Name="id" />
@@ -61,6 +78,42 @@
     <Property Name="categoria_id" Type="int" Nullable="false" />
     <Property Name="instituicao_id" Type="int" Nullable="false" />
     <Property Name="contasaldo_id" Type="int" Nullable="false" />
+    <Property Name="usuario_id" Type="int" />
+  </EntityType>
+  <EntityType Name="lancamentoestoque">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="valor" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="quantidade" Type="int" Nullable="false" />
+    <Property Name="dataentrada" Type="date" />
+    <Property Name="datasaida" Type="date" />
+    <Property Name="validade" Type="date" />
+    <Property Name="lote" Type="varchar" MaxLength="45" />
+    <Property Name="produto_id" Type="int" Nullable="false" />
+    <Property Name="contasaldo_id" Type="int" Nullable="false" />
+    <Property Name="estoque_id" Type="int" Nullable="false" />
+    <Property Name="usuario_id" Type="int" />
+  </EntityType>
+  <EntityType Name="produto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="valorunitario" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="custounitario" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="produtoemestoque">
+    <Key>
+      <PropertyRef Name="produto_id" />
+      <PropertyRef Name="estoque_id" />
+    </Key>
+    <Property Name="produto_id" Type="int" Nullable="false" />
+    <Property Name="estoque_id" Type="int" Nullable="false" />
+    <Property Name="quantidade" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="usuario">
     <Key>
@@ -81,7 +134,31 @@
     <Property Name="estado" Type="varchar" MaxLength="45" />
     <Property Name="cep" Type="varchar" MaxLength="45" />
   </EntityType>
-  <Association Name="fk_lancamento_categoria">
+  <Association Name="fk_estoqueproduto_contasaldo1">
+    <End Role="contasaldo" Type="Self.contasaldo" Multiplicity="1" />
+    <End Role="lancamentoestoque" Type="Self.lancamentoestoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contasaldo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamentoestoque">
+        <PropertyRef Name="contasaldo_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_estoqueproduto_produto1">
+    <End Role="produto" Type="Self.produto" Multiplicity="1" />
+    <End Role="lancamentoestoque" Type="Self.lancamentoestoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="produto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamentoestoque">
+        <PropertyRef Name="produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamento_categoria1">
     <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
     <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
     <ReferentialConstraint>
@@ -94,9 +171,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_lancamento_contasaldo1">
-    <End Role="contasaldo" Type="Self.contasaldo" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="contasaldo" Type="Self.contasaldo" Multiplicity="1" />
     <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="contasaldo">
@@ -107,10 +182,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_lancamento_instituicao">
-    <End Role="instituicao" Type="Self.instituicao" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="fk_lancamento_instituicao1">
+    <End Role="instituicao" Type="Self.instituicao" Multiplicity="1" />
     <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="instituicao">
@@ -121,13 +194,89 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_lancamento_usuario1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+    <End Role="lancamento" Type="Self.lancamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamento">
+        <PropertyRef Name="usuario_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamentoestoque_estoque1">
+    <End Role="estoque" Type="Self.estoque" Multiplicity="1" />
+    <End Role="lancamentoestoque" Type="Self.lancamentoestoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estoque">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamentoestoque">
+        <PropertyRef Name="estoque_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lancamentoestoque_usuario1">
+    <End Role="usuario" Type="Self.usuario" Multiplicity="0..1" />
+    <End Role="lancamentoestoque" Type="Self.lancamentoestoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="lancamentoestoque">
+        <PropertyRef Name="usuario_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_produto_has_estoque_estoque1">
+    <End Role="estoque" Type="Self.estoque" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="produtoemestoque" Type="Self.produtoemestoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estoque">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="produtoemestoque">
+        <PropertyRef Name="estoque_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_produto_has_estoque_produto1">
+    <End Role="produto" Type="Self.produto" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="produtoemestoque" Type="Self.produtoemestoque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="produto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="produtoemestoque">
+        <PropertyRef Name="produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="financeiroModelStoreContainer">
     <EntitySet Name="categoria" EntityType="Self.categoria" Schema="financeiro" store:Type="Tables" />
     <EntitySet Name="contasaldo" EntityType="Self.contasaldo" Schema="financeiro" store:Type="Tables" />
+    <EntitySet Name="estoque" EntityType="Self.estoque" Schema="financeiro" store:Type="Tables" />
     <EntitySet Name="instituicao" EntityType="Self.instituicao" Schema="financeiro" store:Type="Tables" />
     <EntitySet Name="lancamento" EntityType="Self.lancamento" Schema="financeiro" store:Type="Tables" />
+    <EntitySet Name="lancamentoestoque" EntityType="Self.lancamentoestoque" Schema="financeiro" store:Type="Tables" />
+    <EntitySet Name="produto" EntityType="Self.produto" Schema="financeiro" store:Type="Tables" />
+    <EntitySet Name="produtoemestoque" EntityType="Self.produtoemestoque" Schema="financeiro" store:Type="Tables" />
     <EntitySet Name="usuario" EntityType="Self.usuario" Schema="financeiro" store:Type="Tables" />
-    <AssociationSet Name="fk_lancamento_categoria" Association="Self.fk_lancamento_categoria">
+    <AssociationSet Name="fk_estoqueproduto_contasaldo1" Association="Self.fk_estoqueproduto_contasaldo1">
+      <End Role="contasaldo" EntitySet="contasaldo" />
+      <End Role="lancamentoestoque" EntitySet="lancamentoestoque" />
+    </AssociationSet>
+    <AssociationSet Name="fk_estoqueproduto_produto1" Association="Self.fk_estoqueproduto_produto1">
+      <End Role="produto" EntitySet="produto" />
+      <End Role="lancamentoestoque" EntitySet="lancamentoestoque" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamento_categoria1" Association="Self.fk_lancamento_categoria1">
       <End Role="categoria" EntitySet="categoria" />
       <End Role="lancamento" EntitySet="lancamento" />
     </AssociationSet>
@@ -135,9 +284,29 @@
       <End Role="contasaldo" EntitySet="contasaldo" />
       <End Role="lancamento" EntitySet="lancamento" />
     </AssociationSet>
-    <AssociationSet Name="fk_lancamento_instituicao" Association="Self.fk_lancamento_instituicao">
+    <AssociationSet Name="fk_lancamento_instituicao1" Association="Self.fk_lancamento_instituicao1">
       <End Role="instituicao" EntitySet="instituicao" />
       <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamento_usuario1" Association="Self.fk_lancamento_usuario1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="lancamento" EntitySet="lancamento" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamentoestoque_estoque1" Association="Self.fk_lancamentoestoque_estoque1">
+      <End Role="estoque" EntitySet="estoque" />
+      <End Role="lancamentoestoque" EntitySet="lancamentoestoque" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lancamentoestoque_usuario1" Association="Self.fk_lancamentoestoque_usuario1">
+      <End Role="usuario" EntitySet="usuario" />
+      <End Role="lancamentoestoque" EntitySet="lancamentoestoque" />
+    </AssociationSet>
+    <AssociationSet Name="fk_produto_has_estoque_estoque1" Association="Self.fk_produto_has_estoque_estoque1">
+      <End Role="estoque" EntitySet="estoque" />
+      <End Role="produtoemestoque" EntitySet="produtoemestoque" />
+    </AssociationSet>
+    <AssociationSet Name="fk_produto_has_estoque_produto1" Association="Self.fk_produto_has_estoque_produto1">
+      <End Role="produto" EntitySet="produto" />
+      <End Role="produtoemestoque" EntitySet="produtoemestoque" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

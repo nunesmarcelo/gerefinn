@@ -11,8 +11,7 @@ namespace GerenciadorFinanceiro.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class categoria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,20 +21,12 @@ namespace GerenciadorFinanceiro.Models
         }
     
         public int id { get; set; }
-        [Display(Name = "Nome da categoria:")]
         public string nome { get; set; }
-
-        [Display(Name = "Status:")]
         public bool status { get; set; }
-
-        [Display(Name = "Tipo:")]
         public string tipo { get; set; }
-
-        [Display(Name = "Descrição:")]
         public string descricao { get; set; }
-
         public string rd { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lancamento> lancamento { get; set; }
     }

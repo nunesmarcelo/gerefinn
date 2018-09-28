@@ -70,6 +70,15 @@ namespace GerenciadorFinanceiro.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(lancamento.pago == true && lancamento.categoria.rd == "D")
+                {
+                    lancamento.contasaldo.saldo -=  lancamento.valor;
+                }
+                if (lancamento.pago == true && lancamento.categoria.rd == "R")
+                {
+                    lancamento.contasaldo.saldo +=  lancamento.valor;
+                }
+                lancamento.descricao = lancamento.descricao.ToUpper();
                 lancamento.datacadastro = AuxCodes.Data.HoraBrasilia();
                 db.lancamento.Add(lancamento);
                 await db.SaveChangesAsync();
@@ -162,10 +171,31 @@ namespace GerenciadorFinanceiro.Controllers
             try
             {
                 lancamento = db.lancamento.Where(i => i.id == id).FirstOrDefault();
-                if (lancamento.pago == true)
+                if (lancamento.pago == true) { 
                     lancamento.pago = false;
+                    if(lancamento.categoria.rd == "D")
+                    {
+                        lancamento.contasaldo.saldo +=  lancamento.valor;
+                    }
+                    if(lancamento.categoria.rd == "R")
+                    {
+                        lancamento.contasaldo.saldo -=  lancamento.valor;
+                    }
+                    
+                }
                 else
+                {
                     lancamento.pago = true;
+                    if (lancamento.categoria.rd == "D")
+                    {
+                        lancamento.contasaldo.saldo -= lancamento.valor;
+                    }
+                    if (lancamento.categoria.rd == "R")
+                    {
+                        lancamento.contasaldo.saldo += lancamento.valor;
+                    }
+                }
+                   
 
                 db.SaveChanges();
             }catch(Exception e)

@@ -3,11 +3,22 @@
     font-family: 'Raleway', sans-serif;
 }
 
+.requerido:after {
+    content: " *";
+    color: red;
+}
+
 .texto-financeiro {
     font-family: 'Montserrat', sans-serif;
 }
 
-.form-control, .input-group-addon , .control-label {
+#botao-toggle-superior:hover {
+    color: #fff !important;
+    cursor:pointer;
+   
+}
+
+.form-control, .input-group-addon , .control-label , .input-group-text {
     margin-top: 10px !important;
 }
 
@@ -48,6 +59,7 @@ body {
 
 .menu-esquerda {
     margin-top: 40px;
+    cursor: pointer;
 }
 
 .texto-menu-esq {

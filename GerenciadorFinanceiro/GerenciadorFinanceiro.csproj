@@ -166,12 +166,16 @@
     <Compile Include="AuxCodes\PermissaoProvider.cs" />
     <Compile Include="AuxCodes\PermissoesRegra.cs" />
     <Compile Include="AuxCodes\Sec.cs" />
+    <Compile Include="Controllers\CaixaController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ContaSaldoController.cs" />
+    <Compile Include="Controllers\EstoqueController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstituicaoController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
+    <Compile Include="Controllers\LancamentoEstoqueController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\RelatoriosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,6 +186,9 @@
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contasaldo.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\estoque.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FinanceiroBanco.Context.cs">
@@ -205,7 +212,17 @@
     <Compile Include="Models\lancamento.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\lancamentoestoque.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PesquisarPeriodo.cs" />
+    <Compile Include="Models\produto.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\produtoemestoque.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\usuario.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
@@ -280,16 +297,21 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\cooperativas.png" />
-    <Content Include="Images\lancamentos.png" />
+    <Content Include="Images\aviao.png" />
+    <Content Include="Images\clientes2.png" />
+    <Content Include="Images\contasaldos2.png" />
+    <Content Include="Images\cursos.gif" />
+    <Content Include="Images\dres2.png" />
+    <Content Include="Images\fornecedores2.png" />
+    <Content Include="Images\fundo-grafico.jfif" />
+    <Content Include="Images\fundo-quadrado-grafico.png" />
+    <Content Include="Images\lancamento2.png" />
+    <Content Include="Images\listagem.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\login.jpg" />
-    <Content Include="Images\logo.png" />
-    <Content Include="Images\pattern.png" />
-    <Content Include="Images\quadrado-login.jpg" />
-    <Content Include="Images\relatorios.png" />
-    <Content Include="Images\teste.ico" />
-    <Content Include="Images\usuarios.png" />
+    <Content Include="Images\passivos2.png" />
+    <Content Include="Images\relatorio.png" />
+    <Content Include="Images\teste.png" />
     <Content Include="Models\FinanceiroBanco.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
@@ -371,7 +393,6 @@
     <Content Include="Views\Login\CadastrarUsuario.cshtml" />
     <Content Include="Views\Relatorios\RelatorioPorData.cshtml" />
     <Content Include="Views\Login\Negado.cshtml" />
-    <Content Include="Views\Shared\_Layout - Cópia .cshtml" />
     <Content Include="Views\Categoria\CreateDespesa.cshtml" />
     <Content Include="Views\Categoria\Delete.cshtml" />
     <Content Include="Views\Categoria\Details.cshtml" />
@@ -404,6 +425,25 @@
     <Content Include="Views\Lancamento\CreateReceita.cshtml" />
     <Content Include="Views\Relatorios\Index.cshtml" />
     <Content Include="Views\Relatorios\PesquisarPeriodo.cshtml" />
+    <Content Include="Views\Produto\Create.cshtml" />
+    <Content Include="Views\Produto\Delete.cshtml" />
+    <Content Include="Views\Produto\Details.cshtml" />
+    <Content Include="Views\Produto\Edit.cshtml" />
+    <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\Estoque\Create.cshtml" />
+    <Content Include="Views\Estoque\Delete.cshtml" />
+    <Content Include="Views\Estoque\Details.cshtml" />
+    <Content Include="Views\Estoque\Edit.cshtml" />
+    <Content Include="Views\Estoque\Index.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Entrada.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Delete.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Details.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Edit.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Listagem.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Saida.cshtml" />
+    <Content Include="Views\LancamentoEstoque\Index.cshtml" />
+    <Content Include="Views\Caixa\AbrirCaixa.cshtml" />
+    <Content Include="Views\Shared\_LayoutCaixa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

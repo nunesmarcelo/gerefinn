@@ -4,10 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Sistema Catadores</title>
+    <title>Gerenciador Financeiro - @ViewBag.Title</title>
+
+ 
 
     @* Fonts *@
-    <link href="https://fonts.googleapis.com/css?family=Anton|Raleway|Encode+Sans+Condensed|Fjalla+One|Lora|Ubuntu|Montserrat:500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Raleway|Encode+Sans+Condensed|Fjalla+One|Lora|Ubuntu|Montserrat:500|Cuprum" rel="stylesheet">
 
     @* Icons *@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -29,6 +31,12 @@
 <body>
     <div class="superior-site">
         <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
+
+            <div class="col-1 ">
+                @*<span id="botao-toggle-superior" class=" ml-2 fas fa-bars" onclick="mudar_menu()" style="font-size:16pt;color:#ddd"></span>*@
+                <div id="botao-toggle-superior" class=" ml-2 titanic titanic-menu-close" onclick="mudar_menu()" style="height:22pt; fill: #fff;stroke: #fff;"></div>
+            </div>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -41,8 +49,8 @@
                 </form>
                 <ul class="navbar-nav my-2 my-lg-0 mr-2 ">
                     <li class="nav-item dropleft">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="far fa-question-circle"></span></a>
-                        <div class="dropdown-menu">
+                        <div class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false"><span class="far fa-question-circle"></span></div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#">Como fazer um lançamento</a>
                             <a class="dropdown-item" href="#">Como cadastrar uma instituição para recebimento</a>
                             <a class="dropdown-item" href="#">Como cadastrar uma instituição para pagamento</a>
@@ -51,7 +59,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropleft">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><span class="far fa-user"></span></a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="far fa-user"></span></a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">---</a>
                             <a class="dropdown-item" href="#">---</a>
@@ -69,32 +77,62 @@
 
         <div class="mt-4 col-2 bg-white shadow-lg pb-3 rounded menu-esquerda-escondido" style="min-height:100%;">
             <ul class="nav  nav-pills nav-stacked menu-esquerda">
-                @*<li><div class="lead col-12 mb-3 texto-escondido"><br /> Cadastros</div></li>*@
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Categoria/IndexReceita' class="texto-menu-esq "><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/teste.ico")" alt="Alternate Text" /><b class="texto-escondido">Recebimento</b></a></li>
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Categoria/IndexDespesa' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/passivos.png")" alt="Alternate Text" /><b class="texto-escondido">Despesa</b></a></li>
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Instituicao/IndexCliente' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/clientes.ico")" alt="Alternate Text" />  <b class="texto-escondido">Clientes</b></a></li>
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Instituicao/IndexFornecedor' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/fornecedores.ico")" alt="Alternate Text" />  <b class="texto-escondido">Fornecedores</b></a></li>
-
-                @*<li><div class="lead col-12 mb-3 texto-escondido"><br /> Contas para saldos</div></li>*@
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/ContaSaldo/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/contasaldos.png")" alt="Alternate Text" />  <b class="texto-escondido">Centro de Custo</b></a></li>
+                @*<li> <div class="row class-12" ><a href="~/Caixa/AbrirCaixa" target="resource window" style="margin: auto;width:150px; " class="texto-menu-esq col-6">Caixa</a><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>*@
+                <li> <div class="row class-12"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6 botao-caixa">Caixa</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
 
 
-                @*<li><div class="lead col-12 mb-3 texto-escondido"> <br />Lançar  </div></li>*@
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Lancamento/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/lancamento.png")" alt="Alternate Text" />  <b class="texto-escondido">Lançamentos</b></a></li>
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/Relatorios/' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/relatorio.png")" alt="Alternate Text" />  <b class="texto-escondido">Relatórios</b></a></li>
-                <li class="col-12 item-menu-esq" role="presentation"><a href='~/DRE' class="texto-menu-esq"><img class="imagens-menu " style="height:35px;margin-right:10px" src="@Url.Content("~/Images/dres.png")" alt="Alternate Text" />  <b class="texto-escondido">DRE</b></a></li>
+                <li> <div class="row class-12" onclick="mudar_financeiro()"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6">Financeiro</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
+                <li>
+                    <ul class="nav financeiro-toggle" style="display:none;">
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Categoria/IndexReceita' class="texto-menu-esq "><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/teste.png")" alt="Alternate Text" /><b class="texto-escondido">Recebimento</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Categoria/IndexDespesa' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/passivos2.png")" alt="Alternate Text" /><b class="texto-escondido">Despesa</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Instituicao/IndexCliente' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/clientes2.png")" alt="Alternate Text" />  <b class="texto-escondido">Cliente</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Instituicao/IndexFornecedor' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/fornecedores2.png")" alt="Alternate Text" />  <b class="texto-escondido">Fornecedor</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Lancamento/' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/lancamento2.png")" alt="Alternate Text" />  <b class="texto-escondido">Lançamento</b></a></li>
+                    </ul>
+                </li>
+
+
+                <li> <div class="row class-12" onclick="mudar_estoque()"><span style="margin: auto;width:150px;" class="texto-menu-esq col-6">Estoque</span><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
+                <li>
+                    <ul class="nav estoque-toggle" style="display:none;">
+
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Produto/' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/teste.png")" alt="Alternate Text" />  <b class="texto-escondido">Produto</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Estoque/' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/contasaldos2.png")" alt="Alternate Text" />  <b class="texto-escondido">Depósito</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/LancamentoEstoque/' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/lancamento2.png")" alt="Alternate Text" />  <b class="texto-escondido">Lançamento</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/LancamentoEstoque/Listagem' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/listagem.png")" alt="Alternate Text" />  <b class="texto-escondido">Listagem</b></a></li>
+                    </ul>
+                </li>
+
+                <li> <div class="row class-12" onclick="mudar_centrodecusto()"><span style="margin:auto;width:150px;" class="texto-menu-esq col-6">Custos</span><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
+
+                <li>
+                    <ul class="nav centrodecusto-toggle" style="display:none;">
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/ContaSaldo/' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/contasaldos2.png")" alt="Alternate Text" />  <b class="texto-escondido">Centro de Custo</b></a></li>
+                    </ul>
+                </li>
+
+                <li> <div class="row class-12" onclick="mudar_resultados()"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6">Resultados</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
+
+                <li>
+                    <ul class="nav resultados-toggle" style="display:none;">
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Relatorios/' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/relatorio.png")" alt="Alternate Text" />  <b class="texto-escondido">Relatórios</b></a></li>
+                        <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/DRE' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/dres2.png")" alt="Alternate Text" />  <b class="texto-escondido">DRE</b></a></li>
+
+                    </ul>
+                </li>
 
             </ul>
         </div>
         <div class="col conteudo-site" style="min-height:700px !important;">
             <div class="container  mt-5 rounded folha">
 
-                <div class="shadow-lg p-3 mb-4 rounded bg-white">
-                    <div class="display-4">Cadastro</div>
+                <div id="mensagem-central" class=" shadow-lg p-3 mb-4 rounded bg-white">
+                    <div style="font-family: 'Cuprum';font-size:20pt;font-weight:300;">Cadastro</div>
                 </div>
 
 
-                <div class="shadow-lg p-3 mb-5 rounded bg-white" style="">
+                <div class="shadow-lg p-3 mb-5 rounded bg-white div-branca" style="">
                     @if (TempData["erro"] != null)
                     {
                         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -121,11 +159,14 @@
         </div>
 
     </div>
+    @* Animated Icons *@
 
+    <script src="https://cdn.rawgit.com/icons8/titanic/master/dist/js/titanic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/4.5.9/bodymovin.min.js"></script>
 
 
     @*@Scripts.Render("~/bundles/bootstrap")*@
-    <script src="~/Scripts/bootstrap/bootstrap.bundle.js"></script>
+    @*<script src="~/Scripts/bootstrap/bootstrap.bundle.js"></script>*@
     <script src="~/Scripts/jquery/popper.min.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
     <script src="~/Scripts/mask/jquery.mask.js"></script>
@@ -135,6 +176,12 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+        var titanic = new Titanic({
+            hover: false, // auto animated on hover (default true)
+            click: true  // auto animated on click/tap (default false)
+        });
+
+
         $(document).ready(function () {
             $('#tabela').dataTable({
                 "paging": true,

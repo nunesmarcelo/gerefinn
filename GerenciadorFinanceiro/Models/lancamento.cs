@@ -11,41 +11,27 @@ namespace GerenciadorFinanceiro.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class lancamento
     {
         public int id { get; set; }
-        [Display(Name = "Item:")]
         public string descricao { get; set; }
-        [Display(Name = "Quantidade:")]
         public Nullable<int> quantidade { get; set; }
-        [Display(Name = "Valor:")]
         public decimal valor { get; set; }
-        [Display(Name = "Pago:")]
         public bool pago { get; set; }
-        [Display(Name = "Número:")]
         public string numerotitulo { get; set; }
-        [Display(Name = "Vencimento:")]
         public Nullable<System.DateTime> datavencimento { get; set; }
-        [Display(Name = "Emissão:")]
         public Nullable<System.DateTime> dataemissao { get; set; }
-        [Display(Name = "Cadastro:")]
         public System.DateTime datacadastro { get; set; }
-        [Display(Name = "Observação:")]
         public string observacao { get; set; }
-
-        [Display(Name = "Categoria:")]
         public int categoria_id { get; set; }
-
-        [Display(Name = "Para:")]
         public int instituicao_id { get; set; }
-
-        [Display(Name = "Conta envolvida:")]
         public int contasaldo_id { get; set; }
-
+        public Nullable<int> usuario_id { get; set; }
+    
         public virtual contasaldo contasaldo { get; set; }
         public virtual instituicao instituicao { get; set; }
         public virtual categoria categoria { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }

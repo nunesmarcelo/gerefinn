@@ -1,0 +1,176 @@
+﻿@model GerenciadorFinanceiro.Models.lancamentoestoque
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-secondary ">
+        <div class="panel panel-heading bg-light">
+            <h3 class="panel-title">Saída do estoque</h3>
+        </div>
+        <div class="panel-body" id="dadosusuario">
+            <fieldset class="scheduler-border row col-12 ml-3 mt-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.estoque_id, "Depósito:", htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("estoque_id", null,"Selecione um depósito", htmlAttributes: new { @class = "form-control" , @id = "deposito", @required = true })
+                        @Html.ValidationMessageFor(model => model.estoque_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row d-none" id="div-produto">
+                    @Html.LabelFor(model => model.produto_id, "Produto:", htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("produto_id", null, "Selecione um produto" , htmlAttributes: new { @class = "form-control", @id = "produto", @required = true })
+                        @Html.ValidationMessageFor(model => model.produto_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row d-none outros-itens">
+                    @Html.LabelFor(model => model.quantidade, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.quantidade, new { htmlAttributes = new { @class = "form-control", @id = "quantidade", @required = true } })
+                        @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row d-none outros-itens">
+                    @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" style="width:80px !important;"> R$</div>
+                                @Html.EditorFor(model => model.valor, new { htmlAttributes = new { @class = "form-control", @id = "valor", @placeholder = "0,00", @required = true } })
+                                @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="form-group row d-none">
+                    @Html.LabelFor(model => model.dataentrada, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.dataentrada, new { htmlAttributes = new { @class = "form-control", @type = "date", @disabled = true } })
+                        @Html.ValidationMessageFor(model => model.dataentrada, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+                <div class="form-group row d-none outros-itens">
+                    @Html.LabelFor(model => model.datasaida, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.datasaida, new { htmlAttributes = new { @class = "form-control" , @type = "date", @required = true } })
+                        @Html.ValidationMessageFor(model => model.datasaida, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row d-none outros-itens">
+                    @Html.LabelFor(model => model.validade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.validade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.validade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row d-none outros-itens">
+                    @Html.LabelFor(model => model.lote, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.lote, new { htmlAttributes = new { @class = "form-control"  } })
+                        @Html.ValidationMessageFor(model => model.lote, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row d-none outros-itens">
+                    @Html.LabelFor(model => model.contasaldo_id, "Centro de custo:", htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("contasaldo_id", null, htmlAttributes: new { @class = "form-control", @required = true })
+                        @Html.ValidationMessageFor(model => model.contasaldo_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                @*<div class="form-group row">
+                        @Html.LabelFor(model => model.usuario_id, "usuario_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("usuario_id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.usuario_id, "", new { @class = "text-danger" })
+                        </div>
+                </div>*@
+
+            </fieldset>
+            <div class="form-group row col-12 mb-4 mt-4">
+                <div class="offset-md-2 col-10 ">
+                    <input type="submit" value="Salvar" class="btn btn-outline-success mr-3" />
+
+                    <a href="~/LancamentoEstoque/Index" class="btn btn-outline-danger">Voltar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    val_unitario = 0;
+    $(document).ready(function () {
+        
+
+        $("#deposito").on('change', function () {
+            var dados = "estoque=" + $("#deposito option:selected").val();
+            $.ajax({
+                url: "/LancamentoEstoque/FiltraDeposito",
+                type: 'POST',
+                data: dados,
+                success: function (data) {
+                    console.log($("#deposito option:selected").val());
+
+                    $("#div-produto").removeClass("d-none");
+                    $("#produto").empty();
+
+                    var html = "<option>Selecione um produto</option>";
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+
+                        html += `<option value="${data[i].idEstoque}">${data[i].product}</option>`;
+                    }
+                    $("#produto").html(html);
+                }
+            });
+
+        });
+
+
+        $("#produto").on('change', function () {
+            var dados = "produto=" + $("#produto option:selected").val() + "&estoque=" + $("#deposito option:selected").val();
+            $.ajax({
+                url: "/LancamentoEstoque/FiltraProduto",
+                type: 'POST',
+                data: dados,
+                success: function (data) {
+                    $("#quantidade").val(data.quantidade).attr({ "max": data.quantidade });
+                    val_unitario = parseFloat(data.valor);
+                    $("#valor").val((parseFloat($("#quantidade").val()) * val_unitario).toFixed(2).replace('.', ','));
+                    //$("#valor").val(parseInt(data.quantidade) * parseFloat(data.valor));
+                    $(".outros-itens").removeClass("d-none");
+                }
+            });
+           
+        });
+
+        $("#quantidade").on('change', function () {
+
+            $("#valor").val((parseFloat($("#quantidade").val()) * val_unitario).toFixed(2).replace('.',','));
+        })
+    });
+   
+</script>
