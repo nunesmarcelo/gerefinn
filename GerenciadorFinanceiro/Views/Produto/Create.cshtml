@@ -2,37 +2,40 @@
 
 @{
     ViewBag.Title = "Cadastro de Produto";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="panel panel-secondary ">
-        <div class="panel panel-heading bg-light">
-            <h3 class="panel-title">Cadastro de Produto</h3>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Cadastrar Categoria</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="panel-body" id="dadosusuario">
-            <fieldset class="scheduler-border ml-3 mt-4 col-12 row ">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <fieldset class="scheduler-border  mt-4 col-12  ">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
-                    <div class="col-md-10">
+                    @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-5 requerido" })
+                    <div class="col-md-7">
                         @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control", @required = true, @style = "text-transform: uppercase" } })
                         @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.valorunitario, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                    @Html.LabelFor(model => model.valorunitario, htmlAttributes: new { @class = "control-label col-md-5" })
+                    <div class="col-md-7">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="width:80px !important;"> R$</div>
-                                @Html.EditorFor(model => model.valorunitario, new { htmlAttributes = new { @class = "form-control" , @id = "valor" } })
+                                @Html.EditorFor(model => model.valorunitario, new { htmlAttributes = new { @class = "form-control", @id = "valor" } })
                                 @Html.ValidationMessageFor(model => model.valorunitario, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -40,12 +43,12 @@
                 </div>
 
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.custounitario, htmlAttributes: new { @class = "control-label col-md-2"  })
-                    <div class="col-md-10">
+                    @Html.LabelFor(model => model.custounitario, htmlAttributes: new { @class = "control-label col-md-5" })
+                    <div class="col-md-7">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" style="width:80px !important;"> R$</div>
-                                @Html.EditorFor(model => model.custounitario, new { htmlAttributes = new { @class = "form-control" ,  @id = "valor2" } })
+                                @Html.EditorFor(model => model.custounitario, new { htmlAttributes = new { @class = "form-control", @id = "valor2" } })
                                 @Html.ValidationMessageFor(model => model.custounitario, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -53,29 +56,50 @@
                 </div>
 
                 @*<div class="form-group row">
-                    @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.status)
-                            @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.status)
+                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
 
-                <div class="form-group row col-12 mb-4">
+                @*<div class="form-group row col-12 mb-4">
                     <div class="offset-md-2 col-md-10">
                         <input type="submit" value="Salvar" class="btn btn-outline-success mr-3" />
 
                         <a href="~/Produto/Index" class="btn btn-outline-danger">Voltar</a>
                     </div>
-                </div>
+                </div>*@
 
             </fieldset>
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" value="Save" class="btn btn-outline-success">Salvar</button>
+
+            </div>
+        }
     </div>
-}
+</div>
 
 <script type="text/javascript">
+    $('#valor').on('keyup', function () {
+
+        var v = $("#valor").val();
+        v = v.replace(/\D/g, "");
+        v = new String(Number(v));
+        var len = v.length;
+        if (1 == len)
+            v = v.replace(/(\d)/, "0,0$1");
+        else if (2 == len)
+            v = v.replace(/(\d)/, "0,$1");
+        else if (len > 2) {
+            v = v.replace(/(\d{2})$/, ',$1');
+        }
+        $("#valor").val(v);
+    });
+
     $('#valor2').on('keyup', function () {
 
         var v = $("#valor2").val();

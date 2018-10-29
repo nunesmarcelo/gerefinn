@@ -396,7 +396,6 @@
     <Content Include="Views\Categoria\CreateDespesa.cshtml" />
     <Content Include="Views\Categoria\Delete.cshtml" />
     <Content Include="Views\Categoria\Details.cshtml" />
-    <Content Include="Views\Categoria\Edit.cshtml" />
     <Content Include="Views\Categoria\IndexReceita.cshtml" />
     <Content Include="Views\ContaSaldo\Create.cshtml" />
     <Content Include="Views\ContaSaldo\Delete.cshtml" />
@@ -421,8 +420,7 @@
     <Content Include="Views\Lancamento\Delete.cshtml" />
     <Content Include="Views\Lancamento\Details.cshtml" />
     <Content Include="Views\Lancamento\Edit.cshtml" />
-    <Content Include="Views\Lancamento\Index.cshtml" />
-    <Content Include="Views\Lancamento\CreateReceita.cshtml" />
+    <Content Include="Views\Lancamento\Index2.cshtml" />
     <Content Include="Views\Relatorios\Index.cshtml" />
     <Content Include="Views\Relatorios\PesquisarPeriodo.cshtml" />
     <Content Include="Views\Produto\Create.cshtml" />
@@ -444,6 +442,10 @@
     <Content Include="Views\LancamentoEstoque\Index.cshtml" />
     <Content Include="Views\Caixa\AbrirCaixa.cshtml" />
     <Content Include="Views\Shared\_LayoutCaixa.cshtml" />
+    <Content Include="Views\Lancamento\CreateReceita.cshtml" />
+    <Content Include="Views\Lancamento\Index.cshtml" />
+    <Content Include="Views\Categoria\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutLiso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

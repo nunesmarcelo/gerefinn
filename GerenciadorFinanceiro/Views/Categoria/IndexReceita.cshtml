@@ -1,52 +1,118 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.categoria>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categorias";
+    ViewBag.TituloPagina = "Categorias Cadastradas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    <a href="~/Categoria/CreateReceita" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Categoria</a>
+    @*<a href="~/Categoria/CreateDespesa" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Categoria</a>*@
+    <span class="btn btn-outline-success createReceita"> <span class="fas fa-plus"></span> Categoria</span>
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descricao)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="col-md-12">
+    <table class="table table-hover table-responsive-sm">
         <tr>
-            <td class="text-uppercase">
-                @Html.DisplayFor(modelItem => item.nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tipo)
-            </td>
-            <td class="text-uppercase">
-                @Html.DisplayFor(modelItem => item.descricao)
-            </td>
-            <td>
-                <a href="~/Categoria/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                <a href="~/Categoria/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                <a href="~/Categoria/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descricao)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr class="col-12" data-placement="top" title="Visualizar categoria" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
+                <td class="text-uppercase editCategoria " data-id="@item.id" data-toggle="tooltip">
+                    <span style="color:dodgerblue">
+                        <b>
+                            @Html.DisplayFor(modelItem => item.nome)
+                        </b>
+                    </span>
+                </td>
+                <td class="text-uppercase editCategoria " data-id="@item.id" data-toggle="tooltip">
+                    @if (item.status == true)
+                    {
+                        <span class="fa fa-toggle-on" style="color:green;font-size:16pt;"></span>
+                    }
+                    else
+                    {
+                        <span class="fa fa-toggle-off" style="color:red;font-size:16pt;"></span>
+                    }
+                </td>
+                <td class="editCategoria " data-id="@item.id" data-toggle="tooltip">
+                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "PC")
+                    {
+                        <span style="color:red">Passivo Circulante</span>
+                    }
+                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "AC")
+                    {
+                        <span style="color:green">Ativo Circulante</span>
+                    }
+                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "PNC")
+                    {
+                        <span style="color:indianred">Passivo Não-Circulante</span>
+                    }
+                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "ANC")
+                    {
+                        <span style="color:dodgerblue">Ativo Não-Circulante</span>
+                    }
+                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "PL")
+                    {
+                        <span style="color:blue">Patrimônio Líquido</span>
+                    }
+                </td>
+                <td class="text-uppercase editCategoria " data-id="@item.id" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.descricao)
+                </td>
+                <td>
+                    @*<a href="~/Categoria/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
+                        <a href="~/Categoria/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
+                        <a href="~/Categoria/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
+                    <span data-id="@item.id" class="deleteCategoria far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+<div class="modal" id="editarCategoria">
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(".editCategoria").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarCategoria").load("Edit/" + id, function () {
+            $("#editarCategoria").modal();
+        })
+    });
+
+    $(".deleteCategoria").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarCategoria").load("Delete/" + id, function () {
+            $("#editarCategoria").modal();
+        })
+    });
+
+    $(".createReceita").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarCategoria").load("createReceita/", function () {
+            $("#editarCategoria").modal();
+        })
+    });
+</script>
+
+

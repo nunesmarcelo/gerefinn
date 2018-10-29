@@ -1,59 +1,110 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.estoque>
 
 @{
-    ViewBag.Title = "Index Estoque";
+    ViewBag.Title = "Depósitos";
+    ViewBag.TituloPagina = "Depósitos Cadastrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    <a href="~/Estoque/Create" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Depósito</a>
+    @*<a href="~/Estoque/Create" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Conta</a>*@
+    <span class="btn btn-outline-success createEstoque"> <span class="fas fa-plus"></span> Depósito</span>
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.responsavel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="col-md-12">
+    <table class="table table-hover table-responsive-sm">
         <tr>
-            <td class="text-uppercase">
-                @Html.DisplayFor(modelItem => item.nome)
-            </td>
-            <td class="text-uppercase">
-                @Html.DisplayFor(modelItem => item.responsavel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.telefone)
-            </td>
-            <td class="text-uppercase">
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                <a href="~/Estoque/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                <a href="~/Estoque/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                <a href="~/Estoque/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.responsavel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr class="col-12" data-placement="top" title="Visualizar conta" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
+                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
+                    <span style="color:dodgerblue">
+                        <b>
+                            @Html.DisplayFor(modelItem => item.nome)
+                        </b>
+                    </span>
+                </td>
+                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.responsavel)
+                </td>
+                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.telefone)
+                </td>
+                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
+                    @if (item.status == true)
+                    {
+                        <span class="fa fa-toggle-on" style="color:green;font-size:16pt;"></span>
+                    }
+                    else
+                    {
+                        <span class="fa fa-toggle-off" style="color:red;font-size:16pt;"></span>
+                    }
+                </td>
+                <td>
+                    @*<a href="~/Estoque/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
+                        <a href="~/Estoque/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
+                        <a href="~/Estoque/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
+                    <span data-id="@item.id" class="deleteEstoque far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+
+<div class="modal" id="editarEstoque">
+
+</div>
+
+<script type="text/javascript">
+
+
+
+    $(".editEstoque").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarEstoque").load("/Estoque/Edit/" + id, function () {
+            $("#editarEstoque").modal("show");
+        })
+    });
+
+    $(".deleteEstoque").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarEstoque").load("/Estoque/Delete/" + id, function () {
+            $("#editarEstoque").modal("show");
+        })
+    });
+
+    $(".createEstoque").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarEstoque").load("/Estoque/Create/", function () {
+            $("#editarEstoque").modal();
+        })
+    });
+</script>
+
+
+

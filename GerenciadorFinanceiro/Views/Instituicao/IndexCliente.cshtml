@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.instituicao>
 
 @{
-    ViewBag.Title = "Index Cliente";
+    ViewBag.Title = "Clientes";
+    ViewBag.TituloPagina = "Clientes Cadastrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    <a href="~/Instituicao/CreateCliente" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Cliente</a>
+    @*<a href="~/Instituicao/CreateCliente" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Cliente</a>*@
+    <span class="btn btn-outline-success createCliente"> <span class="fas fa-plus"></span> Cliente</span>
 </div>
 
-    <table class="table">
+<div class="col-md-12">
+    <table class="table table-hover table-responsive-sm">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.nome)
@@ -35,31 +37,65 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td class="text-uppercase">
-                    @Html.DisplayFor(modelItem => item.nome)
+            <tr class="col-12" data-placement="top" title="Visualizar instituição" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
+                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
+                    <span style="color:dodgerblue">
+                        @Html.DisplayFor(modelItem => item.nome)
+                    </span>
                 </td>
-                <td>
+                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.cnpj)
                 </td>
-                <td class="text-uppercase">
+                <td class="text-lowercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.email)
                 </td>
-                <td>
+                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.telefone1)
                 </td>
-                <td>
+                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.telefone2)
                 </td>
-                <td class="text-uppercase">
+                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.responsavel)
                 </td>
                 <td>
-                    <a href="~/Instituicao/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                    <a href="~/Instituicao/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                    <a href="~/Instituicao/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
+                    @*<a href="~/Instituicao/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
+                        <a href="~/Instituicao/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
+                        <a href="~/Instituicao/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
+                    <span data-id="@item.id" class="deleteInstituicao far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
                 </td>
             </tr>
         }
 
     </table>
+</div>
+
+<div class="modal" id="editarInstituicao">
+
+</div>
+
+
+<script type="text/javascript">
+
+
+    $(".editInstituicao").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarInstituicao").load("Edit/" + id, function () {
+            $("#editarInstituicao").modal();
+        })
+    });
+
+    $(".deleteInstituicao").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarInstituicao").load("Delete/" + id, function () {
+            $("#editarInstituicao").modal();
+        })
+    });
+
+    $(".createCliente").click(function () {
+        var id = $(this).attr("data-id");
+        $("#editarInstituicao").load("createCliente/", function () {
+            $("#editarInstituicao").modal();
+        })
+    });
+</script>

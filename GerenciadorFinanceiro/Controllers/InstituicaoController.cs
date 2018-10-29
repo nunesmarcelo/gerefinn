@@ -68,7 +68,15 @@ namespace GerenciadorFinanceiro.Controllers
                 }
                 db.instituicao.Add(instituicao);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", "Lancamento");
+                if(instituicao.fc == "F")
+                {
+                    return RedirectToAction("IndexFornecedor", "Instituicao");
+                }
+                else
+                {
+                    return RedirectToAction("IndexCliente", "Instituicao");
+                }
+                
             }
 
             return View(instituicao);
@@ -102,7 +110,16 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 db.Entry(instituicao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if(instituicao.fc == "F")
+                {
+                    return RedirectToAction("IndexFornecedor");
+                }
+                else
+                {
+                    return RedirectToAction("IndexCliente");
+
+                }
+
             }
             return View(instituicao);
         }
@@ -129,8 +146,30 @@ namespace GerenciadorFinanceiro.Controllers
         {
             instituicao instituicao = await db.instituicao.FindAsync(id);
             db.instituicao.Remove(instituicao);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                await db.SaveChangesAsync();
+            } catch (Exception e)
+            {
+                TempData["erro"] = "Erro ao excluir, você possui lançamentos ligados à essa instituição. Para a proteção dos seus dados, é necessário excluir essa instituição primeiro.";
+                if (instituicao.fc == "F")
+                {
+                    return RedirectToAction("IndexFornecedor");
+                }
+                else
+                {
+                    return RedirectToAction("IndexCliente");
+                }
+            }
+            if (instituicao.fc == "F")
+            {
+                return RedirectToAction("IndexFornecedor");
+            }
+            else
+            {
+                return RedirectToAction("IndexCliente");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

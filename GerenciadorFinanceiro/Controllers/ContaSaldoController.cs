@@ -86,13 +86,21 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // GET: ContaSaldo/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
+            var list = new[]
+           {
+                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                new SelectListItem { Value = "MISTA", Text = "Mista" },
+            };
+
+            ViewBag.Lista = new SelectList(list, "Value", "Text");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            contasaldo contasaldo = await db.contasaldo.FindAsync(id);
+            contasaldo contasaldo =  db.contasaldo.Find(id);
             if (contasaldo == null)
             {
                 return HttpNotFound();
@@ -105,13 +113,13 @@ namespace GerenciadorFinanceiro.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
+        public ActionResult Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(contasaldo).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                db.SaveChanges();
+                return RedirectToAction("Index","ContaSaldo");
             }
             return View(contasaldo);
         }

@@ -18,7 +18,7 @@ namespace GerenciadorFinanceiro.Controllers
         // GET: Categoria Receita
         public async Task<ActionResult> IndexReceita()
         {
-            return View(await db.categoria.Where(x=>x.rd.Equals("R")).ToListAsync());
+            return View(await db.categoria.Where(x => x.rd.Equals("R")).ToListAsync());
         }
 
         // GET: Categoria Despesa
@@ -63,7 +63,7 @@ namespace GerenciadorFinanceiro.Controllers
             var tipo = new[]
            {
                 new SelectListItem { Value = "AC", Text = "ATIVO CIRCULANTE" },
-                new SelectListItem { Value = "AN", Text = "ATIVO NÃO-CIRCULANTE" },
+                new SelectListItem { Value = "ANC", Text = "ATIVO NÃO-CIRCULANTE" },
                 new SelectListItem { Value = "PL", Text = "PATRIMÔNIO LÍQUIDO" },
             };
 
@@ -84,7 +84,7 @@ namespace GerenciadorFinanceiro.Controllers
                 categoria.nome = categoria.nome.ToUpper();
                 db.categoria.Add(categoria);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index","Lancamento");
+                return RedirectToAction("Index", "Lancamento");
             }
 
             return View(categoria);
@@ -114,9 +114,18 @@ namespace GerenciadorFinanceiro.Controllers
         {
             if (ModelState.IsValid)
             {
+                categoria.nome = categoria.nome.ToUpper();
                 db.Entry(categoria).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (categoria.rd == "D")
+                {
+                    return RedirectToAction("IndexDespesa");
+                }
+                else
+                {
+                    return RedirectToAction("IndexReceita");
+                }
+
             }
             return View(categoria);
         }
@@ -139,12 +148,29 @@ namespace GerenciadorFinanceiro.Controllers
         // POST: Categoria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(categoria categoria)
         {
-            categoria categoria = await db.categoria.FindAsync(id);
-            var retorno = categoria.rd;
-            db.categoria.Remove(categoria);
-            await db.SaveChangesAsync();
+            categoria categoriaTipo = await db.categoria.FindAsync(categoria.id);
+            var retorno = categoriaTipo.rd;
+            db.categoria.Remove(categoriaTipo);
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                TempData["erro"] = "Erro ao excluir, você possui lançamentos ligados à essa categoria. Para a proteção dos seus dados, é necessário apagar eles antes de excluí-la.";
+                if (retorno.Equals("D"))
+                {
+                    return RedirectToAction("IndexDespesa");
+                }
+                else
+                {
+                    return RedirectToAction("IndexReceita");
+                }
+            }
+
             if (retorno.Equals("D"))
             {
                 return RedirectToAction("IndexDespesa");
@@ -153,7 +179,7 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 return RedirectToAction("IndexReceita");
             }
-           
+
         }
 
         protected override void Dispose(bool disposing)

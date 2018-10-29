@@ -22,6 +22,12 @@ namespace GerenciadorFinanceiro.Controllers
             return View(await lancamento.ToListAsync());
         }
 
+        public async Task<ActionResult> Index2()
+        {
+            var lancamento = db.lancamento.Include(l => l.categoria).Include(l => l.instituicao).Include(l => l.contasaldo);
+            return View(await lancamento.ToListAsync());
+        }
+
         // GET: Lancamento/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -66,17 +72,22 @@ namespace GerenciadorFinanceiro.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,descricao,quantidade,valor,pago,numerotitulo,datavencimento,dataemissao,datacadastro,observacao,categoria_id,instituicao_id,contasaldo_id")] lancamento lancamento)
+        public async Task<ActionResult> Create( lancamento lancamento)
         {
             if (ModelState.IsValid)
             {
-                if(lancamento.pago == true && lancamento.categoria.rd == "D")
+                if(lancamento.pago == true )
                 {
-                    lancamento.contasaldo.saldo -=  lancamento.valor;
-                }
-                if (lancamento.pago == true && lancamento.categoria.rd == "R")
-                {
-                    lancamento.contasaldo.saldo +=  lancamento.valor;
+                    var categoria = db.categoria.Where(x => x.id == lancamento.categoria_id).FirstOrDefault();
+                    var contasaldo = db.contasaldo.Where(x => x.id == lancamento.contasaldo_id).FirstOrDefault();
+                    if(categoria.rd == "D")
+                    {
+                        contasaldo.saldo -= lancamento.valor;
+                    }
+                    if(categoria.rd == "R"){
+                        contasaldo.saldo += lancamento.valor;
+                    }
+                    
                 }
                 lancamento.descricao = lancamento.descricao.ToUpper();
                 lancamento.datacadastro = AuxCodes.Data.HoraBrasilia();

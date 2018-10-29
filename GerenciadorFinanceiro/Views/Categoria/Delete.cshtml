@@ -1,63 +1,40 @@
 ﻿@model GerenciadorFinanceiro.Models.categoria
 
 @{
-    ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Deletar";
+    Layout = null;
 }
 
-<h3>Confirma a exclusão da categoria?</h3>
-<div>
-    
-    <hr />
-    <dl class="dl-horizontal row col-12 ml-4">
-        <dt>
-            @Html.DisplayNameFor(model => model.nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nome)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tipo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.descricao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.descricao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.rd)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.rd)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Deleção de Categoria</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-    }
+
+        @using (Html.BeginForm("Delete", "Categoria", FormMethod.Post))
+        {
+            <div class="modal-body">
+
+                @Html.AntiForgeryToken()
+                <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5">
+                    <div class="col-12 row">
+                        <h3>Confirma exclusão?</h3>
+                    </div>
+                   
+                    <div class="mt-3 col-12 row">
+                        @Html.DisplayNameFor(model => model.nome)  <b>@Html.DisplayFor(model => model.nome)</b>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
+                </div>
+            </div>
+        }
+    </div>
 </div>

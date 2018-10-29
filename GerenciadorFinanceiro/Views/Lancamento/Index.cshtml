@@ -2,164 +2,114 @@
 
 @{
     ViewBag.Title = "Lançamentos";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.TituloPagina = "Lançamentos Cadastrados";
+    Layout = "~/Views/Shared/_LayoutLiso.cshtml";
 }
 
+<div class="shadow-lg pt-4 pb-4 mb-3 rounded bg-white div-branca">
 
-<div class="col-12" style="text-align:right;margin-bottom:15px;">
+    <div class="col-12 row">
+        <div class="col-8">
+            <a href="~/Categoria/IndexReceita" class="btn btn-outline-info"> <span class="fas fa-money-check-alt"></span> Categorias de Receita</a>
+            <a href="~/Categoria/IndexDespesa" class="btn btn-outline-info"> <span class="fas fa-credit-card"></span> Categorias de Despesa</a>
+        </div>
+        <div class="col-4 " style="text-align:right">
+            <a href="~/Lancamento/CreateReceita" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Receita</a>
+            <a href="~/Lancamento/CreateDespesa" class="btn btn-outline-danger"><span class="fas fa-minus"></span> Despesa</a>
+        </div>
+    </div>
 
-    <a href="~/Lancamento/CreateReceita" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Receita</a>
-    <a href="~/Lancamento/CreateDespesa" class="btn btn-outline-danger"><span class="fas fa-minus"></span> Despesa</a>
-</div>
-
-<div class="col-12" style="background-color:white;margin: 10px auto;">
-    <table class="table table-hover table-bordered text-center" style="width:100%" id="tabela">
-        <thead >
-            <tr>
-                <th style="">
-                    @Html.DisplayNameFor(model => model.descricao)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.pago)
-                </th>
-
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.quantidade)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.valor)
-                </th>
-
-                <th style="min-width:90px">
-                    NF:
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.categoria.tipo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.datavencimento)
-                </th>
-                <th>
-                    Centro de Custo:
-                </th>
-
-                <th style="min-width:100px"></th>
-            </tr>
-        </thead>
-       
-
-        @foreach (var item in Model)
-        {
-        <tr>
-
-
-            <td class="text-uppercase">
-                @Html.DisplayFor(modelItem => item.descricao)
-            </td>
-
-            @if (item.pago == true)
-            {
-                <td>
-                   <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-check text-success" style="font-size:16pt;"></span>
-                </td>
-            }
-            else
-            {
-                <td>
-                    <span onclick="pagar(@item.id)" id="pago_@item.id"  class="fas fa-times text-danger" style="font-size:16pt;"></span>
-                </td>
-            }
-
-
-            <td>
-                @Html.DisplayFor(modelItem => item.quantidade)
-            </td>
-            <td>
-                R$@Html.DisplayFor(modelItem => item.valor)
-            </td>
-
-
-
-            <td>
-                @Html.DisplayFor(modelItem => item.numerotitulo)
-            </td>
-
-            @if (item.categoria.tipo.Equals("PC"))
-            {
-                <td style="background-color: #FFE4E4">
-                    Passivo Circulante
-                </td>
-            }
-            @if (item.categoria.tipo.Equals("PNC"))
-            {
-                <td class="table-warning">
-                    Passivo Não-Circulante
-                </td>
-            }
-
-            @if (item.categoria.tipo.Equals("AC"))
-            {
-                <td style="background-color: #ccd2ff;">
-                    Ativo Circulante
-                </td>
-            }
-
-            @if (item.categoria.tipo.Equals("ANC"))
-            {
-                <td class="table-primary">
-                    Ativo Não-Circulante
-                </td>
-            }
-
-            @if (item.categoria.tipo.Equals("PL"))
-            {
-                <td class="table-info">
-                    Ativo Não-Circulante
-                </td>
-            }
-
-            <td>
-                @item.datavencimento.Value.ToShortDateString()
-            </td>
-
-            <td>
-                @item.contasaldo.nome
-            </td>
-
-
-            <td>
-                <a href="~/Lancamento/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                <a href="~/Lancamento/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                <a href="~/Lancamento/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>
-            </td>
-        </tr>
-        }
-
-    </table>
 </div>
 
 
-<script type="text/javascript">
-    function pagar(id) {
-        $.ajax({
-            url: "Pagar/" + id,
-            type: "POST",
-            success: function (data) {
-                if (data.localeCompare("false") == 0) {
-                    $("#pago_" + id).addClass("fa-times text-danger").removeClass("fa-check text-success");
-                }
-                if (data.localeCompare("true") == 0) {
-                    $("#pago_" + id).addClass("fa-check text-success").removeClass("fa-times text-danger");
-                }
-                if (data.localeCompare("true") != 0 && data.localeCompare("false") != 0) {
-                    alert(data);
-                }
-                    
-            },
-            error: function (data) {
-                alert(data);
-            }
-        });
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-sm-12 mb-4 ">
+            <div class="shadow-lg pt-3 pb-2   rounded bg-white div-branca">
+                @* Descrição *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.descricao)</b>
+                    <a href="~/Lancamento/Details/@item.id">
+                        @Html.DisplayFor(modelItem => item.descricao)
+                    </a>
+                </div>
+
+                @* Pago *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.pago)</b>
+                    @if (item.pago == true)
+                    {
+                        <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-check text-success" style="font-size:16pt;"></span>
+                    }
+                    else
+                    {
+                        <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-times text-danger" style="font-size:16pt;"></span>
+                    }
+                </div>
+
+                @* Quantidade *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.quantidade)</b>
+                    @Html.DisplayFor(modelItem => item.quantidade)
+                </div>
+
+                @* Valor *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.valor):</b>
+                    R$@Html.DisplayFor(modelItem => item.valor)
+                </div>
+
+                @* NF *@
+                <div class="col-12">
+                    <b>NF:</b>
+                    @Html.DisplayFor(modelItem => item.numerotitulo)
+                </div>
+
+                @* Tipo *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.categoria.tipo)</b>
+
+                    @if (item.categoria.tipo.Equals("PC"))
+                    {
+                        <span> Passivo Circulante</span>
+                    }
+                    @if (item.categoria.tipo.Equals("PNC"))
+                    {
+                        <span> Passivo Não-Circulante</span>
+                    }
+                    @if (item.categoria.tipo.Equals("AC"))
+                    {
+                        <span>Ativo Circulante</span>
+                    }
+                    @if (item.categoria.tipo.Equals("ANC"))
+                    {
+                        <span>Ativo Não-Circulante</span>
+                    }
+                    @if (item.categoria.tipo.Equals("PL"))
+                    {
+                        <span>Patrimônio Líquido</span>
+                    }
+                </div>
+
+                @* Vencimento *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.datavencimento)</b>
+                    @if (item.datavencimento != null)
+                    {
+                        <span>@item.datavencimento.Value.ToShortDateString()</span>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </div>
+
+
+
+            </div>
+
+        </div>
     }
-</script>
+</div>
