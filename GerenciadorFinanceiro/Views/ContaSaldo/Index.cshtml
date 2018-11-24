@@ -44,7 +44,18 @@
                     </span>
                 </td>
                 <td class="text-uppercase editContaSaldo " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.banco)
+                    @if (@Html.DisplayFor(modelItem => item.banco).ToString() == "CAIXA")
+                    {
+                        <img src="~/Images/ico-caixa.png" alt="Alternate Text" class="rounded-circle img-fluid" style="width:6% ;" />
+                    }
+                    @*@if (@Html.DisplayFor(modelItem => item.banco).ToString() == "BRASIL")
+                    {
+                        <img src="~/Images/ico-bb.jpg" alt="Alternate Text" class="rounded-circle img-fluid" style="width:10% ;" />
+                    }*@
+                    else
+                    {
+                        @Html.DisplayFor(modalItem => item.banco)
+                    }
                 </td>
                 <td class="text-uppercase editContaSaldo " data-id="@item.id" data-toggle="tooltip">
                     @Html.DisplayFor(modelItem => item.saldo)

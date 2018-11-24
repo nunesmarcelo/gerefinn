@@ -117,6 +117,12 @@ namespace GerenciadorFinanceiro.Controllers
         {
             if (ModelState.IsValid)
             {
+                contasaldo.nome = contasaldo.nome.ToUpper();
+                contasaldo.banco = contasaldo.banco.ToUpper();
+                if(contasaldo.titular != null)
+                {
+                    contasaldo.titular = contasaldo.titular.ToUpper();
+                }
                 db.Entry(contasaldo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index","ContaSaldo");
