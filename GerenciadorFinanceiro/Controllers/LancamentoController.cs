@@ -15,20 +15,15 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Lancamento
+        #region [ Index ] 
         public async Task<ActionResult> Index()
         {
-            var lancamento = db.lancamento.Include(l => l.categoria).Include(l => l.instituicao).Include(l => l.contasaldo);
+            var lancamento = db.lancamento.Include(l => l.categoria).Include(l => l.contasaldo).Include(l => l.instituicao).Include(l => l.usuario);
             return View(await lancamento.ToListAsync());
         }
+        #endregion
 
-        public async Task<ActionResult> Index2()
-        {
-            var lancamento = db.lancamento.Include(l => l.categoria).Include(l => l.instituicao).Include(l => l.contasaldo);
-            return View(await lancamento.ToListAsync());
-        }
-
-        // GET: Lancamento/Details/5
+        #region [ Details ] 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,67 +37,76 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(lancamento);
         }
+        #endregion
 
-        // GET: Lancamento/Create
-        public ActionResult CreateReceita()
-        {
-            ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "R"), "id", "nome");
-            ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "C"), "id", "nome");
-            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");
-
-
-           
-            return View();
-        }
-
-        // GET: Lancamento/Create
+        #region [ Create Despesa] 
         public ActionResult CreateDespesa()
         {
-            ViewBag.categoria_id = new SelectList(db.categoria.Where(x=> x.rd == "D"), "id", "nome");
-            ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x=>x.fc == "F"), "id", "nome");
+            // D = Despesa. F = Fornecedor.
+            ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "D"), "id", "nome");
             ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");
-
-         
-
+            ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "F"), "id", "nome");
+            ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome");
             return View();
         }
+        #endregion
 
-        // POST: Lancamento/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region [ Create Receita ] 
+        public ActionResult CreateReceita()
+        {
+            //R = Receita. C = Cliente.
+            ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "R"), "id", "nome");
+            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");
+            ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "C"), "id", "nome");
+            ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome");
+            return View();
+        }
+        #endregion
+
+        #region [ Post - Create ] 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( lancamento lancamento)
+        public async Task<ActionResult> Create(lancamento lancamento)
         {
             if (ModelState.IsValid)
             {
-                if(lancamento.pago == true )
+                if (lancamento.pago == true)
                 {
                     var categoria = db.categoria.Where(x => x.id == lancamento.categoria_id).FirstOrDefault();
                     var contasaldo = db.contasaldo.Where(x => x.id == lancamento.contasaldo_id).FirstOrDefault();
-                    if(categoria.rd == "D")
+                    if (categoria.rd == "D")
                     {
-                        contasaldo.saldo -= lancamento.valor;
+                        contasaldo.saldo -= lancamento.valortotal;
+
+                        ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "D"), "id", "nome", lancamento.categoria_id);
+                        ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "F"), "id", "nome", lancamento.instituicao_id);
+                        ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+                        //ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome", lancamento.usuario_id);
                     }
-                    if(categoria.rd == "R"){
-                        contasaldo.saldo += lancamento.valor;
+                    if (categoria.rd == "R")
+                    {
+                        contasaldo.saldo += lancamento.valortotal;
+
+                        ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "R"), "id", "nome", lancamento.categoria_id);
+                        ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "C"), "id", "nome", lancamento.instituicao_id);
+                        ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+                        //ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome", lancamento.usuario_id);
                     }
-                    
+
                 }
-                lancamento.descricao = lancamento.descricao.ToUpper();
-                lancamento.datacadastro = AuxCodes.Data.HoraBrasilia();
+                lancamento.observacao = lancamento.observacao != null ? lancamento.observacao.ToUpper() : null;
+                lancamento.descricao = lancamento.descricao != null ? lancamento.descricao.ToUpper() : null;
+                lancamento.datacadastro = AuxCodes.Date.HoraBrasilia();
                 db.lancamento.Add(lancamento);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
-            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
-            ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
             return View(lancamento);
         }
+        #endregion
 
-        // GET: Lancamento/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -115,17 +119,15 @@ namespace GerenciadorFinanceiro.Controllers
                 return HttpNotFound();
             }
             ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
-            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
             ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
+            ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome", lancamento.usuario_id);
             return View(lancamento);
         }
 
-        // POST: Lancamento/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,descricao,quantidade,valor,pago,numerotitulo,datavencimento,dataemissao,datacadastro,observacao,categoria_id,instituicao_id,contasaldo_id")] lancamento lancamento)
+        public async Task<ActionResult> Edit([Bind(Include = "id,descricao,valortotal,pago,datavencimento,datacadastro,observacao,contasaldo_id,categoria_id,usuario_id,instituicao_id")] lancamento lancamento)
         {
             if (ModelState.IsValid)
             {
@@ -134,12 +136,14 @@ namespace GerenciadorFinanceiro.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
-            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
             ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+            ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
+            ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome", lancamento.usuario_id);
             return View(lancamento);
         }
+        #endregion
 
-        // GET: Lancamento/Delete/5
+        #region [ Delete ]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -153,8 +157,7 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(lancamento);
         }
-
-        // POST: Lancamento/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -164,7 +167,9 @@ namespace GerenciadorFinanceiro.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region [Dispose]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -173,7 +178,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
 
+        #region [ Pagar lançamento ]
         [HttpPost]
         public ActionResult pagar(int? id)
         {
@@ -182,42 +189,63 @@ namespace GerenciadorFinanceiro.Controllers
             try
             {
                 lancamento = db.lancamento.Where(i => i.id == id).FirstOrDefault();
-                if (lancamento.pago == true) { 
+                if (lancamento.pago == true)
+                {
                     lancamento.pago = false;
-                    if(lancamento.categoria.rd == "D")
+                    if (lancamento.categoria.rd == "D")
                     {
-                        lancamento.contasaldo.saldo +=  lancamento.valor;
+                        lancamento.contasaldo.saldo += lancamento.valortotal;
                     }
-                    if(lancamento.categoria.rd == "R")
+                    if (lancamento.categoria.rd == "R")
                     {
-                        lancamento.contasaldo.saldo -=  lancamento.valor;
+                        lancamento.contasaldo.saldo -= lancamento.valortotal;
                     }
-                    
+
                 }
                 else
                 {
                     lancamento.pago = true;
                     if (lancamento.categoria.rd == "D")
                     {
-                        lancamento.contasaldo.saldo -= lancamento.valor;
+                        lancamento.contasaldo.saldo -= lancamento.valortotal;
                     }
                     if (lancamento.categoria.rd == "R")
                     {
-                        lancamento.contasaldo.saldo += lancamento.valor;
+                        lancamento.contasaldo.saldo += lancamento.valortotal;
                     }
                 }
-                   
+
 
                 db.SaveChanges();
-            }catch(Exception e)
-            {
-                return Json("Erro:"+e, JsonRequestBehavior.AllowGet);
             }
-           
-            if(lancamento.pago == false)
+            catch (Exception e)
+            {
+                return Json("Erro:" + e, JsonRequestBehavior.AllowGet);
+            }
+
+            if (lancamento.pago == false)
                 return Json("false", JsonRequestBehavior.AllowGet);
             else
                 return Json("true", JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create([Bind(Include = "id,descricao,valortotal,pago,datavencimento,datacadastro,observacao,contasaldo_id,categoria_id,usuario_id,instituicao_id")] lancamento lancamento)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.lancamento.Add(lancamento);
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.categoria_id = new SelectList(db.categoria, "id", "nome", lancamento.categoria_id);
+        //    ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome", lancamento.contasaldo_id);
+        //    ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", lancamento.instituicao_id);
+        //    ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome", lancamento.usuario_id);
+        //    return View(lancamento);
+        //}
     }
 }

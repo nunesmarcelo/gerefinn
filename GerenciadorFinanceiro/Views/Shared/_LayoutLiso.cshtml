@@ -107,7 +107,7 @@
                 @*<li> <div class="row class-12" ><a href="~/Caixa/AbrirCaixa" target="resource window" style="margin: auto;width:150px; " class="texto-menu-esq col-6">Caixa</a><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>*@
                 @*<li> <div class="row class-12"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6 botao-caixa">Caixa</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>*@
                 <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Home/Index' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/news.png")" alt="Alternate Text" />  <b class="texto-escondido">Início</b></a></li>
-                <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Caixa/AbrirCaixa' target="resource window" class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/dres2.png")" alt="Alternate Text" />  <b class="texto-escondido">Caixa</b></a></li>
+                <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Caixa/Index' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/dres2.png")" alt="Alternate Text" />  <b class="texto-escondido">Caixa</b></a></li>
 
 
                 @*<li> <div class="row class-12" onclick="mudar_financeiro()"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6">Financeiro</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
@@ -164,7 +164,7 @@
 
                 @if (TempData["erro"] != null)
                 {
-                    <div class="shadow-lg pt-4 pb-4 mb-3 rounded bg-white div-branca">
+                    <div class=" mb-3 rounded div-branca">
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             @TempData["erro"].ToString()
@@ -173,7 +173,7 @@
                 }
                 @if (TempData["sucesso"] != null)
                 {
-                    <div class="shadow-lg pt-4 pb-4 mb-3 rounded bg-white div-branca">
+                    <div class=mb-3 rounded div-branca">
                         <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             @TempData["sucesso"].ToString()
@@ -187,7 +187,7 @@
 
                 <hr />
                 <footer class="text-center" style="margin-top: 30px;">
-                    <p>&copy; @DateTime.Now.Year - Desenvolvido por Marcelo Nunes.</p>
+                    <p>&copy; @GerenciadorFinanceiro.AuxCodes.Date.HoraBrasilia().Year - Desenvolvido por Marcelo Nunes.</p>
                 </footer>
             </div>
 
@@ -218,6 +218,7 @@
 
 
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
             $('#tabela').dataTable({
                 "paging": true,
                 "info": false,

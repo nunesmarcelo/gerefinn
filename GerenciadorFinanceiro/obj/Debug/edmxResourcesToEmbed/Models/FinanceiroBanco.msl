@@ -1,83 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="financeiroModelStoreContainer" CdmEntityContainer="FinanceiroBanco">
-    <EntitySetMapping Name="contasaldo">
-      <EntityTypeMapping TypeName="financeiroModel.contasaldo">
-        <MappingFragment StoreEntitySet="contasaldo">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nome" ColumnName="nome" />
-          <ScalarProperty Name="banco" ColumnName="banco" />
-          <ScalarProperty Name="saldo" ColumnName="saldo" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="agencia" ColumnName="agencia" />
-          <ScalarProperty Name="conta" ColumnName="conta" />
-          <ScalarProperty Name="titular" ColumnName="titular" />
-          <ScalarProperty Name="tipo" ColumnName="tipo" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="instituicao">
-      <EntityTypeMapping TypeName="financeiroModel.instituicao">
-        <MappingFragment StoreEntitySet="instituicao">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nome" ColumnName="nome" />
-          <ScalarProperty Name="cnpj" ColumnName="cnpj" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="telefone1" ColumnName="telefone1" />
-          <ScalarProperty Name="telefone2" ColumnName="telefone2" />
-          <ScalarProperty Name="responsavel" ColumnName="responsavel" />
-          <ScalarProperty Name="rua" ColumnName="rua" />
-          <ScalarProperty Name="numero" ColumnName="numero" />
-          <ScalarProperty Name="bairro" ColumnName="bairro" />
-          <ScalarProperty Name="cidade" ColumnName="cidade" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="cep" ColumnName="cep" />
-          <ScalarProperty Name="fc" ColumnName="fc" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="usuario">
-      <EntityTypeMapping TypeName="financeiroModel.usuario">
-        <MappingFragment StoreEntitySet="usuario">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="nome" ColumnName="nome" />
-          <ScalarProperty Name="login" ColumnName="login" />
-          <ScalarProperty Name="senha" ColumnName="senha" />
-          <ScalarProperty Name="cpf" ColumnName="cpf" />
-          <ScalarProperty Name="permissao" ColumnName="permissao" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="telefone" ColumnName="telefone" />
-          <ScalarProperty Name="rua" ColumnName="rua" />
-          <ScalarProperty Name="numero" ColumnName="numero" />
-          <ScalarProperty Name="bairro" ColumnName="bairro" />
-          <ScalarProperty Name="cidade" ColumnName="cidade" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="cep" ColumnName="cep" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="lancamento">
-      <EntityTypeMapping TypeName="financeiroModel.lancamento">
-        <MappingFragment StoreEntitySet="lancamento">
-          <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
-          <ScalarProperty Name="contasaldo_id" ColumnName="contasaldo_id" />
-          <ScalarProperty Name="instituicao_id" ColumnName="instituicao_id" />
-          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
-          <ScalarProperty Name="observacao" ColumnName="observacao" />
-          <ScalarProperty Name="datacadastro" ColumnName="datacadastro" />
-          <ScalarProperty Name="dataemissao" ColumnName="dataemissao" />
-          <ScalarProperty Name="datavencimento" ColumnName="datavencimento" />
-          <ScalarProperty Name="numerotitulo" ColumnName="numerotitulo" />
-          <ScalarProperty Name="pago" ColumnName="pago" />
-          <ScalarProperty Name="valor" ColumnName="valor" />
-          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
-          <ScalarProperty Name="descricao" ColumnName="descricao" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+  <EntityContainerMapping StorageEntityContainer="FinanceiroModelStoreContainer" CdmEntityContainer="FinanceiroBanco">
     <EntitySetMapping Name="categoria">
-      <EntityTypeMapping TypeName="financeiroModel.categoria">
+      <EntityTypeMapping TypeName="FinanceiroModel.categoria">
         <MappingFragment StoreEntitySet="categoria">
           <ScalarProperty Name="rd" ColumnName="rd" />
           <ScalarProperty Name="descricao" ColumnName="descricao" />
@@ -88,19 +13,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="produto">
-      <EntityTypeMapping TypeName="financeiroModel.produto">
-        <MappingFragment StoreEntitySet="produto">
+    <EntitySetMapping Name="contasaldo">
+      <EntityTypeMapping TypeName="FinanceiroModel.contasaldo">
+        <MappingFragment StoreEntitySet="contasaldo">
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="titular" ColumnName="titular" />
+          <ScalarProperty Name="conta" ColumnName="conta" />
+          <ScalarProperty Name="agencia" ColumnName="agencia" />
           <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="custounitario" ColumnName="custounitario" />
-          <ScalarProperty Name="valorunitario" ColumnName="valorunitario" />
+          <ScalarProperty Name="saldo" ColumnName="saldo" />
+          <ScalarProperty Name="banco" ColumnName="banco" />
           <ScalarProperty Name="nome" ColumnName="nome" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="estoque">
-      <EntityTypeMapping TypeName="financeiroModel.estoque">
+      <EntityTypeMapping TypeName="FinanceiroModel.estoque">
         <MappingFragment StoreEntitySet="estoque">
           <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="cep" ColumnName="cep" />
@@ -117,29 +46,235 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="lancamentoestoque">
-      <EntityTypeMapping TypeName="financeiroModel.lancamentoestoque">
-        <MappingFragment StoreEntitySet="lancamentoestoque">
-          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
-          <ScalarProperty Name="valor" ColumnName="valor" />
-          <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
-          <ScalarProperty Name="estoque_id" ColumnName="estoque_id" />
+    <EntitySetMapping Name="imagemcontasaldo">
+      <EntityTypeMapping TypeName="FinanceiroModel.imagemcontasaldo">
+        <MappingFragment StoreEntitySet="imagemcontasaldo">
           <ScalarProperty Name="contasaldo_id" ColumnName="contasaldo_id" />
+          <ScalarProperty Name="principal" ColumnName="principal" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="imagemestoque">
+      <EntityTypeMapping TypeName="FinanceiroModel.imagemestoque">
+        <MappingFragment StoreEntitySet="imagemestoque">
+          <ScalarProperty Name="estoque_id" ColumnName="estoque_id" />
+          <ScalarProperty Name="principal" ColumnName="principal" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="imageminstituicao">
+      <EntityTypeMapping TypeName="FinanceiroModel.imageminstituicao">
+        <MappingFragment StoreEntitySet="imageminstituicao">
+          <ScalarProperty Name="instituicao_id" ColumnName="instituicao_id" />
+          <ScalarProperty Name="principal" ColumnName="principal" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="imagemproduto">
+      <EntityTypeMapping TypeName="FinanceiroModel.imagemproduto">
+        <MappingFragment StoreEntitySet="imagemproduto">
           <ScalarProperty Name="produto_id" ColumnName="produto_id" />
-          <ScalarProperty Name="lote" ColumnName="lote" />
-          <ScalarProperty Name="validade" ColumnName="validade" />
-          <ScalarProperty Name="datasaida" ColumnName="datasaida" />
-          <ScalarProperty Name="dataentrada" ColumnName="dataentrada" />
+          <ScalarProperty Name="principal" ColumnName="principal" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="imagemusuario">
+      <EntityTypeMapping TypeName="FinanceiroModel.imagemusuario">
+        <MappingFragment StoreEntitySet="imagemusuario">
+          <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+          <ScalarProperty Name="principal" ColumnName="principal" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="instituicao">
+      <EntityTypeMapping TypeName="FinanceiroModel.instituicao">
+        <MappingFragment StoreEntitySet="instituicao">
+          <ScalarProperty Name="fc" ColumnName="fc" />
+          <ScalarProperty Name="cep" ColumnName="cep" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="cidade" ColumnName="cidade" />
+          <ScalarProperty Name="bairro" ColumnName="bairro" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="rua" ColumnName="rua" />
+          <ScalarProperty Name="responsavel" ColumnName="responsavel" />
+          <ScalarProperty Name="telefone2" ColumnName="telefone2" />
+          <ScalarProperty Name="telefone1" ColumnName="telefone1" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="lancamento">
+      <EntityTypeMapping TypeName="FinanceiroModel.lancamento">
+        <MappingFragment StoreEntitySet="lancamento">
+          <ScalarProperty Name="instituicao_id" ColumnName="instituicao_id" />
+          <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
+          <ScalarProperty Name="contasaldo_id" ColumnName="contasaldo_id" />
+          <ScalarProperty Name="observacao" ColumnName="observacao" />
+          <ScalarProperty Name="datacadastro" ColumnName="datacadastro" />
+          <ScalarProperty Name="datavencimento" ColumnName="datavencimento" />
+          <ScalarProperty Name="pago" ColumnName="pago" />
+          <ScalarProperty Name="valortotal" ColumnName="valortotal" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="logcaixa">
+      <EntityTypeMapping TypeName="FinanceiroModel.logcaixa">
+        <MappingFragment StoreEntitySet="logcaixa">
+          <ScalarProperty Name="caixa_id" ColumnName="caixa_id" />
+          <ScalarProperty Name="responsavel" ColumnName="responsavel" />
+          <ScalarProperty Name="motivo" ColumnName="motivo" />
+          <ScalarProperty Name="horario" ColumnName="horario" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="notafiscallancamento">
+      <EntityTypeMapping TypeName="FinanceiroModel.notafiscallancamento">
+        <MappingFragment StoreEntitySet="notafiscallancamento">
+          <ScalarProperty Name="lancamento_id" ColumnName="lancamento_id" />
+          <ScalarProperty Name="data" ColumnName="data" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="notafiscalvenda">
+      <EntityTypeMapping TypeName="FinanceiroModel.notafiscalvenda">
+        <MappingFragment StoreEntitySet="notafiscalvenda">
+          <ScalarProperty Name="venda_id" ColumnName="venda_id" />
+          <ScalarProperty Name="data" ColumnName="data" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pagamento">
+      <EntityTypeMapping TypeName="FinanceiroModel.pagamento">
+        <MappingFragment StoreEntitySet="pagamento">
+          <ScalarProperty Name="venda_id" ColumnName="venda_id" />
+          <ScalarProperty Name="tipopagamento_id" ColumnName="tipopagamento_id" />
+          <ScalarProperty Name="datainicio" ColumnName="datainicio" />
+          <ScalarProperty Name="parcelas" ColumnName="parcelas" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="produto">
+      <EntityTypeMapping TypeName="FinanceiroModel.produto">
+        <MappingFragment StoreEntitySet="produto">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="estoqueminimo" ColumnName="estoqueminimo" />
+          <ScalarProperty Name="custounitario" ColumnName="custounitario" />
+          <ScalarProperty Name="valorunitario" ColumnName="valorunitario" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="produtoemestoque">
-      <EntityTypeMapping TypeName="financeiroModel.produtoemestoque">
+      <EntityTypeMapping TypeName="FinanceiroModel.produtoemestoque">
         <MappingFragment StoreEntitySet="produtoemestoque">
           <ScalarProperty Name="quantidade" ColumnName="quantidade" />
           <ScalarProperty Name="estoque_id" ColumnName="estoque_id" />
           <ScalarProperty Name="produto_id" ColumnName="produto_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="produtolancamento">
+      <EntityTypeMapping TypeName="FinanceiroModel.produtolancamento">
+        <MappingFragment StoreEntitySet="produtolancamento">
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+          <ScalarProperty Name="lote" ColumnName="lote" />
+          <ScalarProperty Name="validade" ColumnName="validade" />
+          <ScalarProperty Name="lancamento_id" ColumnName="lancamento_id" />
+          <ScalarProperty Name="estoque_id" ColumnName="estoque_id" />
+          <ScalarProperty Name="produto_id" ColumnName="produto_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="produtovenda">
+      <EntityTypeMapping TypeName="FinanceiroModel.produtovenda">
+        <MappingFragment StoreEntitySet="produtovenda">
+          <ScalarProperty Name="produtoemestoque_estoque_id" ColumnName="produtoemestoque_estoque_id" />
+          <ScalarProperty Name="produtoemestoque_produto_id" ColumnName="produtoemestoque_produto_id" />
+          <ScalarProperty Name="venda_id" ColumnName="venda_id" />
+          <ScalarProperty Name="desconto" ColumnName="desconto" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipopagamento">
+      <EntityTypeMapping TypeName="FinanceiroModel.tipopagamento">
+        <MappingFragment StoreEntitySet="tipopagamento">
+          <ScalarProperty Name="parcelasmaximas" ColumnName="parcelasmaximas" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="FinanceiroModel.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="cep" ColumnName="cep" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="cidade" ColumnName="cidade" />
+          <ScalarProperty Name="bairro" ColumnName="bairro" />
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="rua" ColumnName="rua" />
+          <ScalarProperty Name="telefone" ColumnName="telefone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="permissao" ColumnName="permissao" />
+          <ScalarProperty Name="cpf" ColumnName="cpf" />
+          <ScalarProperty Name="senha" ColumnName="senha" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="venda">
+      <EntityTypeMapping TypeName="FinanceiroModel.venda">
+        <MappingFragment StoreEntitySet="venda">
+          <ScalarProperty Name="instituicao_id" ColumnName="instituicao_id" />
+          <ScalarProperty Name="usuario_id" ColumnName="usuario_id" />
+          <ScalarProperty Name="caixa_id" ColumnName="caixa_id" />
+          <ScalarProperty Name="valortotal" ColumnName="valortotal" />
+          <ScalarProperty Name="concluida" ColumnName="concluida" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="caixa">
+      <EntityTypeMapping TypeName="FinanceiroModel.caixa">
+        <MappingFragment StoreEntitySet="caixa">
+          <ScalarProperty Name="lancamento_id" ColumnName="lancamento_id" />
+          <ScalarProperty Name="horafechamento" ColumnName="horafechamento" />
+          <ScalarProperty Name="horaabertura" ColumnName="horaabertura" />
+          <ScalarProperty Name="valorfechamento" ColumnName="valorfechamento" />
+          <ScalarProperty Name="valorabertura" ColumnName="valorabertura" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

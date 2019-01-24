@@ -1,0 +1,46 @@
+﻿@model GerenciadorFinanceiro.Models.produtovenda
+
+<li style="padding-bottom:15px">
+    @using (Html.BeginCollectionItem("produtos"))
+    {
+        @*<img src="@Url.Content("~/Content/images/draggable-icon.png")" style="cursor: move" alt="" />*@
+    <div class="row col-12 align-items-center">
+        <div class="col-3">
+            <div class="col-12">
+                @Html.LabelFor(model => model.produtoemestoque.produto.nome, htmlAttributes: new { @class = "control-label requerido" })
+
+            </div>
+            <div class="col-12">
+                @Html.EditorFor(model => model.produtoemestoque.produto.nome, new { @class = "form-control", @style = "text-transform: uppercase", })
+                @Html.ValidationMessageFor(model => model.produtoemestoque.produto.nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="col-12 row">
+                @Html.LabelFor(model => model.quantidade, htmlAttributes: new { @class = "control-label requerido" })
+
+            </div>
+            <div class="col-12 row">
+                @Html.EditorFor(model => model.quantidade, new { @class = "form-control", @style = "text-transform: uppercase", })
+                @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="col-12 row">
+                @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label requerido" })
+
+            </div>
+            <div class="col-12 row">
+                @Html.EditorFor(model => model.valor, new { @class = "form-control", @style = "text-transform: uppercase", })
+                @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="">
+                <a href="#" class="btn btn-danger" onclick="$(this).parent().parent().remove();">Remover</a>
+        </div>
+    </div>
+        
+    }
+</li>

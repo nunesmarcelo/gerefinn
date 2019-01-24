@@ -2,107 +2,58 @@
 
 @{
     ViewBag.Title = "Details";
-    ViewBag.TituloPagina = "Categoria - Detalhes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="dl-horizontal m-4 row col-12">
+<h2>Details</h2>
 
-    <div class="col-sm-12">
-        @Html.DisplayNameFor(model => model.nome) <b>@Html.DisplayFor(model => model.nome)</b>
+<div>
+    <h4>categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
 
-    </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
 
-    <div class="col-md-12 mt-2">
-        @Html.DisplayNameFor(model => model.status)
-        @if (Model.status == true)
-        {
-            <span class="fa fa-toggle-on" style="color:green;font-size:16pt;"></span>
-        }
-        else
-        {
-            <span class="fa fa-toggle-off" style="color:red;font-size:16pt;"></span>
-        }
-    </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo)
+        </dt>
 
-    <div class="col-sm-12 mt-2">
-        @Html.DisplayNameFor(model => model.tipo)
-        @if (Html.DisplayFor(model => model.tipo).ToString() == "PC")
-        {
-            <span>Passivo Circulante</span>
-        }
-    </div>
-    <div class="col-sm-12 mt-2">
-        @Html.DisplayNameFor(model => model.descricao)
-        @if (Model.descricao != null)
-        {
+        <dd>
+            @Html.DisplayFor(model => model.tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
             @Html.DisplayFor(model => model.descricao)
-        }
-        else
-        {
-            <span style="color:red;">---</span>
-        }
-    </div>
+        </dd>
 
-    <div class="col-sm-12">
-        <span class="fas fa-pen ml-2" data-toggle="modal" data-target="#editarCategoria" style="font-size:16pt;color:blue;cursor:zoom-in"> </span>
-        <span class="fas fa-trash ml-2" data-toggle="modal" data-target="#excluirCategoria" style="font-size:16pt;color:blue;cursor:zoom-in"> </span>
-        @if (Model.rd == "D")
-        {
-            <a href="~/Categoria/IndexDespesa/" class="fas fa-undo-alt ml-2" style="font-size:16pt;color:blue;text-decoration:none;"></a>
-        }
-        else
-        {
-            <a href="~/Categoria/IndexReceita/" class="fas fa-undo-alt ml-2" style="font-size:16pt;color:blue;text-decoration:none;"></a>
-        }
+        <dt>
+            @Html.DisplayNameFor(model => model.rd)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.rd)
+        </dd>
 
-    </div>
-
+    </dl>
 </div>
-
-
-@* Delete categoria *@
-<div class="modal" tabindex="-1" role="dialog" id="excluirCategoria">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Excluir Categoria</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="dl-horizontal m-4 row col-12">
-
-                    <h3>Confirma Exclusão?</h3>
-                    <div class="col-sm-12 row">
-                        @Html.DisplayNameFor(model => model.nome) <b>@Html.DisplayFor(model => model.nome)</b>
-
-                    </div>
-
-
-
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                @using (Html.BeginForm("Delete", "Categoria", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.HiddenFor(model => model.id)
-                    <button type="submit" value="Save" class="btn btn-primary">Salvar</button>
-                }
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-@* Fim delete *@
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

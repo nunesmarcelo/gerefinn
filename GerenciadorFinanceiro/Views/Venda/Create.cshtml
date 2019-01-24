@@ -1,0 +1,132 @@
+﻿@model GerenciadorFinanceiro.Models.CadastrarVenda
+
+@{
+    ViewBag.Title = "Venda";
+    ViewBag.TituloPagina = "Cadastro de Venda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#addProduto").click(function () {
+            $.get('/Venda/AdicionarProduto', function (template) {
+                $("#listaProdutos").append(template);
+            });
+        });
+
+        $("#addPagamento").click(function () {
+            $.get('/Venda/AdicionarPagamento', function (template) {
+                $("#listaPagamentos").append(template);
+            });
+        });
+    });
+
+</script>
+
+<div class="panel panel-secondary ">
+    <div class="panel-body" id="dadosusuario">
+        <fieldset class="scheduler-border row col-12 ml-3 mt-4">
+            @using (Html.BeginForm("Create", "Venda", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                @* PRODUTOS DA VENDA *@
+
+                <div class="form-group shadow-lg col-md-12 row align-items-center text-center" style="min-height:150px;background-color:transparent">
+
+                    @* Lista dos produtos*@
+                    <div class="col-12" style="padding:30px;">
+                        <ul id="listaProdutos" style="list-style-type: none">
+                            @foreach (var produto in Model.Produtos)
+                            {
+                                Html.RenderPartial("ProdutoPartialView", produto);
+                            }
+                        </ul>
+                        <a id="addProduto" href="#"><span class="fas fa-plus"></span><span class="fas fa-box-open" style="font-size:26pt;"></span></a>
+                    </div>
+                </div>
+
+                <hr />
+
+                @* FORMAS DE PAGAMENTO *@
+
+                <div class="form-group shadow-lg col-md-12 row align-items-center text-center" style="min-height:150px;background-color:transparent">
+
+                    @* Lista dos pagamentos*@
+                    <div class="col-12" style="padding:30px;">
+                        <ul id="listaPagamentos" style="list-style-type: none">
+                            @foreach (var pagamento in Model.Pagamentos)
+                            {
+                                Html.RenderPartial("PagamentoPartialView", pagamento);
+                            }
+                        </ul>
+                        <a id="addPagamento" href="#"><span class="fas fa-plus"></span><span class="fas fa-file-invoice-dollar" style="font-size:26pt;"></span></a>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.concluida, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
+
+                        <div class="checkbox">
+                            <label class="quadrado">
+                                @Html.EditorFor(model => model.Venda.concluida, new { htmlAttributes = new { @class = "form-control", @style = "text-transform: uppercase", @id = "concluida" } })
+                                <span class="checkmark"></span>
+                            </label>
+                            @Html.ValidationMessageFor(model => model.Venda.concluida, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.valortotal, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
+
+                        @Html.EditorFor(model => model.Venda.valortotal, new { htmlAttributes = new { @class = "form-control", @required = true, @style = "text-transform: uppercase", @id = "valor" } })
+                        @Html.ValidationMessageFor(model => model.Venda.valortotal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.caixa_id, "caixa_id", htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
+                        @Html.DropDownList("caixa_id", null, htmlAttributes: new { @class = "form-control", @required = true, @style = "text-transform: uppercase", @id = "caixa_id" })
+                        @Html.ValidationMessageFor(model => model.Venda.caixa_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.usuario_id, "usuario_id", htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
+                        @Html.DropDownList("usuario_id", null, htmlAttributes: new { @class = "form-control", @required = true, @style = "text-transform: uppercase", @id = "usuario_id" })
+                        @Html.ValidationMessageFor(model => model.Venda.usuario_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.instituicao_id, "instituicao_id", htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
+                        @Html.DropDownList("instituicao_id", null, htmlAttributes: new { @class = "form-control", @required = true, @style = "text-transform: uppercase", @id = "instituicao_id" })
+                        @Html.ValidationMessageFor(model => model.Venda.instituicao_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            }
+        </fieldset>
+        <div class="form-group row col-12 mb-4">
+            <div class="offset-md-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-outline-success mr-3" />
+
+                <a href="~/Lancamento/Index" class="btn btn-outline-danger">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/funcoes.js"></script>
+
+

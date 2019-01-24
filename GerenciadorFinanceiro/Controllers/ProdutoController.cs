@@ -43,16 +43,14 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: Produto/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,nome,valorunitario,custounitario")] produto produto)
+        public async Task<ActionResult> Create([Bind(Include = "id,nome,valorunitario,custounitario,estoqueminimo,status")] produto produto)
         {
             if (ModelState.IsValid)
             {
-                produto.status = true;
-                produto.nome = produto.nome.ToUpper();
                 db.produto.Add(produto);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -77,11 +75,11 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: Produto/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,nome,valorunitario,custounitario,status")] produto produto)
+        public async Task<ActionResult> Edit([Bind(Include = "id,nome,valorunitario,custounitario,estoqueminimo,status")] produto produto)
         {
             if (ModelState.IsValid)
             {

@@ -84,7 +84,15 @@ namespace GerenciadorFinanceiro.Controllers
                 categoria.nome = categoria.nome.ToUpper();
                 db.categoria.Add(categoria);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", "Lancamento");
+                if (categoria.rd == "D")
+                {
+                    return RedirectToAction("IndexDespesa", "Categoria");
+                }
+                else
+                {
+                    return RedirectToAction("IndexReceita", "Categoria");
+                }
+
             }
 
             return View(categoria);
@@ -101,6 +109,27 @@ namespace GerenciadorFinanceiro.Controllers
             if (categoria == null)
             {
                 return HttpNotFound();
+            }
+
+            if (categoria.rd == "D")
+            {
+                var tipo = new[]
+                {
+                new SelectListItem { Value = "PC", Text = "PASSIVO CIRCULANTE" },
+                new SelectListItem { Value = "PNC", Text = "PASSIVO NÃO-CIRCULANTE" },
+                new SelectListItem { Value = "PL", Text = "PATRIMÔNIO LÍQUIDO" },
+                };
+                ViewBag.Lista = new SelectList(tipo, "Value", "Text");
+            }
+            else
+            {
+                var tipo = new[]
+                {
+                new SelectListItem { Value = "AC", Text = "ATIVO CIRCULANTE" },
+                new SelectListItem { Value = "ANC", Text = "ATIVO NÃO-CIRCULANTE" },
+                new SelectListItem { Value = "PL", Text = "PATRIMÔNIO LÍQUIDO" },
+                };
+                ViewBag.Lista = new SelectList(tipo, "Value", "Text");
             }
             return View(categoria);
         }

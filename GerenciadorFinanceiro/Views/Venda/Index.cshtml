@@ -1,0 +1,98 @@
+﻿@model IEnumerable<GerenciadorFinanceiro.Models.venda>
+
+@{
+	ViewBag.Title = "Venda";
+	ViewBag.TituloPagina = "Vendas Cadastrados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-12" style="text-align:right;margin-bottom:15px;">
+    @*<span class="btn btn-outline-success create" data-toggle="tooltip" title="Adicionar Venda"> <span class="fas fa-plus"></span> Venda</span>*@
+    <a href="~/Venda/Create" data-toggle="tooltip" title="Nova venda" style="cursor:pointer;display:inline-block"> <span class="fas fa-money-check" style="font-size:26pt; text-decoration:none;"></span></a>
+
+</div>
+<div class="col-12">
+    <table class="table table-hover table-responsive-sm" id="tabela">
+        <thead>
+            <tr>
+									<th>
+				@Html.DisplayNameFor(model => model.concluida)
+			</th>
+									<th>
+				@Html.DisplayNameFor(model => model.valortotal)
+			</th>
+									<th>
+				@Html.DisplayNameFor(model => model.instituicao.nome)
+			</th>
+																		<th>
+				@Html.DisplayNameFor(model => model.usuario.nome)
+			</th>
+									<th>
+				@Html.DisplayNameFor(model => model.caixa.id)
+			</th>
+						<th></th>
+			</tr>
+        </thead>
+		<tbody>
+
+@foreach (var item in Model) {
+    <tr class="col-12" data-placement="top" title="Visualizar Venda" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:pointer;">
+									<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Venda">
+				@Html.DisplayFor(modelItem => item.concluida)
+			</td>
+									<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Venda">
+				@Html.DisplayFor(modelItem => item.valortotal)
+			</td>
+									<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Venda">
+				@Html.DisplayFor(modelItem => item.instituicao.nome)
+			</td>
+																		<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Venda">
+				@Html.DisplayFor(modelItem => item.usuario.nome)
+			</td>
+									<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Venda">
+				@Html.DisplayFor(modelItem => item.caixa.id)
+			</td>
+						<td>
+				<!-- @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+				@Html.ActionLink("Details", "Details", new { id=item.id }) |
+				@Html.ActionLink("Delete", "Delete", new { id=item.id }) --> 
+				<span data-id="@item.id" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar Venda" style="cursor:alias"></span>
+			</td>
+						</tr>
+}
+		<tbody>
+	</table>
+</div>
+
+
+<div class="modal" id="div-visualizacao">
+
+</div>
+
+<script type="text/javascript">
+
+
+
+    $(".edit").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Venda/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".delete").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Venda/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".create").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Venda/Create/", function () {
+            $("#div-visualizacao").modal();
+        })
+    });
+</script>
+

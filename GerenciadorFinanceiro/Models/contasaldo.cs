@@ -17,8 +17,8 @@ namespace GerenciadorFinanceiro.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public contasaldo()
         {
+            this.imagemcontasaldo = new HashSet<imagemcontasaldo>();
             this.lancamento = new HashSet<lancamento>();
-            this.lancamentoestoque = new HashSet<lancamentoestoque>();
         }
     
         public int id { get; set; }
@@ -32,8 +32,8 @@ namespace GerenciadorFinanceiro.Models
         public string tipo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lancamento> lancamento { get; set; }
+        public virtual ICollection<imagemcontasaldo> imagemcontasaldo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lancamentoestoque> lancamentoestoque { get; set; }
+        public virtual ICollection<lancamento> lancamento { get; set; }
     }
 }

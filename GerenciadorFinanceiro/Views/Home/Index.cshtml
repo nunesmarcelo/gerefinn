@@ -24,7 +24,6 @@
                         <thead>
                             <tr>
                                 <td>Descrição</td>
-                                <td>Quantidade</td>
                                 <td>Valor</td>
                                 <td>Data</td>
                                 <td>Cooperativa</td>
@@ -36,48 +35,45 @@
 
                             @foreach (var lancamento in Model)
                             {
-                            <tr>
-                                <td>
-                                    <span style="text-transform: capitalize;"> @lancamento.descricao</span>
-                                </td>
-                                <td>
-                                    <span style="text-transform: capitalize;">@lancamento.quantidade</span>
-                                </td>
-                                <td>
-                                    <span style="text-transform: capitalize;">@lancamento.valor</span>
-                                </td>
-                                <td>
-                                    <span style="text-transform: capitalize;"> @lancamento.dataemissao.ToString()</span>
-                                </td>
-                                @*<td>
-                                    <span style="text-transform: capitalize;"> @lancamento.nome</span>
-                                </td>*@
-                                @if (lancamento.pago == true)
-                                {
-                                    <td style="color:blue;">
-                                        <span style="text-transform: capitalize;"> Sim</span>
+                                <tr>
+                                    <td>
+                                        <span style="text-transform: capitalize;"> @lancamento.descricao</span>
                                     </td>
-                                }
-                                else
-                                {
-                                    <td style="color:red;">
-                                        <span style="text-transform: capitalize;"> Não</span>
+                                    <td>
+                                        <span style="text-transform: capitalize;">@lancamento.valortotal</span>
                                     </td>
-                                }
-
-                                <td>
+                                    <td>
+                                        <span style="text-transform: capitalize;"> @lancamento.datacadastro.ToString()</span>
+                                    </td>
+                                    @*<td>
+                                            <span style="text-transform: capitalize;"> @lancamento.nome</span>
+                                        </td>*@
                                     @if (lancamento.pago == true)
                                     {
-                                        <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=Index&pasta=Home" class="btn btn-warning"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Não-Pagar</span></a>
+                                        <td style="color:blue;">
+                                            <span style="text-transform: capitalize;"> Sim</span>
+                                        </td>
                                     }
                                     else
                                     {
-                                        <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=Index&pasta=Home" class="btn btn-success"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Pagar</span></a>
+                                        <td style="color:red;">
+                                            <span style="text-transform: capitalize;"> Não</span>
+                                        </td>
                                     }
 
-                                    <a href="~/Lancamento/Deletar?idLancamento=@lancamento.id" class="btn btn-danger" style="float:right;"><span class="glyphicon glyphicon-trash">Excluir</span></a>
-                                </td>
-                            </tr>
+                                    <td>
+                                        @if (lancamento.pago == true)
+                                        {
+                                            <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=Index&pasta=Home" class="btn btn-warning"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Não-Pagar</span></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/Lancamento/Pagar?idLancamento=@lancamento.id&retorno=Index&pasta=Home" class="btn btn-success"><span style="width:70px;text-align:center;" class="glyphicon glyphicon-usd">Pagar</span></a>
+                                        }
+
+                                        <a href="~/Lancamento/Deletar?idLancamento=@lancamento.id" class="btn btn-danger" style="float:right;"><span class="glyphicon glyphicon-trash">Excluir</span></a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
 
@@ -86,7 +82,7 @@
             </fieldset>
         </div>
     </div>
-    
+
 }
 else
 {
@@ -95,5 +91,7 @@ else
         <a href="~/Lancamento/Index" class="btn btn-primary">Adicionar Lançamento</a>
     </div>
 }
+
+
 
 

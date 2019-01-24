@@ -1,90 +1,99 @@
 ﻿@model GerenciadorFinanceiro.Models.produto
 
 @{
-    ViewBag.Title = "Cadastro de Produto";
-    Layout = null;
+    ViewBag.Title = "Produto";
+	ViewBag.TituloPagina = "Cadastro de Produto";
+	Layout = null;
 }
+
+<!-- <h2>Create</h2> 
+<h2>produto</h2> -->
 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Cadastrar Categoria</h5>
+            <h5 class="modal-title">Cadastrar  Produto  </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+		@using (Html.BeginForm("Create" , "Produto" , FormMethod.Post)) 
+		{
+			@Html.AntiForgeryToken()
+				
+			<fieldset class="scheduler-border  mt-4 col-12  ">
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="form-group row">
+					@Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.id, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+					</div>
+			  </div>
 
-            <fieldset class="scheduler-border  mt-4 col-12  ">
+				<div class="form-group row">
+					@Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+					</div>
+			  </div>
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="form-group row">
+					@Html.LabelFor(model => model.valorunitario, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.valorunitario, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.valorunitario, "", new { @class = "text-danger" })
+					</div>
+			  </div>
 
-                <div class="form-group row">
-                    @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-5 requerido" })
-                    <div class="col-md-7">
-                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control", @required = true, @style = "text-transform: uppercase" } })
-                        @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+				<div class="form-group row">
+					@Html.LabelFor(model => model.custounitario, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.custounitario, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.custounitario, "", new { @class = "text-danger" })
+					</div>
+			  </div>
 
-                <div class="form-group row">
-                    @Html.LabelFor(model => model.valorunitario, htmlAttributes: new { @class = "control-label col-md-5" })
-                    <div class="col-md-7">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text" style="width:80px !important;"> R$</div>
-                                @Html.EditorFor(model => model.valorunitario, new { htmlAttributes = new { @class = "form-control", @id = "valor" } })
-                                @Html.ValidationMessageFor(model => model.valorunitario, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="form-group row">
+					@Html.LabelFor(model => model.estoqueminimo, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.estoqueminimo, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.estoqueminimo, "", new { @class = "text-danger" })
+					</div>
+			  </div>
 
-                <div class="form-group row">
-                    @Html.LabelFor(model => model.custounitario, htmlAttributes: new { @class = "control-label col-md-5" })
-                    <div class="col-md-7">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text" style="width:80px !important;"> R$</div>
-                                @Html.EditorFor(model => model.custounitario, new { htmlAttributes = new { @class = "form-control", @id = "valor2" } })
-                                @Html.ValidationMessageFor(model => model.custounitario, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="form-group row">
+					@Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+			
+						<div class="checkbox">				
+							<label class="quadrado">
+								@Html.EditorFor(model => model.status ,  new { htmlAttributes = new { @class = "form-control" } })
+								<span class="checkmark"></span>
+							</label>
+						@Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+					</div>
+									</div>
+			  </div>
 
-                @*<div class="form-group row">
-                        @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2 requerido" })
-                        <div class="col-md-10">
-                            <div class="checkbox">
-                                @Html.EditorFor(model => model.status)
-                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>*@
-
-                @*<div class="form-group row col-12 mb-4">
-                    <div class="offset-md-2 col-md-10">
-                        <input type="submit" value="Salvar" class="btn btn-outline-success mr-3" />
-
-                        <a href="~/Produto/Index" class="btn btn-outline-danger">Voltar</a>
-                    </div>
-                </div>*@
-
-            </fieldset>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                <button type="submit" value="Save" class="btn btn-outline-success">Salvar</button>
-
-            </div>
-        }
-    </div>
-</div>
+			</fieldset>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+				<button type="submit" value="Save" class="btn btn-outline-success">Salvar</button>
+			</div>
+			}
+		</div>
+	</div>
 
 <script type="text/javascript">
-    $('#valor').on('keyup', function () {
+
+	$('#valor').on('keyup', function () {
 
         var v = $("#valor").val();
         v = v.replace(/\D/g, "");
@@ -115,5 +124,38 @@
         }
         $("#valor2").val(v);
     });
+
+    $('#CNPJ').mask('99.999.999/9999-99');
+    $('#Telefone').mask("(99) 9999-99999");
+    $('#Telefone').change(function (event) { // mascara dinamica
+        var target, phone, element;
+        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+        phone = target.value.replace(/\D/g, '');
+        element = $(target); element.unmask();
+        if (phone.length > 10) {
+            element.mask("(99) 99999-9999");
+        }
+        else {
+            element.mask("(99) 9999-99999");
+        }
+    });
+
+    $('#Telefone2').mask("(99) 9999-99999");
+    $('#Telefone2').change(function (event) { // mascara dinamica
+        var target, phone, element;
+        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+        phone = target.value.replace(/\D/g, '');
+        element = $(target); element.unmask();
+        if (phone.length > 10) {
+            element.mask("(99) 99999-9999");
+        }
+        else {
+            element.mask("(99) 9999-99999");
+        }
+    });
+
+
+    $("#cep").mask("99.999-999");
 </script>
+
 

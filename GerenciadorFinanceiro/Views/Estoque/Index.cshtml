@@ -1,82 +1,108 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.estoque>
 
 @{
-    ViewBag.Title = "Depósitos";
-    ViewBag.TituloPagina = "Depósitos Cadastrados";
+    <!-- ViewBag.Title = "Index"; -->
+	ViewBag.Title = "Estoque";
+	ViewBag.TituloPagina = "Estoques Cadastrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- <h2>Index</h2> -->
 
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    @*<a href="~/Estoque/Create" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Conta</a>*@
-    <span class="btn btn-outline-success createEstoque"> <span class="fas fa-plus"></span> Depósito</span>
+    <span class="btn btn-outline-success create"> <span class="fas fa-plus"></span> Estoque</span>
 </div>
-
 <div class="col-md-12">
-    <table class="table table-hover table-responsive-sm">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.responsavel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th></th>
-        </tr>
+    <table class="table table-hover table-responsive-sm" id="tabela">
+        <thead>
+            <tr>
+											<th>
+						@Html.DisplayNameFor(model => model.nome)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.responsavel)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.telefone)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.email)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.rua)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.numero)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.bairro)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.cidade)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.estado)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.cep)
+					</th>
+											<th>
+						@Html.DisplayNameFor(model => model.status)
+					</th>
+																	<th></th>
+			</tr>
+        </thead>
+		<tbody>
 
-        @foreach (var item in Model)
-        {
-            <tr class="col-12" data-placement="top" title="Visualizar conta" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
-                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
-                    <span style="color:dodgerblue">
-                        <b>
-                            @Html.DisplayFor(modelItem => item.nome)
-                        </b>
-                    </span>
-                </td>
-                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.responsavel)
-                </td>
-                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.telefone)
-                </td>
-                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td class="text-uppercase editEstoque " data-id="@item.id" data-toggle="tooltip">
-                    @if (item.status == true)
-                    {
-                        <span class="fa fa-toggle-on" style="color:green;font-size:16pt;"></span>
-                    }
-                    else
-                    {
-                        <span class="fa fa-toggle-off" style="color:red;font-size:16pt;"></span>
-                    }
-                </td>
-                <td>
-                    @*<a href="~/Estoque/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                        <a href="~/Estoque/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                        <a href="~/Estoque/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
-                    <span data-id="@item.id" class="deleteEstoque far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
-                </td>
-            </tr>
-        }
-
-    </table>
-
+@foreach (var item in Model) {
+    <tr class="col-12" data-placement="top" title="Visualizar Estoque" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:pointer;">
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.nome)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.responsavel)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.telefone)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.email)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.rua)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.numero)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.bairro)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.cidade)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.estado)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.cep)
+					</td>
+											<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip">
+						@Html.DisplayFor(modelItem => item.status)
+					</td>
+																	<td>
+						<!-- @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+						@Html.ActionLink("Details", "Details", new { id=item.id }) |
+						@Html.ActionLink("Delete", "Delete", new { id=item.id }) --> 
+						<span data-id="@item.id" class="delete far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
+					</td>
+						</tr>
+}
+		<tbody>
+	</table>
 </div>
 
 
-<div class="modal" id="editarEstoque">
+<div class="modal" id="div-visualizacao">
 
 </div>
 
@@ -84,27 +110,25 @@
 
 
 
-    $(".editEstoque").click(function () {
+    $(".edit").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarEstoque").load("/Estoque/Edit/" + id, function () {
-            $("#editarEstoque").modal("show");
+        $("#div-visualizacao").load("/Estoque/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".deleteEstoque").click(function () {
+    $(".delete").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarEstoque").load("/Estoque/Delete/" + id, function () {
-            $("#editarEstoque").modal("show");
+        $("#div-visualizacao").load("/Estoque/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".createEstoque").click(function () {
+    $(".create").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarEstoque").load("/Estoque/Create/", function () {
-            $("#editarEstoque").modal();
+        $("#div-visualizacao").load("/Estoque/Create/", function () {
+            $("#div-visualizacao").modal();
         })
     });
 </script>
-
-
 

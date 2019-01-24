@@ -17,8 +17,9 @@ namespace GerenciadorFinanceiro.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public estoque()
         {
-            this.lancamentoestoque = new HashSet<lancamentoestoque>();
+            this.imagemestoque = new HashSet<imagemestoque>();
             this.produtoemestoque = new HashSet<produtoemestoque>();
+            this.produtolancamento = new HashSet<produtolancamento>();
         }
     
         public int id { get; set; }
@@ -35,8 +36,10 @@ namespace GerenciadorFinanceiro.Models
         public bool status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lancamentoestoque> lancamentoestoque { get; set; }
+        public virtual ICollection<imagemestoque> imagemestoque { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<produtoemestoque> produtoemestoque { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<produtolancamento> produtolancamento { get; set; }
     }
 }

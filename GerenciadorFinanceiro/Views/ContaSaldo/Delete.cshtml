@@ -1,40 +1,68 @@
 ﻿@model GerenciadorFinanceiro.Models.contasaldo
 
+
 @{
     ViewBag.Title = "Delete";
     Layout = null;
 }
 
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Deleção de Conta</h5>
+            <h5 class="modal-title">Deleção de Contasaldo</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        @using (Html.BeginForm("Delete", "ContaSaldo", FormMethod.Post))
-        {
-            <div class="modal-body">
-
+		@using (Html.BeginForm("Delete", "Contasaldo", FormMethod.Post)) {
+			<div class="modal-body">
                 @Html.AntiForgeryToken()
-                <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5">
+				 <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5" style="text-transform: uppercase;">
                     <div class="col-12">
-                        <h3>Confirma exclusão?</h3>
+                        <div class="h3">Confirma exclusão?</div>
                     </div>
-                    
-                    <br />
+					<fieldset>
+					<br />
                     <div class="mt-3 row col-12">
-                        @Html.DisplayNameFor(model => model.nome)  <b>@Html.DisplayFor(model => model.nome)</b>
+                        @Html.DisplayNameFor(model => model.nome) : <b>@Html.DisplayFor(model => model.nome)</b>
                     </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.banco) : <b>@Html.DisplayFor(model => model.banco)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.saldo) : <b>@Html.DisplayFor(model => model.saldo)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.status) : <b>@Html.DisplayFor(model => model.status)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.agencia) : <b>@Html.DisplayFor(model => model.agencia)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.conta) : <b>@Html.DisplayFor(model => model.conta)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.titular) : <b>@Html.DisplayFor(model => model.titular)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.tipo) : <b>@Html.DisplayFor(model => model.tipo)</b>
+                    </div>
+					</fieldset>
+				</div>	
 
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
-                </div>
-            </div>
-        }
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
+				</div>
+			</div>
+		}
     </div>
 </div>

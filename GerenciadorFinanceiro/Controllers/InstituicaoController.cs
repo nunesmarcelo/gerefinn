@@ -18,7 +18,7 @@ namespace GerenciadorFinanceiro.Controllers
         // GET: Instituicao
         public async Task<ActionResult> IndexFornecedor()
         {
-            return View(await db.instituicao.Where(x=>x.fc.Equals("F")).ToListAsync());
+            return View(await db.instituicao.Where(x => x.fc.Equals("F")).ToListAsync());
         }
 
         public async Task<ActionResult> IndexCliente()
@@ -53,22 +53,23 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: Instituicao/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,nome,cnpj,email,telefone1,telefone2,responsavel,rua,numero,bairro,cidade,estado,cep,fc")] instituicao instituicao)
         {
             if (ModelState.IsValid)
             {
+                db.instituicao.Add(instituicao);
                 instituicao.nome = instituicao.nome.ToUpper();
-                if(instituicao.responsavel != null)
+                if (instituicao.responsavel != null)
                 {
                     instituicao.responsavel = instituicao.responsavel.ToUpper();
                 }
                 db.instituicao.Add(instituicao);
                 await db.SaveChangesAsync();
-                if(instituicao.fc == "F")
+                if (instituicao.fc == "F")
                 {
                     return RedirectToAction("IndexFornecedor", "Instituicao");
                 }
@@ -76,12 +77,9 @@ namespace GerenciadorFinanceiro.Controllers
                 {
                     return RedirectToAction("IndexCliente", "Instituicao");
                 }
-                
             }
 
             return View(instituicao);
-           
-            
         }
 
         // GET: Instituicao/Edit/5
@@ -100,8 +98,8 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: Instituicao/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,cnpj,email,telefone1,telefone2,responsavel,rua,numero,bairro,cidade,estado,cep,fc")] instituicao instituicao)
@@ -110,7 +108,8 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 db.Entry(instituicao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                if(instituicao.fc == "F")
+
+                if (instituicao.fc == "F")
                 {
                     return RedirectToAction("IndexFornecedor");
                 }
@@ -119,7 +118,6 @@ namespace GerenciadorFinanceiro.Controllers
                     return RedirectToAction("IndexCliente");
 
                 }
-
             }
             return View(instituicao);
         }
@@ -149,7 +147,8 @@ namespace GerenciadorFinanceiro.Controllers
             try
             {
                 await db.SaveChangesAsync();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 TempData["erro"] = "Erro ao excluir, você possui lançamentos ligados à essa instituição. Para a proteção dos seus dados, é necessário excluir essa instituição primeiro.";
                 if (instituicao.fc == "F")
@@ -169,7 +168,7 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 return RedirectToAction("IndexCliente");
             }
-            
+
         }
 
         protected override void Dispose(bool disposing)

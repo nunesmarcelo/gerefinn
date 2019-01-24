@@ -60,6 +60,7 @@ M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\GerenciadorFinanceiro.dll.co
 M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\GerenciadorFinanceiro.dll
 M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\GerenciadorFinanceiro.pdb
 M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\Antlr3.Runtime.dll
+M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\BeginCollectionItem.dll
 M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\EntityFramework.dll
 M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\EntityFramework.SqlServer.dll
 M:\gerenciador-financeiro\GerenciadorFinanceiro\bin\Microsoft.AI.Agent.Intercept.dll

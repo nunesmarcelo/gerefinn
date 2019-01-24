@@ -14,11 +14,19 @@ namespace GerenciadorFinanceiro.Models
     
     public partial class produtoemestoque
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public produtoemestoque()
+        {
+            this.produtovenda = new HashSet<produtovenda>();
+        }
+    
         public int produto_id { get; set; }
         public int estoque_id { get; set; }
         public int quantidade { get; set; }
     
         public virtual estoque estoque { get; set; }
         public virtual produto produto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<produtovenda> produtovenda { get; set; }
     }
 }

@@ -43,16 +43,14 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: Estoque/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,nome,responsavel,telefone,email,rua,numero,bairro,cidade,estado,cep")] estoque estoque)
+        public async Task<ActionResult> Create([Bind(Include = "id,nome,responsavel,telefone,email,rua,numero,bairro,cidade,estado,cep,status")] estoque estoque)
         {
             if (ModelState.IsValid)
             {
-                estoque.status = true;
-                estoque.nome = estoque.nome.ToUpper();
                 db.estoque.Add(estoque);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -77,8 +75,8 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: Estoque/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,responsavel,telefone,email,rua,numero,bairro,cidade,estado,cep,status")] estoque estoque)

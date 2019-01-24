@@ -41,9 +41,10 @@ namespace GerenciadorFinanceiro.Controllers
         {
             var list = new[]
             {
-                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
-                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
-                new SelectListItem { Value = "MISTA", Text = "Mista" },
+                new SelectListItem { Value = "POUPANCA" , Text = "Poupança"},
+                new SelectListItem { Value = "CORRENTE" , Text = "Corrente"},
+                new SelectListItem { Value = "MISTA"    , Text = "Mista"},
+                new SelectListItem { Value = "OUTRO"    , Text = "Nenhum/Outro"},
             };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
@@ -51,18 +52,20 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: ContaSaldo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,agencia,conta,titular,tipo")] contasaldo contasaldo)
+        public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
         {
+
             var list = new[]
-           {
-                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
-                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
-                new SelectListItem { Value = "MISTA", Text = "Mista" },
-            };
+            {
+                    new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                    new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                    new SelectListItem { Value = "MISTA", Text = "Mista" },
+                    new SelectListItem { Value = "OUTRO", Text = "Nenhum/Outro" },
+                };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
 
@@ -70,37 +73,44 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 contasaldo.status = true;
                 contasaldo.nome = contasaldo.nome.ToUpper();
-                contasaldo.banco = contasaldo.banco.ToUpper();
-                if(contasaldo.titular != null)
+                if (contasaldo.banco != null)
+                {
+                    contasaldo.banco = contasaldo.banco.ToUpper();
+                }
+
+                if (contasaldo.titular != null)
                 {
                     contasaldo.titular = contasaldo.titular.ToUpper();
                 }
-                
+
                 db.contasaldo.Add(contasaldo);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            
+
 
             return View(contasaldo);
         }
 
         // GET: ContaSaldo/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             var list = new[]
            {
-                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
-                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
-                new SelectListItem { Value = "MISTA", Text = "Mista" },
-            };
+                    new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                    new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                    new SelectListItem { Value = "MISTA", Text = "Mista" },
+                    new SelectListItem { Value = "OUTRO", Text = "Nenhum/Outro" },
+                };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            contasaldo contasaldo =  db.contasaldo.Find(id);
+            contasaldo contasaldo = await db.contasaldo.FindAsync(id);
             if (contasaldo == null)
             {
                 return HttpNotFound();
@@ -109,23 +119,27 @@ namespace GerenciadorFinanceiro.Controllers
         }
 
         // POST: ContaSaldo/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
+        public async Task<ActionResult> Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
         {
+            var list = new[]
+           {
+                    new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                    new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                    new SelectListItem { Value = "MISTA", Text = "Mista" },
+                    new SelectListItem { Value = "OUTRO", Text = "Nenhum/Outro" },
+                };
+
+            ViewBag.Lista = new SelectList(list, "Value", "Text");
+
             if (ModelState.IsValid)
             {
-                contasaldo.nome = contasaldo.nome.ToUpper();
-                contasaldo.banco = contasaldo.banco.ToUpper();
-                if(contasaldo.titular != null)
-                {
-                    contasaldo.titular = contasaldo.titular.ToUpper();
-                }
                 db.Entry(contasaldo).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index","ContaSaldo");
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
             return View(contasaldo);
         }

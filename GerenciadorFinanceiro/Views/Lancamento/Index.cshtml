@@ -22,22 +22,26 @@
 </div>
 
 
-
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-6 col-sm-12 mb-4 ">
-            <div class="shadow-lg pt-3 pb-2   rounded bg-white div-branca">
-                @* Descrição *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.descricao)</b>
+        @*<div class="col-md-6 col-sm-12 mb-4 ">*@
+        <div class="card ml-4" style="width: 18rem;text-align:center;">
+            <div class="card-body shadow-lg pt-3 pb-2   rounded bg-white div-branca">
+                @*<div class="shadow-lg pt-3 pb-2   rounded bg-white div-branca">*@
+                <div class="col-12 card-title list-group-item">
+                    @*<b>@Html.DisplayNameFor(model => model.descricao)</b>*@
                     <a href="~/Lancamento/Details/@item.id">
                         @Html.DisplayFor(modelItem => item.descricao)
                     </a>
                 </div>
+                <img class="card-img-top" src="~/Images/aviao.png" alt="Card image cap">
+
+                @* Descrição *@
+
 
                 @* Pago *@
-                <div class="col-12">
+                <div class="col-12 card-text">
                     <b>@Html.DisplayNameFor(model => model.pago)</b>
                     @if (item.pago == true)
                     {
@@ -50,22 +54,22 @@
                 </div>
 
                 @* Quantidade *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.quantidade)</b>
-                    @Html.DisplayFor(modelItem => item.quantidade)
-                </div>
+                @*<div class="col-12">
+                        <b>@Html.DisplayNameFor(model => model.quantidade)</b>
+                        @Html.DisplayFor(modelItem => item.quantidade)
+                    </div>*@
 
                 @* Valor *@
                 <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.valor):</b>
-                    R$@Html.DisplayFor(modelItem => item.valor)
+                    <b>@Html.DisplayNameFor(model => model.valortotal):</b>
+                    R$@Html.DisplayFor(modelItem => item.valortotal)
                 </div>
 
                 @* NF *@
-                <div class="col-12">
-                    <b>NF:</b>
-                    @Html.DisplayFor(modelItem => item.numerotitulo)
-                </div>
+                @*<div class="col-12">
+                        <b>NF:</b>
+                        @Html.DisplayFor(modelItem => item.numerotitulo)
+                    </div>*@
 
                 @* Tipo *@
                 <div class="col-12">
@@ -106,6 +110,18 @@
                     }
                 </div>
 
+                @* Conta *@
+                <div class="col-12">
+                    <b>@Html.DisplayNameFor(model => model.contasaldo.nome)</b>
+                    @if (item.contasaldo != null)
+                    {
+                        <span>@item.contasaldo.nome</span>
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </div>
 
 
             </div>
@@ -113,3 +129,28 @@
         </div>
     }
 </div>
+
+
+<script type="text/javascript">
+    function pagar(id) {
+        $.ajax({
+            url: "Pagar/" + id,
+            type: "POST",
+            success: function (data) {
+                if (data.localeCompare("false") == 0) {
+                    $("#pago_" + id).addClass("fa-times text-danger").removeClass("fa-check text-success");
+                }
+                if (data.localeCompare("true") == 0) {
+                    $("#pago_" + id).addClass("fa-check text-success").removeClass("fa-times text-danger");
+                }
+                if (data.localeCompare("true") != 0 && data.localeCompare("false") != 0) {
+                    alert(JSON.stringify(data));
+                }
+
+            },
+            error: function (data) {
+                alert("Erro:" + JSON.stringify(data));
+            }
+        });
+    }
+</script>

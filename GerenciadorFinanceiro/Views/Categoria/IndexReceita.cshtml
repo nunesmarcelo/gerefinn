@@ -1,118 +1,126 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.categoria>
 
 @{
-    ViewBag.Title = "Categorias";
-    ViewBag.TituloPagina = "Categorias Cadastradas";
+    /**/
+
+    ViewBag.Title = "Categoria";
+    ViewBag.TituloPagina = "Categorias Cadastrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    @*<a href="~/Categoria/CreateDespesa" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Categoria</a>*@
-    <span class="btn btn-outline-success createReceita"> <span class="fas fa-plus"></span> Categoria</span>
+    <span class="btn btn-outline-success create" data-toggle="tooltip" title="Adicionar Categoria"> <span class="fas fa-plus"></span> Categoria</span>
 </div>
-
-<div class="col-md-12">
-    <table class="table table-hover table-responsive-sm">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.descricao)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="col-12" data-placement="top" title="Visualizar categoria" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
-                <td class="text-uppercase editCategoria " data-id="@item.id" data-toggle="tooltip">
-                    <span style="color:dodgerblue">
-                        <b>
-                            @Html.DisplayFor(modelItem => item.nome)
-                        </b>
-                    </span>
-                </td>
-                <td class="text-uppercase editCategoria " data-id="@item.id" data-toggle="tooltip">
-                    @if (item.status == true)
-                    {
-                        <span class="fa fa-toggle-on" style="color:green;font-size:16pt;"></span>
-                    }
-                    else
-                    {
-                        <span class="fa fa-toggle-off" style="color:red;font-size:16pt;"></span>
-                    }
-                </td>
-                <td class="editCategoria " data-id="@item.id" data-toggle="tooltip">
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "PC")
-                    {
-                        <span style="color:red">Passivo Circulante</span>
-                    }
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "AC")
-                    {
-                        <span style="color:green">Ativo Circulante</span>
-                    }
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "PNC")
-                    {
-                        <span style="color:indianred">Passivo Não-Circulante</span>
-                    }
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "ANC")
-                    {
-                        <span style="color:dodgerblue">Ativo Não-Circulante</span>
-                    }
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "PL")
-                    {
-                        <span style="color:blue">Patrimônio Líquido</span>
-                    }
-                </td>
-                <td class="text-uppercase editCategoria " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.descricao)
-                </td>
-                <td>
-                    @*<a href="~/Categoria/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                        <a href="~/Categoria/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                        <a href="~/Categoria/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
-                    <span data-id="@item.id" class="deleteCategoria far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
-                </td>
+<div class="col-12">
+    <table class="table table-hover table-responsive-sm" id="tabela">
+        <thead>
+            <tr>
+                <th data-toggle="tooltip" title="Nome">
+                    @*@Html.DisplayNameFor(model => model.nome)*@
+                    <i class="fas fa-signature" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Status">
+                    @*@Html.DisplayNameFor(model => model.status)*@
+                    <i class="fas fa-power-off" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Tipo">
+                    @*@Html.DisplayNameFor(model => model.tipo)*@
+                    <i class="fas fa-retweet" style="color:rebeccapurple"></i>
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.descricao)
+                    </th>*@
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
 
+            @foreach (var item in Model)
+            {
+                <tr class="col-12" data-placement="top" title="Visualizar Categoria" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:pointer;">
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Categoria">
+                        @Html.DisplayFor(modelItem => item.nome)
+                    </td>
+
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @*@Html.DisplayFor(modelItem => item.status)*@
+                        @if (item.status == true)
+                        {
+                            <i class="fas fa-toggle-on" style="color:limegreen"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-toggle-off" style="color:red"></i>
+                        }
+                    </td>
+
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Categoria">
+                        @if (item.tipo == "PC")
+                        {
+                            <span style="color:red"> Passivo Circulante</span>
+                        }
+                        @if (item.tipo == "PNC")
+                        {
+                            <span style="color:darkred"> Passivo Não-Circulante</span>
+                        }
+                        @if (item.tipo == "PL")
+                        {
+                            <span style="color:cornflowerblue"> Patrimônio Líquido</span>
+                        }
+                        @if (item.tipo == "AC")
+                        {
+                            <span style="color:darkseagreen"> Ativo Circulante</span>
+                        }
+                        @if (item.tipo == "ANC")
+                        {
+                            <span style="color:green"> Ativo Não-Circulante</span>
+                        }
+                        @*@Html.DisplayFor(modelItem => item.tipo)*@
+                    </td>
+                    @*<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Categoria">
+                            @Html.DisplayFor(modelItem => item.descricao)
+                        </td>*@
+                    <td>
+                        <!-- @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id }) -->
+                        <span data-id="@item.id" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar Categoria" style="cursor:alias"></span>
+                    </td>
+                </tr>
+            }
+        <tbody>
     </table>
 </div>
 
 
-<div class="modal" id="editarCategoria">
+<div class="modal" id="div-visualizacao">
 
 </div>
 
 <script type="text/javascript">
 
 
-    $(".editCategoria").click(function () {
+
+    $(".edit").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarCategoria").load("Edit/" + id, function () {
-            $("#editarCategoria").modal();
+        $("#div-visualizacao").load("/Categoria/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".deleteCategoria").click(function () {
+    $(".delete").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarCategoria").load("Delete/" + id, function () {
-            $("#editarCategoria").modal();
+        $("#div-visualizacao").load("/Categoria/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".createReceita").click(function () {
+    $(".create").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarCategoria").load("createReceita/", function () {
-            $("#editarCategoria").modal();
+        $("#div-visualizacao").load("/Categoria/CreateReceita/", function () {
+            $("#div-visualizacao").modal();
         })
     });
 </script>
-
 
