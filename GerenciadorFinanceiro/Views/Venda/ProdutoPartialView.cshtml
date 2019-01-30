@@ -1,46 +1,83 @@
 ﻿@model GerenciadorFinanceiro.Models.produtovenda
 
-<li style="padding-bottom:15px">
-    @using (Html.BeginCollectionItem("produtos"))
-    {
-        @*<img src="@Url.Content("~/Content/images/draggable-icon.png")" style="cursor: move" alt="" />*@
-    <div class="row col-12 align-items-center">
-        <div class="col-3">
-            <div class="col-12">
-                @Html.LabelFor(model => model.produtoemestoque.produto.nome, htmlAttributes: new { @class = "control-label requerido" })
-
-            </div>
-            <div class="col-12">
-                @Html.EditorFor(model => model.produtoemestoque.produto.nome, new { @class = "form-control", @style = "text-transform: uppercase", })
-                @Html.ValidationMessageFor(model => model.produtoemestoque.produto.nome, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="col-12 row">
-                @Html.LabelFor(model => model.quantidade, htmlAttributes: new { @class = "control-label requerido" })
-
-            </div>
-            <div class="col-12 row">
-                @Html.EditorFor(model => model.quantidade, new { @class = "form-control", @style = "text-transform: uppercase", })
-                @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="col-12 row">
-                @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label requerido" })
-
-            </div>
-            <div class="col-12 row">
-                @Html.EditorFor(model => model.valor, new { @class = "form-control", @style = "text-transform: uppercase", })
-                @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="">
-                <a href="#" class="btn btn-danger" onclick="$(this).parent().parent().remove();">Remover</a>
-        </div>
-    </div>
-        
+<script type="text/javascript">
+    // Auto Complete Produto
+    function AutoCompleteProduto(arg) {
+        var id = arg.id;
+        var dados = "textoPesquisado=" + arg.value;
+        $.ajax({
+            url: "AutoCompleteProduto",
+            type: 'POST',
+            data: dados,
+            success: function (data) {
+                $("#" + id).autocomplete({
+                    source: data.nomes
+                });
+            }
+        });
     }
-</li>
+    function ProdutoEscolhido(arg) {
+        var id = arg.id;
+        var dados = "produtoEscolhido=" + arg.value
+
+        $.ajax({
+            url: "ProdutoEscolhido",
+            type: 'POST',
+            data: dados,
+            success: function (data) {
+                var antigoTotal = $("#valor").val() != '' ? $("#valor").val() : 0;
+                var quantidade = $("#" + id.substr(0, 47) + "quantidade").val() != '' ? $("#" + id.substr(0, 47) + "quantidade").val() : 1;
+                // Novo total = (valor do produto * quantidade) + totalAntigo.
+                var novoTotal = (parseFloat(parseFloat(data.valor).toFixed(2)) * parseFloat(parseFloat(quantidade).toFixed(2)))  + parseFloat(parseFloat(antigoTotal).toFixed(2)) ;
+                $("#valor").val(novoTotal.toFixed(2).replace('.', ','));
+                $("#" + id.substr(0, 47) + "valor").val(data.valor.toFixed(2).replace('.', ','));
+
+            }
+        });
+    }
+</script>
+
+
+
+@using (Html.BeginCollectionItem("produtos"))
+{
+
+    <li style="padding-bottom:5px" class="list-inline-item">
+
+        <div class="shadow-lg col-12 mt-3">
+            <div class="col-12 shadow-lg pt-3 pb-2 rounded" style="opacity:1;">
+                @*<img class="card-img-top" src="~/Images/uncheck.png" alt="Card image cap">*@
+                <div class="col-12 card-title ui-widget" data-toggle="tooltip" title="Visualizar Caixa">
+                    <div class="col-12">
+                        @Html.LabelFor(model => model.produtoemestoque.produto.nome, htmlAttributes: new { @class = "control-label requerido" })
+                    </div>
+                    @Html.TextBoxFor(model => model.produtoemestoque.produto.nome, new { @class = "form-control produtonome ", @style = "text-transform: uppercase", onkeyup = String.Format("AutoCompleteProduto(this)"), onchange = String.Format("ProdutoEscolhido(this)") })
+                    @Html.ValidationMessageFor(model => model.produtoemestoque.produto.nome, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-12 card-title card-text">
+                    <div class="col-12">
+                        @Html.LabelFor(model => model.quantidade, htmlAttributes: new { @class = "control-label requerido" })
+                    </div>
+                    @Html.TextBoxFor(model => model.quantidade, new { @class = "form-control", @style = "text-transform: uppercase", @type = "number", Value = 1 })
+                    @Html.ValidationMessageFor(model => model.quantidade, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-12 card-title card-text">
+                    <div class="col-12">
+                        @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label requerido" })
+
+                    </div>
+                    @Html.TextBoxFor(model => model.valor, new { @class = "form-control", @style = "text-transform: uppercase", Value = 0 })
+                    @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-12">
+                    <a href="#" class="btn btn-danger" onclick="$(this).parent().parent().parent().remove();">Remover</a>
+                </div>
+
+            </div>
+        </div>
+    </li>
+
+}

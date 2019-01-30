@@ -15,18 +15,21 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Instituicao
+        #region [ Index Fornecedor ]
         public async Task<ActionResult> IndexFornecedor()
         {
             return View(await db.instituicao.Where(x => x.fc.Equals("F")).ToListAsync());
         }
+        #endregion
 
+        #region [ Index Cliente ]
         public async Task<ActionResult> IndexCliente()
         {
             return View(await db.instituicao.Where(x => x.fc.Equals("C")).ToListAsync());
         }
+        #endregion
 
-        // GET: Instituicao/Details/5
+        #region [ Details ]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,21 +43,23 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(instituicao);
         }
+        #endregion
 
-        // GET: Instituicao/Create
+        #region [ Create Fornecedor ]
         public ActionResult CreateFornecedor()
         {
             return View();
         }
+        #endregion
 
+        #region [ Create Cliente ] 
         public ActionResult CreateCliente()
         {
             return View();
         }
+        #endregion
 
-        // POST: Instituicao/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region [ Create - POST ]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,nome,cnpj,email,telefone1,telefone2,responsavel,rua,numero,bairro,cidade,estado,cep,fc")] instituicao instituicao)
@@ -81,8 +86,9 @@ namespace GerenciadorFinanceiro.Controllers
 
             return View(instituicao);
         }
+        #endregion
 
-        // GET: Instituicao/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,18 +102,23 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(instituicao);
         }
-
-        // POST: Instituicao/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,cnpj,email,telefone1,telefone2,responsavel,rua,numero,bairro,cidade,estado,cep,fc")] instituicao instituicao)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(instituicao).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                try
+                {
+                    db.Entry(instituicao).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    TempData["erro"] = "Erro ao modificar os dados. Por favor, tente novamente.";
+                }
+
 
                 if (instituicao.fc == "F")
                 {
@@ -121,8 +132,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(instituicao);
         }
+        #endregion
 
-        // GET: Instituicao/Delete/5
+        #region [ Delete ]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,7 +149,6 @@ namespace GerenciadorFinanceiro.Controllers
             return View(instituicao);
         }
 
-        // POST: Instituicao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -170,7 +181,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
 
         }
+        #endregion
 
+        #region [ Dispose ] 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -179,5 +192,6 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
     }
 }

@@ -8,10 +8,12 @@ namespace GerenciadorFinanceiro.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        #region [ Index ] 
         public ActionResult Index()
         {
             return View();
         }
+        #endregion
+
     }
 }

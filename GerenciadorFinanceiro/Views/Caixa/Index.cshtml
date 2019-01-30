@@ -8,6 +8,7 @@
     Layout = "~/Views/Shared/_LayoutLiso.cshtml";
 }
 
+
 @*Se não tiverem caixas, ou se o último caixa já foi fechado, apareça a opção de abrir, senão, a de fechar.*@
 @if (Model.Count() == 0 || Model.OrderByDescending(x => x.id).FirstOrDefault().horafechamento != null)
 {
@@ -23,7 +24,8 @@ else
     <div class="col-12 row mb-4 rounded align-items-center" style="margin: auto; height:50px;">
         <span style="text-align:left;" class="h3 col-6"> Caixa Aberto!</span>
         <div class="col-6" style="text-align:right;">
-            <a href="~/Venda/Index"  data-toggle="tooltip" title="Ir para vendas" style="cursor:pointer;display:inline-block"> <span class="fas fa-money-check-alt" style="font-size:26pt; text-decoration:none;"></span></a>
+            <a href="~/Venda/Index" data-toggle="tooltip" title="Ir para vendas" style="cursor:pointer;display:inline-block"> <span class="fas fa-money-check-alt" style="font-size:26pt; text-decoration:none;"></span></a>
+            @*<button type="button" onclick="openwindow()" data-toggle="tooltip" title="Ir para vendas" style="cursor:pointer;display:inline-block"> <span class="fas fa-money-check-alt" style="font-size:26pt; text-decoration:none;"></span></button>*@
 
             <span class="fechar" data-toggle="tooltip" title="Fechar o Caixa" style="cursor:pointer;display:inline-block"> <span class="fas fa-door-closed" style="font-size:26pt; text-decoration:none;"></span></span>
         </div>

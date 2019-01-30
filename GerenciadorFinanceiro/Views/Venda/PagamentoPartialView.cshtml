@@ -1,47 +1,36 @@
 ﻿@model GerenciadorFinanceiro.Models.pagamento
 
-<li style="padding-bottom:15px">
-    @using (Html.BeginCollectionItem("pagamentos"))
-    {
-        @*<img src="@Url.Content("~/Content/images/draggable-icon.png")" style="cursor: move" alt="" />*@
-    <div class="row col-12 align-items-center">
-        <div class="col-3">
-            <div class="col-12">
-                @Html.LabelFor(model => model.tipopagamento, htmlAttributes: new { @class = "control-label requerido" })
-
+@using (Html.BeginCollectionItem("pagamentos"))
+{
+    <li style="padding-bottom:15px">
+        <div class="row col-12">
+            <div class="col form-group">
+                    @Html.LabelFor(model => model.tipopagamento, htmlAttributes: new { @class = "control-label requerido" })
+                    @Html.DropDownListFor(model => model.tipopagamento_id, (IEnumerable<SelectListItem>)ViewBag.tipo_pagamento_id, new { @class = "form-control", @style = "text-transform: uppercase; font-size:16pt;", })
+                    @*@Html.DropDownListFor(model => model.categoria_id, (IEnumerable<SelectListItem>)ViewBag.categoria_id, "Selecione uma categoria", htmlAttributes: new { @class = "form-control", @required = true })*@
+                    @Html.ValidationMessageFor(model => model.tipopagamento, "", new { @class = "text-danger" })
+                
             </div>
-            <div class="col-12">
-                @Html.DropDownListFor(model => model.tipopagamento_id, (IEnumerable<SelectListItem>)ViewBag.tipo_pagamento_id, new { @class = "form-control", @style = "text-transform: uppercase", })
-                @*@Html.DropDownListFor(model => model.categoria_id, (IEnumerable<SelectListItem>)ViewBag.categoria_id, "Selecione uma categoria", htmlAttributes: new { @class = "form-control", @required = true })*@
-                @Html.ValidationMessageFor(model => model.tipopagamento, "", new { @class = "text-danger" })
+
+            <div class="col form-group">
+                    @Html.LabelFor(model => model.parcelas, htmlAttributes: new { @class = "control-label requerido" })
+                    @Html.TextBoxFor(model => model.parcelas, new { @class = "form-control", @style = "text-transform: uppercase", })
+                    @Html.ValidationMessageFor(model => model.parcelas, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col form-group">
+                <div class="col-12 row">
+                    @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label requerido" })
+
+                </div>
+                <div class="col-12 row">
+                    @Html.TextBoxFor(model => model.valor, new { @class = "form-control", @style = "text-transform: uppercase" })
+                    @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col mt-5">
+                <a href="#" class="btn btn-danger" onclick="$(this).parent().parent().parent().remove();">Remover</a>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="col-12 row">
-                @Html.LabelFor(model => model.parcelas, htmlAttributes: new { @class = "control-label requerido" })
-
-            </div>
-            <div class="col-12 row">
-                @Html.EditorFor(model => model.parcelas, new { @class = "form-control", @style = "text-transform: uppercase", })
-                @Html.ValidationMessageFor(model => model.parcelas, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="col-12 row">
-                @Html.LabelFor(model => model.valor, htmlAttributes: new { @class = "control-label requerido" })
-
-            </div>
-            <div class="col-12 row">
-                @Html.EditorFor(model => model.valor, new { @class = "form-control", @style = "text-transform: uppercase", })
-                @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="">
-                <a href="#" class="btn btn-danger" onclick="$(this).parent().parent().remove();">Remover</a>
-        </div>
-    </div>
-        
-    }
-</li>
+    </li>
+}

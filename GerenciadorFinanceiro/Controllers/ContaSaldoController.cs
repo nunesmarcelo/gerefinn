@@ -15,13 +15,14 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: ContaSaldo
+        #region [ Index ] 
         public async Task<ActionResult> Index()
         {
             return View(await db.contasaldo.ToListAsync());
         }
+        #endregion
 
-        // GET: ContaSaldo/Details/5
+        #region [ Details ] 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,8 +36,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(contasaldo);
         }
+        #endregion
 
-        // GET: ContaSaldo/Create
+        #region [ Create ] 
         public ActionResult Create()
         {
             var list = new[]
@@ -50,10 +52,6 @@ namespace GerenciadorFinanceiro.Controllers
             ViewBag.Lista = new SelectList(list, "Value", "Text");
             return View();
         }
-
-        // POST: ContaSaldo/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
@@ -91,8 +89,9 @@ namespace GerenciadorFinanceiro.Controllers
 
             return View(contasaldo);
         }
+        #endregion
 
-        // GET: ContaSaldo/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             var list = new[]
@@ -118,9 +117,6 @@ namespace GerenciadorFinanceiro.Controllers
             return View(contasaldo);
         }
 
-        // POST: ContaSaldo/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
@@ -143,8 +139,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(contasaldo);
         }
+        #endregion
 
-        // GET: ContaSaldo/Delete/5
+        #region [ Delete ] 
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -158,8 +155,6 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(contasaldo);
         }
-
-        // POST: ContaSaldo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -169,7 +164,9 @@ namespace GerenciadorFinanceiro.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region [ Dispose ]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -178,5 +175,7 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
     }
 }

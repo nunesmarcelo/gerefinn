@@ -15,14 +15,15 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Venda
+        #region [ Index ] 
         public async Task<ActionResult> Index()
         {
             var venda = db.venda.Include(v => v.instituicao).Include(v => v.usuario).Include(v => v.caixa);
             return View(await venda.ToListAsync());
         }
+        #endregion
 
-        // GET: Venda/Details/5
+        #region [ Details ]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,20 +37,26 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(venda);
         }
+        #endregion
 
+        #region [ Adicionar Produto ]
         //Código explicativo : https://stackoverflow.com/questions/39129555/add-item-into-list-from-view-and-pass-to-controller-in-mvc5/39193087 , usado para adicionar dinamicamente.
         public ActionResult AdicionarProduto()
         {
             return PartialView("ProdutoPartialView");
         }
+        #endregion
+
+        #region [ Adicionar Pagamento ]
         //Código explicativo : https://stackoverflow.com/questions/39129555/add-item-into-list-from-view-and-pass-to-controller-in-mvc5/39193087 , usado para adicionar dinamicamente.
         public ActionResult AdicionarPagamento()
         {
             ViewBag.tipo_pagamento_id = new SelectList(db.tipopagamento, "id", "nome");
             return PartialView("PagamentoPartialView");
         }
+        #endregion
 
-        // GET: Venda/Create -> Olhar a AdicionarProduto (acima)
+        #region [ Create - Ver adicionar produto e pagamento]
         public ActionResult Create()
         {
             ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome");
@@ -61,11 +68,10 @@ namespace GerenciadorFinanceiro.Controllers
             model.Pagamentos = new List<pagamento>();
             return View(model);
         }
-
-        // POST: Venda/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,concluida,valortotal,caixa_id,usuario_id,instituicao_id")] CadastrarVenda model)
+        //public async Task<ActionResult> Create([Bind(Include = "id,concluida,valortotal,caixa_id,usuario_id,instituicao_id")] CadastrarVenda model)
+        public async Task<ActionResult> Create(CadastrarVenda model)
         {
             if (ModelState.IsValid)
             {
@@ -76,13 +82,12 @@ namespace GerenciadorFinanceiro.Controllers
 
             ViewBag.instituicao_id = new SelectList(db.instituicao, "id", "nome", model.Venda.instituicao_id);
             ViewBag.usuario_id = new SelectList(db.usuario, "id", "nome", model.Venda.usuario_id);
-            ViewBag.caixa_id = new SelectList(db.caixa, "id", "id", model. Venda.caixa_id);
+            ViewBag.caixa_id = new SelectList(db.caixa, "id", "id", model.Venda.caixa_id);
             return View(model);
         }
+        #endregion
 
-       
-
-        // GET: Venda/Edit/5
+        #region [ Edit ] 
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,7 +105,6 @@ namespace GerenciadorFinanceiro.Controllers
             return View(venda);
         }
 
-        // POST: Venda/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,concluida,valortotal,caixa_id,usuario_id,instituicao_id")] venda venda)
@@ -116,8 +120,9 @@ namespace GerenciadorFinanceiro.Controllers
             ViewBag.caixa_id = new SelectList(db.caixa, "id", "id", venda.caixa_id);
             return View(venda);
         }
+        #endregion
 
-        // GET: Venda/Delete/5
+        #region [ Delete ] 
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,8 +136,6 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(venda);
         }
-
-        // POST: Venda/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -142,7 +145,26 @@ namespace GerenciadorFinanceiro.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
+        
+        #region [ AutoCompleteProduto + ProdutoEscolhido]
+        [HttpPost]
+        public ActionResult AutoCompleteProduto(string textoPesquisado)
+        {
+            var produtos = db.produto.Where(x => x.nome.Contains(textoPesquisado)).Select(x=> x.nome).ToList();
+            return Json(new { nomes = produtos }, JsonRequestBehavior.AllowGet);
+        }
 
+        [HttpPost]
+        public ActionResult ProdutoEscolhido(string produtoEscolhido)
+        {
+            var valorProduto = db.produto.Where(x => x.nome == produtoEscolhido).FirstOrDefault();
+            var valor = valorProduto != null ? valorProduto.valorunitario : 0;
+            return Json(new { valor = valor }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region [ Dispose ]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -151,5 +173,7 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
     }
 }

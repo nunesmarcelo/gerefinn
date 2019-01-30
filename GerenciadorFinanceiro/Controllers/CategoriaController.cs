@@ -15,19 +15,21 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Categoria Receita
+        #region [ Index Receita ] 
         public async Task<ActionResult> IndexReceita()
         {
             return View(await db.categoria.Where(x => x.rd.Equals("R")).ToListAsync());
         }
+        #endregion
 
-        // GET: Categoria Despesa
+        #region [ Index Despesa ]
         public async Task<ActionResult> IndexDespesa()
         {
             return View(await db.categoria.Where(x => x.rd.Equals("D")).ToListAsync());
         }
+        #endregion
 
-        // GET: Categoria/Details/5
+        #region [ Details ] 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,8 +43,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(categoria);
         }
+        #endregion
 
-        // GET: Categoria/CreateDespesa
+        #region [ Create Despesa ] 
         public ActionResult CreateDespesa()
         {
             var tipo = new[]
@@ -56,8 +59,9 @@ namespace GerenciadorFinanceiro.Controllers
 
             return View();
         }
+        #endregion
 
-        // GET: Categoria/CreateReceita
+        #region [ Create Receita ]
         public ActionResult CreateReceita()
         {
             var tipo = new[]
@@ -70,10 +74,9 @@ namespace GerenciadorFinanceiro.Controllers
             ViewBag.Lista = new SelectList(tipo, "Value", "Text");
             return View();
         }
+        #endregion
 
-        // POST: Categoria/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region [ Create ]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,nome,tipo,descricao,rd")] categoria categoria)
@@ -97,8 +100,9 @@ namespace GerenciadorFinanceiro.Controllers
 
             return View(categoria);
         }
+        #endregion
 
-        // GET: Categoria/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -133,10 +137,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(categoria);
         }
+        #endregion
 
-        // POST: Categoria/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region [ Edit ] 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,status,tipo,descricao,rd")] categoria categoria)
@@ -158,8 +161,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(categoria);
         }
+        #endregion
 
-        // GET: Categoria/Delete/5
+        #region [ Delete ] 
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -173,8 +177,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(categoria);
         }
+        #endregion
 
-        // POST: Categoria/Delete/5
+        #region [ Delete Confirmed ] 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(categoria categoria)
@@ -210,7 +215,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
 
         }
+        #endregion
 
+        #region [ Dispose ] 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -219,5 +226,7 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
     }
 }

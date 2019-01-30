@@ -15,13 +15,14 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Estoque
+        #region [ Index ]
         public async Task<ActionResult> Index()
         {
             return View(await db.estoque.ToListAsync());
         }
+        #endregion
 
-        // GET: Estoque/Details/5
+        #region [ Details ] 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,16 +36,13 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(estoque);
         }
+        #endregion
 
-        // GET: Estoque/Create
+        #region [ Create ]
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: Estoque/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,nome,responsavel,telefone,email,rua,numero,bairro,cidade,estado,cep,status")] estoque estoque)
@@ -58,8 +56,9 @@ namespace GerenciadorFinanceiro.Controllers
 
             return View(estoque);
         }
+        #endregion
 
-        // GET: Estoque/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,9 +73,6 @@ namespace GerenciadorFinanceiro.Controllers
             return View(estoque);
         }
 
-        // POST: Estoque/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,responsavel,telefone,email,rua,numero,bairro,cidade,estado,cep,status")] estoque estoque)
@@ -89,8 +85,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(estoque);
         }
+        #endregion
 
-        // GET: Estoque/Delete/5
+        #region [ Delete ] 
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -104,8 +101,6 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(estoque);
         }
-
-        // POST: Estoque/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -115,7 +110,9 @@ namespace GerenciadorFinanceiro.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region [ Dispose ]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -124,5 +121,8 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
+
     }
 }
