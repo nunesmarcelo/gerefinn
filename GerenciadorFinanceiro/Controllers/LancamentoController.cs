@@ -42,10 +42,10 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(lancamento);
         }
-
-        // GET: Lancamento/Create
+        
         public ActionResult CreateReceita()
         {
+            //R = Receita. C = Cliente.
             ViewBag.categoria_id = new SelectList(db.categoria.Where(x => x.rd == "R"), "id", "nome");
             ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x => x.fc == "C"), "id", "nome");
             ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");
@@ -58,6 +58,7 @@ namespace GerenciadorFinanceiro.Controllers
         // GET: Lancamento/Create
         public ActionResult CreateDespesa()
         {
+            // D = Despesa. F = Fornecedor.
             ViewBag.categoria_id = new SelectList(db.categoria.Where(x=> x.rd == "D"), "id", "nome");
             ViewBag.instituicao_id = new SelectList(db.instituicao.Where(x=>x.fc == "F"), "id", "nome");
             ViewBag.contasaldo_id = new SelectList(db.contasaldo, "id", "nome");

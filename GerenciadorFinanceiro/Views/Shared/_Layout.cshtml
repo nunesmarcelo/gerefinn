@@ -19,6 +19,8 @@
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
 
 
+
+
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
 
@@ -87,7 +89,7 @@
                 @*<li> <div class="row class-12" ><a href="~/Caixa/AbrirCaixa" target="resource window" style="margin: auto;width:150px; " class="texto-menu-esq col-6">Caixa</a><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>*@
                 @*<li> <div class="row class-12"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6 botao-caixa">Caixa</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>*@
                 <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Home/Index' class="texto-menu-esq"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/news.png")" alt="Alternate Text" />  <b class="texto-escondido">Início</b></a></li>
-                <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Caixa/AbrirCaixa' class="texto-menu-esq"  target="resource window"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/dres2.png")" alt="Alternate Text" />  <b class="texto-escondido">Caixa</b></a></li>
+                <li class="col-12 item-menu-esq mb-2" role="presentation"><a href='~/Caixa/AbrirCaixa' class="texto-menu-esq" target="resource window"><img class="imagens-menu " style="height:20px;margin-right:10px" src="@Url.Content("~/Images/dres2.png")" alt="Alternate Text" />  <b class="texto-escondido">Caixa</b></a></li>
 
 
                 @*<li> <div class="row class-12" onclick="mudar_financeiro()"><div style="margin: auto;width:150px; " class="texto-menu-esq col-6">Financeiro</div><span style="height:35px;display:block" class="col-3 titanic titanic-expand-arrow"></span></div></li>
@@ -183,6 +185,8 @@
     <script src="~/Scripts/funcoes.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+   
 
     <script>
         var titanic = new Titanic({
