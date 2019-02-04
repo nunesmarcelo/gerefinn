@@ -1,101 +1,112 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.instituicao>
 
 @{
-    ViewBag.Title = "Fornecedores";
+    <!-- ViewBag.Title = "Index"; -->
+    ViewBag.Title = "Instituicao";
     ViewBag.TituloPagina = "Fornecedores Cadastrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- <h2>Index</h2> -->
+
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    @*<a href="~/Categoria/CreateDespesa" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Categoria</a>*@
-    <span class="btn btn-outline-success createFornecedor"> <span class="fas fa-plus"></span> Fornecedor</span>
+    <span class="btn btn-outline-primary create" data-toggle="tooltip" title="Adicionar Fornecedor"> <span class="fas fa-plus" style="padding-bottom:20%"></span> <span class="fa fa-people-carry" style="font-size:22pt;"></span></span>
 </div>
-
 <div class="col-md-12">
-    <table class="table table-hover table-responsive-sm">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cnpj)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.telefone1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.telefone2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.responsavel)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="col-12" data-placement="top" title="Visualizar instituição" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
-                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
-                    <span style="color:dodgerblue">
-                        @Html.DisplayFor(modelItem => item.nome)
-                    </span>
-                </td>
-                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.cnpj)
-                </td>
-                <td class="text-lowercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.email)
-                </td>
-                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.telefone1)
-                </td>
-                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.telefone2)
-                </td>
-                <td class="text-uppercase editInstituicao " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.responsavel)
-                </td>
-                <td>
-                    @*<a href="~/Instituicao/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                        <a href="~/Instituicao/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                        <a href="~/Instituicao/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
-                    <span data-id="@item.id" class="deleteInstituicao far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
-                </td>
+    <table class="table table-hover table-responsive-sm" id="tabela">
+        <thead>
+            <tr>
+                <th data-toggle="tooltip" title="Nome">
+                    @*@Html.DisplayNameFor(model => model.nome)*@
+                    <i class="fas fa-signature" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="CNPJ">
+                    @*@Html.DisplayNameFor(model => model.cnpj)*@
+                    <i class="fas fa-address-card" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Email">
+                    @*@Html.DisplayNameFor(model => model.email)*@
+                    <i class="fas fa-envelope-open" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Telefone primário">
+                    @*@Html.DisplayNameFor(model => model.telefone1)*@
+                    <i class="fas fa-mobile-alt" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Telefone secundário">
+                    @*@Html.DisplayNameFor(model => model.telefone2)*@
+                    <i class="fas fa-phone" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Responsável">
+                    @*@Html.DisplayNameFor(model => model.responsavel)*@
+                    <i class="fas fa-user-tie" style="color:rebeccapurple"></i>
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
 
+            @foreach (var item in Model)
+            {
+                <tr class="col-12" data-placement="top" title="Visualizar Fornecedor" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:pointer;">
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Fornecedor">
+                        @Html.DisplayFor(modelItem => item.nome)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Fornecedor">
+                        @Html.DisplayFor(modelItem => item.cnpj)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Fornecedor">
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Fornecedor">
+                        @Html.DisplayFor(modelItem => item.telefone1)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Fornecedor">
+                        @Html.DisplayFor(modelItem => item.telefone2)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Fornecedor">
+                        @Html.DisplayFor(modelItem => item.responsavel)
+                    </td>
+                    <td>
+
+                        <!-- @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id }) -->
+                        <span data-id="@item.id" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar Fornecedor" style="cursor:alias"></span>
+                    </td>
+                </tr>
+            }
+        <tbody>
     </table>
 </div>
 
-<div class="modal" id="editarInstituicao">
+
+<div class="modal" id="div-visualizacao">
 
 </div>
-
 
 <script type="text/javascript">
 
 
-    $(".editInstituicao").click(function () {
+
+    $(".edit").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarInstituicao").load("Edit/" + id, function () {
-            $("#editarInstituicao").modal();
+        $("#div-visualizacao").load("/Instituicao/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".deleteInstituicao").click(function () {
+    $(".delete").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarInstituicao").load("Delete/" + id, function () {
-            $("#editarInstituicao").modal();
+        $("#div-visualizacao").load("/Instituicao/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".createFornecedor").click(function () {
+    $(".create").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarInstituicao").load("createFornecedor/", function () {
-            $("#editarInstituicao").modal();
+        $("#div-visualizacao").load("/Instituicao/CreateFornecedor/", function () {
+            $("#div-visualizacao").modal();
         })
     });
 </script>
+

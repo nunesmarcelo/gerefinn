@@ -1,88 +1,88 @@
 ﻿
-$(document).ready(function () {
+//$(document).ready(function () {
 
-    $(".botao-caixa").click(function () {
-        mywindow = window.open("Caixa/AbrirCaixa", "mywindow", "location=1,status=1,scrollbars=1,  width=800,height=800");
-        //mywindow.moveTo((screen.width-800)/2, (screen.height-800)/2);
-        //mywindow.moveTo((screen.width-800)/2, (screen.height-800)/2);
-    });
-
-    $("#mensagem-central").fadeIn('slow');
-
-    //$(".menu-esquerda-escondido").hover(
-    //    function () {
-
-    //        //$(".imagens-menu").animate({ height: 100 }, 400);
-    //        //$(".navbar").animate({ height: 150 }, 400);
-    //        //$(".navbar").css({ "border-bottom": "16px solid #74361e" });
-    //        //$(".navbar , .imagens-menu").clearQueue();
-    //        $(".texto-escondido").fadeIn("fast");
-    //        $(".menu-esquerda-escondido").addClass("col-2", 30000).removeClass("col-1", 30000).fadeIn("slow");
-    //        $(".item-menu-esq").removeClass("ml-3", 30000);
-
-    //        $(".menu-esquerda-escondido , .texto-escondido").clearQueue();
-    //    },
-    //    function () {
-    //        $(".texto-escondido").fadeOut("slow");
-    //        $(".menu-esquerda-escondido").addClass("col-1", 3000).removeClass("col-2", 3000);
-    //        $(".item-menu-esq").addClass("ml-3", 30000);
-
-    //        $(".menu-esquerda-escondido , .texto-escondido").clearQueue();
-    //        //$(".imagens-menu").animate({ height: 50 }, 400);
-    //        //$(".navbar").animate({ height: 100 }, 400);
-    //        //$(".navbar").css({ "border-bottom": "5px solid #74361e" });
-    //        //$(".navbar , .imagens-menu").clearQueue();
-    //    }
-    //);
-
-    $('#valor').on('keyup', function () {
-
-        var v = $("#valor").val();
-        v = v.replace(/\D/g, "");
-        v = new String(Number(v));
-        var len = v.length;
-        if (1 == len)
-            v = v.replace(/(\d)/, "0,0$1");
-        else if (2 == len)
-            v = v.replace(/(\d)/, "0,$1");
-        else if (len > 2) {
-            v = v.replace(/(\d{2})$/, ',$1');
-        }
-        $("#valor").val(v);
-    });
-
-    $('#CNPJ').mask('99.999.999/9999-99');
-    $('#Telefone').mask("(99) 9999-99999");
-    $('#Telefone').change(function (event) { // mascara dinamica
-        var target, phone, element;
-        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-        phone = target.value.replace(/\D/g, '');
-        element = $(target); element.unmask();
-        if (phone.length > 10) {
-            element.mask("(99) 99999-9999");
-        }
-        else {
-            element.mask("(99) 9999-99999");
-        }
-    });
-
-    $('#Telefone2').mask("(99) 9999-99999");
-    $('#Telefone2').change(function (event) { // mascara dinamica
-        var target, phone, element;
-        target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-        phone = target.value.replace(/\D/g, '');
-        element = $(target); element.unmask();
-        if (phone.length > 10) {
-            element.mask("(99) 99999-9999");
-        }
-        else {
-            element.mask("(99) 9999-99999");
-        }
-    });
-
-
-    $("#cep").mask("99.999-999");
+$(".botao-caixa").click(function () {
+    mywindow = window.open("Caixa/AbrirCaixa", "mywindow", "location=1,status=1,scrollbars=1,  width=800,height=800");
+    //mywindow.moveTo((screen.width-800)/2, (screen.height-800)/2);
+    //mywindow.moveTo((screen.width-800)/2, (screen.height-800)/2);
 });
+
+$("#mensagem-central").fadeIn('slow');
+
+//$(".menu-esquerda-escondido").hover(
+//    function () {
+
+//        //$(".imagens-menu").animate({ height: 100 }, 400);
+//        //$(".navbar").animate({ height: 150 }, 400);
+//        //$(".navbar").css({ "border-bottom": "16px solid #74361e" });
+//        //$(".navbar , .imagens-menu").clearQueue();
+//        $(".texto-escondido").fadeIn("fast");
+//        $(".menu-esquerda-escondido").addClass("col-2", 30000).removeClass("col-1", 30000).fadeIn("slow");
+//        $(".item-menu-esq").removeClass("ml-3", 30000);
+
+//        $(".menu-esquerda-escondido , .texto-escondido").clearQueue();
+//    },
+//    function () {
+//        $(".texto-escondido").fadeOut("slow");
+//        $(".menu-esquerda-escondido").addClass("col-1", 3000).removeClass("col-2", 3000);
+//        $(".item-menu-esq").addClass("ml-3", 30000);
+
+//        $(".menu-esquerda-escondido , .texto-escondido").clearQueue();
+//        //$(".imagens-menu").animate({ height: 50 }, 400);
+//        //$(".navbar").animate({ height: 100 }, 400);
+//        //$(".navbar").css({ "border-bottom": "5px solid #74361e" });
+//        //$(".navbar , .imagens-menu").clearQueue();
+//    }
+//);
+
+$('#valor').on('keyup', function () {
+
+    var v = $("#valor").val();
+    v = v.replace(/\D/g, "");
+    v = new String(Number(v));
+    var len = v.length;
+    if (1 === len)
+        v = v.replace(/(\d)/, "0,0$1");
+    else if (2 === len)
+        v = v.replace(/(\d)/, "0,$1");
+    else if (len > 2) {
+        v = v.replace(/(\d{2})$/, ',$1');
+    }
+    $("#valor").val(v);
+});
+
+$('#cnpj').mask('99.999.999/9999-99');
+$('#telefone1').mask("(99) 9999-99999");
+$('#telefone1').change(function (event) { // mascara dinamica
+    var target, phone, element;
+    target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+    phone = target.value.replace(/\D/g, '');
+    element = $(target); element.unmask();
+    if (phone.length > 10) {
+        element.mask("(99) 99999-9999");
+    }
+    else {
+        element.mask("(99) 9999-99999");
+    }
+});
+
+$('#telefone2').mask("(99) 9999-99999");
+$('#telefone2').change(function (event) { // mascara dinamica
+    var target, phone, element;
+    target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+    phone = target.value.replace(/\D/g, '');
+    element = $(target); element.unmask();
+    if (phone.length > 10) {
+        element.mask("(99) 99999-9999");
+    }
+    else {
+        element.mask("(99) 9999-99999");
+    }
+});
+
+
+$("#cep").mask("99.999-999");
+//});
 
 function mudar_menu() {
     $(".menu-esquerda-escondido").slideToggle(400);
@@ -172,7 +172,7 @@ function pesquisacep(valor) {
     var cep = valor.replace(/\D/g, '');
 
     //Verifica se campo cep possui valor informado.
-    if (cep != "") {
+    if (cep !== "") {
 
         //Expressão regular para validar o CEP.
         var validacep = /^[0-9]{8}$/;

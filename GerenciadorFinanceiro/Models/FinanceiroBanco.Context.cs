@@ -25,14 +25,27 @@ namespace GerenciadorFinanceiro.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<contasaldo> contasaldo { get; set; }
-        public virtual DbSet<instituicao> instituicao { get; set; }
-        public virtual DbSet<usuario> usuario { get; set; }
-        public virtual DbSet<lancamento> lancamento { get; set; }
         public virtual DbSet<categoria> categoria { get; set; }
-        public virtual DbSet<produto> produto { get; set; }
+        public virtual DbSet<contasaldo> contasaldo { get; set; }
         public virtual DbSet<estoque> estoque { get; set; }
-        public virtual DbSet<lancamentoestoque> lancamentoestoque { get; set; }
+        public virtual DbSet<imagemcontasaldo> imagemcontasaldo { get; set; }
+        public virtual DbSet<imagemestoque> imagemestoque { get; set; }
+        public virtual DbSet<imageminstituicao> imageminstituicao { get; set; }
+        public virtual DbSet<imagemproduto> imagemproduto { get; set; }
+        public virtual DbSet<imagemusuario> imagemusuario { get; set; }
+        public virtual DbSet<instituicao> instituicao { get; set; }
+        public virtual DbSet<lancamento> lancamento { get; set; }
+        public virtual DbSet<logcaixa> logcaixa { get; set; }
+        public virtual DbSet<notafiscallancamento> notafiscallancamento { get; set; }
+        public virtual DbSet<notafiscalvenda> notafiscalvenda { get; set; }
+        public virtual DbSet<pagamento> pagamento { get; set; }
+        public virtual DbSet<produto> produto { get; set; }
         public virtual DbSet<produtoemestoque> produtoemestoque { get; set; }
+        public virtual DbSet<produtolancamento> produtolancamento { get; set; }
+        public virtual DbSet<produtovenda> produtovenda { get; set; }
+        public virtual DbSet<tipopagamento> tipopagamento { get; set; }
+        public virtual DbSet<usuario> usuario { get; set; }
+        public virtual DbSet<venda> venda { get; set; }
+        public virtual DbSet<caixa> caixa { get; set; }
     }
 }

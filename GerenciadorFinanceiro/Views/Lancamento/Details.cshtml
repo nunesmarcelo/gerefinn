@@ -18,20 +18,13 @@
         <dd>
             @Html.DisplayFor(model => model.descricao)
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.quantidade)
+            @Html.DisplayNameFor(model => model.valortotal)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.quantidade)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.valor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.valor)
+            @Html.DisplayFor(model => model.valortotal)
         </dd>
 
         <dt>
@@ -43,27 +36,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.numerotitulo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.numerotitulo)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.datavencimento)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.datavencimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dataemissao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dataemissao)
         </dd>
 
         <dt>
@@ -91,6 +68,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.contasaldo.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contasaldo.nome)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.instituicao.nome)
         </dt>
 
@@ -99,16 +84,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.contasaldo.nome)
+            @Html.DisplayNameFor(model => model.usuario.nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.contasaldo.nome)
+            @Html.DisplayFor(model => model.usuario.nome)
         </dd>
 
     </dl>
 </div>
 <p>
-    <a href="~/Lancamento/Edit/@Model.id" class="btn btn-outline-info">Editar</a>
-    <a href="~/Lancamento/Index" class="btn btn-outline-danger">Voltar</a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

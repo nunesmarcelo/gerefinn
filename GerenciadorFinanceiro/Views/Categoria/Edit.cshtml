@@ -1,89 +1,77 @@
 ﻿@model GerenciadorFinanceiro.Models.categoria
+
 @{
-    ViewBag.Title = "Editar";
+    ViewBag.Title = "Categoria";
+    ViewBag.TituloPagina = "EditarCategoria";
     Layout = null;
 }
 
 
-@* Editar categoria *@
-@*<div class="modal" tabindex="-1" role="dialog" id="editarCategoria">*@
-@*<div class="modal fade" id="editarCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">*@
-    <div class="modal-dialog" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Editar Categoria</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @using (Html.BeginForm("Edit", "Categoria", FormMethod.Post))
-            {
-                <div class="modal-body">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Editar  Categoria  </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @using (Html.BeginForm("Edit", "Categoria", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.rd)
+            <fieldset class="scheduler-border  mt-4 col-12  ">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    @Html.AntiForgeryToken()
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
 
-                    <div class=" col-12 row">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.id)
-                        @Html.HiddenFor(model => model.rd)
+                        @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control", @required = true, @style = "text-transform: uppercase", @id = "nome" } })
+                        @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-                        <div class="form-group col-12 row">
-                            @Html.LabelFor(model => model.nome, htmlAttributes: new { @class = "control-label col-sm-12 col-md-5 requerido" })
-                            <div class="col-sm-12 col-md-7">
-                                @Html.EditorFor(model => model.nome, new { htmlAttributes = new { @class = "form-control", @style = "text-transform: uppercase" } })
-                                @Html.ValidationMessageFor(model => model.nome, "", new { @class = "text-danger" })
+                <div class="form-group row">
+                        @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                        <div class="col-md-7">
+
+                            <div class="checkbox">
+                                <label class="quadrado">
+                                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control", @style = "text-transform: uppercase", @id = "status" } })
+                                    <span class="checkmark"></span>
+                                </label>
+                                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-                        <div class="form-group col-12 row">
-                            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-5 requerido" })
-                            <div class="col-7">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.status)
-                                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row col-12">
-                            @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
-                            <div class="col-md-7 col-sm-12">
-                                @Html.EditorFor(model => model.tipo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group row col-12">
-                            @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12" })
-                            <div class="col-md-7 col-sm-12">
-                                @Html.TextAreaFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control" , @rows = 10 , @cols = 50 , @maxlength = "10" } })
-                                @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        @*
-                            <div class="form-group row col-12">
-                                @Html.LabelFor(model => model.rd, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12" })
-                                <div class="col-md-7 col-sm-12">
-                                    @Html.EditorFor(model => model.rd, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.rd, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Save" class="btn btn-default" />
-                                </div>
-                            </div>*@
                     </div>
 
-
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+                    <div class="col-md-7">
+                        @Html.DropDownListFor(model => model.tipo, new SelectList(ViewBag.Lista, "Value", "Text", "Selecione"), new { @class = "form-control", @required = true, @style = "text-transform: uppercase", @id = "tipo" })
+                        @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" value="Save" class="btn btn-outline-info">Salvar</button>
 
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12" })
+                    <div class="col-md-7">
+
+                        @Html.EditorFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control", @style = "text-transform: uppercase", @id = "descricao" } })
+                        @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-             }
-        </div>
 
+            </fieldset>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" value="Save" class="btn btn-outline-success">Salvar</button>
+            </div>
+        }
     </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/funcoes.js"></script>
+
+

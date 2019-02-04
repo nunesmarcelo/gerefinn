@@ -15,13 +15,14 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: ContaSaldo
+        #region [ Index ] 
         public async Task<ActionResult> Index()
         {
             return View(await db.contasaldo.ToListAsync());
         }
+        #endregion
 
-        // GET: ContaSaldo/Details/5
+        #region [ Details ] 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,34 +36,34 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(contasaldo);
         }
+        #endregion
 
-        // GET: ContaSaldo/Create
+        #region [ Create ] 
         public ActionResult Create()
         {
             var list = new[]
             {
-                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
-                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
-                new SelectListItem { Value = "MISTA", Text = "Mista" },
+                new SelectListItem { Value = "POUPANCA" , Text = "Poupança"},
+                new SelectListItem { Value = "CORRENTE" , Text = "Corrente"},
+                new SelectListItem { Value = "MISTA"    , Text = "Mista"},
+                new SelectListItem { Value = "OUTRO"    , Text = "Nenhum/Outro"},
             };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
             return View();
         }
-
-        // POST: ContaSaldo/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,agencia,conta,titular,tipo")] contasaldo contasaldo)
+        public async Task<ActionResult> Create([Bind(Include = "nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
         {
+
             var list = new[]
-           {
-                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
-                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
-                new SelectListItem { Value = "MISTA", Text = "Mista" },
-            };
+            {
+                    new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                    new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                    new SelectListItem { Value = "MISTA", Text = "Mista" },
+                    new SelectListItem { Value = "OUTRO", Text = "Nenhum/Outro" },
+                };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
 
@@ -70,37 +71,45 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 contasaldo.status = true;
                 contasaldo.nome = contasaldo.nome.ToUpper();
-                contasaldo.banco = contasaldo.banco.ToUpper();
-                if(contasaldo.titular != null)
+                if (contasaldo.banco != null)
+                {
+                    contasaldo.banco = contasaldo.banco.ToUpper();
+                }
+
+                if (contasaldo.titular != null)
                 {
                     contasaldo.titular = contasaldo.titular.ToUpper();
                 }
-                
+
                 db.contasaldo.Add(contasaldo);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            
+
 
             return View(contasaldo);
         }
+        #endregion
 
-        // GET: ContaSaldo/Edit/5
-        public ActionResult Edit(int? id)
+        #region [ Edit ]
+        public async Task<ActionResult> Edit(int? id)
         {
             var list = new[]
            {
-                new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
-                new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
-                new SelectListItem { Value = "MISTA", Text = "Mista" },
-            };
+                    new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                    new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                    new SelectListItem { Value = "MISTA", Text = "Mista" },
+                    new SelectListItem { Value = "OUTRO", Text = "Nenhum/Outro" },
+                };
 
             ViewBag.Lista = new SelectList(list, "Value", "Text");
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            contasaldo contasaldo =  db.contasaldo.Find(id);
+            contasaldo contasaldo = await db.contasaldo.FindAsync(id);
             if (contasaldo == null)
             {
                 return HttpNotFound();
@@ -108,29 +117,31 @@ namespace GerenciadorFinanceiro.Controllers
             return View(contasaldo);
         }
 
-        // POST: ContaSaldo/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
+        public async Task<ActionResult> Edit([Bind(Include = "id,nome,banco,saldo,status,agencia,conta,titular,tipo")] contasaldo contasaldo)
         {
+            var list = new[]
+           {
+                    new SelectListItem { Value = "POUPANCA", Text = "Poupança" },
+                    new SelectListItem { Value = "CORRENTE", Text = "Corrente" },
+                    new SelectListItem { Value = "MISTA", Text = "Mista" },
+                    new SelectListItem { Value = "OUTRO", Text = "Nenhum/Outro" },
+                };
+
+            ViewBag.Lista = new SelectList(list, "Value", "Text");
+
             if (ModelState.IsValid)
             {
-                contasaldo.nome = contasaldo.nome.ToUpper();
-                contasaldo.banco = contasaldo.banco.ToUpper();
-                if(contasaldo.titular != null)
-                {
-                    contasaldo.titular = contasaldo.titular.ToUpper();
-                }
                 db.Entry(contasaldo).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index","ContaSaldo");
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
             return View(contasaldo);
         }
+        #endregion
 
-        // GET: ContaSaldo/Delete/5
+        #region [ Delete ] 
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,8 +155,6 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(contasaldo);
         }
-
-        // POST: ContaSaldo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -155,7 +164,9 @@ namespace GerenciadorFinanceiro.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region [ Dispose ]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -164,5 +175,7 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
     }
 }

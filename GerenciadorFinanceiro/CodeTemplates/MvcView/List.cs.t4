@@ -1,0 +1,122 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+
+@{
+	ViewBag.Title = "<#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>";
+	ViewBag.TituloPagina = "<#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>s Cadastrados";
+    Layout = "<#= LayoutPageFile#>";
+}
+
+
+<div class="col-12" style="text-align:right;margin-bottom:15px;">
+    <span class="btn btn-outline-success create" data-toggle="tooltip" title="Adicionar <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>"> <span class="fas fa-plus"></span> <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #></span>
+</div>
+<div class="col-12">
+    <table class="table table-hover table-responsive-sm" id="tabela">
+        <thead>
+            <tr>
+			<#
+			IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+			foreach (PropertyMetadata property in properties) {
+				if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+			#>
+			<#
+					// We do not want to show any association properties for which there is
+					// no associated foreign key.
+					if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+						continue;
+					}
+			#>
+			<th>
+				@Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>)
+			</th>
+			<#
+				}
+			}
+			#>
+			<th></th>
+			</tr>
+        </thead>
+		<tbody>
+
+@foreach (var item in Model) {
+    <tr class="col-12" data-placement="top" title="Visualizar <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:pointer;">
+			<#
+			foreach (PropertyMetadata property in properties) {
+				if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+			#>
+			<#
+					// We do not want to show any association properties for which there is
+					// no associated foreign key.
+					if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+						continue;
+					}
+			#>
+			<td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>">
+				@Html.DisplayFor(modelItem => <#= "item." + GetValueExpression(property) #>)
+			</td>
+			<#
+				}
+			}
+
+			string pkName = GetPrimaryKeyName();
+			if (pkName != null) {
+			#>
+			<td>
+				<!-- @Html.ActionLink("Edit", "Edit", new { id=item.<#= pkName #> }) |
+				@Html.ActionLink("Details", "Details", new { id=item.<#= pkName #> }) |
+				@Html.ActionLink("Delete", "Delete", new { id=item.<#= pkName #> }) --> 
+				<span data-id="@item.<#= pkName #>" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>" style="cursor:alias"></span>
+			</td>
+			<#
+			} else {
+			#>
+			<td>
+				<!--@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+				@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+				@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) -->
+				<span data-id="/* item.<#= pkName #> */" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>" style="cursor:alias"></span>
+			</td>
+			<#
+			}
+			#>
+			</tr>
+}
+		<tbody>
+	</table>
+</div>
+
+
+<div class="modal" id="div-visualizacao">
+
+</div>
+
+<script type="text/javascript">
+
+
+
+    $(".edit").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/<#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".delete").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/<#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".create").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/<#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1)  #>/Create/", function () {
+            $("#div-visualizacao").modal();
+        })
+    });
+</script>
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

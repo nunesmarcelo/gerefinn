@@ -1,0 +1,83 @@
+﻿@model GerenciadorFinanceiro.Models.caixa
+
+@{
+    ViewBag.Title = "Caixa";
+	ViewBag.TituloPagina = "Edição de Caixa";
+	Layout = null;
+}
+
+<!-- <h2>Edit</h2> 
+<h2>caixa</h2> -->
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Editar  Caixa  </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+		@using (Html.BeginForm("Edit" , "Caixa" , FormMethod.Post)) 
+		{
+			@Html.AntiForgeryToken()
+				
+			<fieldset class="scheduler-border  mt-4 col-12  ">
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="form-group row">
+					@Html.LabelFor(model => model.valorabertura, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.valorabertura, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.valorabertura, "", new { @class = "text-danger" })
+					</div>
+			  </div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.valorfechamento, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.valorfechamento, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.valorfechamento, "", new { @class = "text-danger" })
+					</div>
+			  </div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.horaabertura, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.horaabertura, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.horaabertura, "", new { @class = "text-danger" })
+					</div>
+			  </div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.horafechamento, htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 " })
+					<div class="col-md-7">
+				
+						@Html.EditorFor(model => model.horafechamento, new { htmlAttributes = new { @class = "form-control" , @required = true } })
+						@Html.ValidationMessageFor(model => model.horafechamento, "", new { @class = "text-danger" })
+					</div>
+			  </div>
+
+				<div class="form-group row">
+					@Html.LabelFor(model => model.lancamento_id, "lancamento_id", htmlAttributes: new { @class = "control-label col-md-5 col-sm-12 requerido" })
+					<div class="col-md-7">
+						@Html.DropDownList("lancamento_id", null, htmlAttributes: new { @class = "form-control" , @required = true , @style = "text-transform: uppercase" })
+						@Html.ValidationMessageFor(model => model.lancamento_id, "", new { @class = "text-danger" })
+					</div>
+			  </div>
+
+			</fieldset>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+				<button type="submit" value="Save" class="btn btn-outline-success">Salvar</button>
+			</div>
+			}
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="~/Scripts/funcoes.js"></script>
+
+
+

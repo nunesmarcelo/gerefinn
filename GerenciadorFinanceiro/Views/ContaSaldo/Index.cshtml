@@ -1,134 +1,134 @@
 ﻿@model IEnumerable<GerenciadorFinanceiro.Models.contasaldo>
 
 @{
-    ViewBag.Title = "Contas";
-    ViewBag.TituloPagina = "Contas Cadastradas";
+    /**/
+
+    ViewBag.Title = "Contasaldo";
+    ViewBag.TituloPagina = "Contasaldos Cadastrados";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <div class="col-12" style="text-align:right;margin-bottom:15px;">
-    @*<a href="~/ContaSaldo/Create" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Conta</a>*@
-    <span class="btn btn-outline-success createContaSaldo"> <span class="fas fa-plus"></span> Conta</span>
+    <span class="btn btn-outline-success create" data-toggle="tooltip" title="Adicionar Contasaldo"> <span class="fas fa-plus"></span> Conta</span>
 </div>
+<div class="col-12">
+    <table class="table table-hover table-responsive-sm" id="tabela">
+        <thead>
+            <tr>
+                <th data-toggle="tooltip" title="Nome">
+                    @*@Html.DisplayNameFor(model => model.nome)*@
+                    <i class="fas fa-signature" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Banco">
+                    @*@Html.DisplayNameFor(model => model.banco)*@
+                    <i class="fas fa-university" style="color:rebeccapurple"></i>
+                </th>
+                <th  data-toggle="tooltip" title="Saldo">
+                    @*@Html.DisplayNameFor(model => model.saldo)*@
+                    <i class="far fa-money-bill-alt" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Status">
+                    @*@Html.DisplayNameFor(model => model.status)*@
+                    <i class="fas fa-power-off" style="color:rebeccapurple"></i>
+                </th>
 
-<div class="col-md-12">
-    <table class="table table-hover table-responsive-sm">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.banco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.saldo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.tipo)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="col-12" data-placement="top" title="Visualizar conta" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:cell;">
-                <td class="text-uppercase editContaSaldo " data-id="@item.id" data-toggle="tooltip">
-                    <span style="color:dodgerblue">
-                        <b>
-                            @Html.DisplayFor(modelItem => item.nome)
-                        </b>
-                    </span>
-                </td>
-                <td class="text-uppercase editContaSaldo " data-id="@item.id" data-toggle="tooltip">
-                    @if (@Html.DisplayFor(modelItem => item.banco).ToString() == "CAIXA")
-                    {
-                        <img src="~/Images/ico-caixa.png" alt="Alternate Text" class="rounded-circle img-fluid" style="width:6% ;" />
-                    }
-                    @*@if (@Html.DisplayFor(modelItem => item.banco).ToString() == "BRASIL")
-                    {
-                        <img src="~/Images/ico-bb.jpg" alt="Alternate Text" class="rounded-circle img-fluid" style="width:10% ;" />
-                    }*@
-                    else
-                    {
-                        @Html.DisplayFor(modalItem => item.banco)
-                    }
-                </td>
-                <td class="text-uppercase editContaSaldo " data-id="@item.id" data-toggle="tooltip">
-                    @Html.DisplayFor(modelItem => item.saldo)
-                </td>
-                <td class="editContaSaldo " data-id="@item.id" data-toggle="tooltip">
-                    @if (item.status == true)
-                    {
-                        <span class="fa fa-toggle-on" style="color:green;font-size:16pt;"></span>
-                    }
-                    else
-                    {
-                        <span class="fa fa-toggle-off" style="color:red;font-size:16pt;"></span>
-                    }
-                </td>
-                <td class="editContaSaldo " data-id="@item.id" data-toggle="tooltip">
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "POUPANCA")
-                    {
-                        <span style="color:dodgerblue">Poupança</span>
-                    }
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "CORRENTE")
-                    {
-                        <span style="color:green">Corrente</span>
-                    }
-                    @if (Html.DisplayFor(modelItem => item.tipo).ToString() == "MISTA")
-                    {
-                        <span style="color:rebeccapurple">Mista</span>
-                    }
-                </td>
-                <td>
-                    @*<a href="~/ContaSaldo/Edit/@item.id"><span style="font-size:16pt;" class="far fa-edit"></span></a>
-                        <a href="~/ContaSaldo/Details/@item.id"><span style="font-size:16pt;" class="far fa-eye"></span></a>
-                        <a href="~/ContaSaldo/Delete/@item.id"><span style="font-size:16pt;" class="far fa-trash-alt"></span></a>*@
-                    <span data-id="@item.id" class="deleteContaSaldo far fa-trash-alt" data-toggle="tooltip" style="cursor:alias"></span>
-                </td>
+                <th data-toggle="tooltip" title="Agência">
+                    @*@Html.DisplayNameFor(model => model.agencia)*@
+                    <i class="fas fa-money-check-alt" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Conta">
+                    @*@Html.DisplayNameFor(model => model.conta)*@
+                    <i class="fas fa-money-check" style="color:rebeccapurple"></i>
+                </th>
+                <th  data-toggle="tooltip" title="Titular">
+                    @*@Html.DisplayNameFor(model => model.titular)*@
+                    <i class="fas fa-user-tie" style="color:rebeccapurple"></i>
+                </th>
+                <th data-toggle="tooltip" title="Tipo">
+                    @*@Html.DisplayNameFor(model => model.tipo)*@
+                    <i class="fas fa-retweet" style="color:rebeccapurple"></i>
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
 
+            @foreach (var item in Model)
+            {
+                <tr class="col-12" data-placement="top" title="Visualizar Contasaldo" onmouseover="this.style.backgroundColor='#C2E6FB'" onmouseout="this.style.backgroundColor=''" style="cursor:pointer;">
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.nome)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.banco)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.saldo)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @*@Html.DisplayFor(modelItem => item.status)*@
+                        @if (item.status == true)
+                        {
+                            <i class="fas fa-toggle-on" style="color:limegreen"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-toggle-off" style="color:red"></i>
+                        }
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.agencia)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.conta)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.titular)
+                    </td>
+                    <td class="text-uppercase edit " data-id="@item.id" data-toggle="tooltip" title="Visualizar Conta">
+                        @Html.DisplayFor(modelItem => item.tipo)
+                    </td>
+                    <td>
+                        <!-- @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id }) -->
+                        <span data-id="@item.id" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar Conta" style="cursor:alias"></span>
+                    </td>
+                </tr>
+            }
+        <tbody>
     </table>
-
 </div>
 
 
-
-
-<div class="modal" id="editarContaSaldo">
+<div class="modal" id="div-visualizacao">
 
 </div>
 
 <script type="text/javascript">
 
-    
 
-    $(".editContaSaldo").click(function () {
+
+    $(".edit").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarContaSaldo").load("/ContaSaldo/Edit/" + id, function () {
-            $("#editarContaSaldo").modal("show");
+        $("#div-visualizacao").load("/Contasaldo/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".deleteContaSaldo").click(function () {
+    $(".delete").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarContaSaldo").load("/ContaSaldo/Delete/" + id, function () {
-            $("#editarContaSaldo").modal("show");
+        $("#div-visualizacao").load("/Contasaldo/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
         })
     });
 
-    $(".createContaSaldo").click(function () {
+    $(".create").click(function () {
         var id = $(this).attr("data-id");
-        $("#editarContaSaldo").load("/ContaSaldo/Create/", function () {
-            $("#editarContaSaldo").modal();
+        $("#div-visualizacao").load("/Contasaldo/Create/", function () {
+            $("#div-visualizacao").modal();
         })
     });
 </script>
-
-
 

@@ -4,26 +4,54 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b7d6ee9b4eb1443aa04798f159cef2c5" Name="Diagram1">
-        <EntityTypeShape EntityType="financeiroModel.contasaldo" Width="1.5" PointX="7.125" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="financeiroModel.instituicao" Width="1.5" PointX="2" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="financeiroModel.usuario" Width="1.5" PointX="7.125" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="financeiroModel.lancamento" Width="1.5" PointX="4.375" PointY="2.625" />
-        <AssociationConnector Association="financeiroModel.fk_lancamento_contasaldo1" />
-        <AssociationConnector Association="financeiroModel.fk_lancamento_instituicao" />
-        <EntityTypeShape EntityType="financeiroModel.categoria" Width="1.5" PointX="2" PointY="2.875" />
-        <AssociationConnector Association="financeiroModel.fk_lancamento_categoria" />
-        <EntityTypeShape EntityType="financeiroModel.produto" Width="1.5" PointX="12.5" PointY="6.25" />
-        <AssociationConnector Association="financeiroModel.fk_lancamento_usuario1" />
-        <EntityTypeShape EntityType="financeiroModel.estoque" Width="1.5" PointX="12.5" PointY="1.75" />
-        <EntityTypeShape EntityType="financeiroModel.lancamentoestoque" Width="1.5" PointX="9.75" PointY="3" />
-        <AssociationConnector Association="financeiroModel.fk_estoqueproduto_contasaldo1" />
-        <AssociationConnector Association="financeiroModel.fk_lancamentoestoque_estoque1" />
-        <AssociationConnector Association="financeiroModel.fk_estoqueproduto_produto1" />
-        <AssociationConnector Association="financeiroModel.fk_lancamentoestoque_usuario1" />
-        <EntityTypeShape EntityType="financeiroModel.produtoemestoque" Width="1.5" PointX="15" PointY="5.125" />
-        <AssociationConnector Association="financeiroModel.fk_produto_has_estoque_estoque1" />
-        <AssociationConnector Association="financeiroModel.fk_produto_has_estoque_produto1" />
+      <Diagram DiagramId="f94322c765054f169b5002cbb9498f4b" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="FinanceiroModel.categoria" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="FinanceiroModel.contasaldo" Width="1.5" PointX="1.125" PointY="16" />
+        <EntityTypeShape EntityType="FinanceiroModel.estoque" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="FinanceiroModel.imagemcontasaldo" Width="1.5" PointX="3" PointY="28.5" />
+        <EntityTypeShape EntityType="FinanceiroModel.imagemestoque" Width="1.5" PointX="5.25" PointY="5.75" />
+        <EntityTypeShape EntityType="FinanceiroModel.imageminstituicao" Width="1.5" PointX="3" PointY="25" />
+        <EntityTypeShape EntityType="FinanceiroModel.imagemproduto" Width="1.5" PointX="5.25" PointY="21.875" />
+        <EntityTypeShape EntityType="FinanceiroModel.imagemusuario" Width="1.5" PointX="3" PointY="17.75" />
+        <EntityTypeShape EntityType="FinanceiroModel.instituicao" Width="1.5" PointX="0.75" PointY="19.875" />
+        <EntityTypeShape EntityType="FinanceiroModel.lancamento" Width="1.5" PointX="3" PointY="10.25" />
+        <EntityTypeShape EntityType="FinanceiroModel.logcaixa" Width="1.5" PointX="7.5" PointY="20.375" />
+        <EntityTypeShape EntityType="FinanceiroModel.notafiscallancamento" Width="1.5" PointX="5.25" PointY="13.5" />
+        <EntityTypeShape EntityType="FinanceiroModel.notafiscalvenda" Width="1.5" PointX="9.75" PointY="20.5" />
+        <EntityTypeShape EntityType="FinanceiroModel.pagamento" Width="1.5" PointX="12.75" PointY="13.375" />
+        <EntityTypeShape EntityType="FinanceiroModel.produto" Width="1.5" PointX="3" PointY="21.5" />
+        <EntityTypeShape EntityType="FinanceiroModel.produtoemestoque" Width="1.5" PointX="7.5" PointY="9.625" />
+        <EntityTypeShape EntityType="FinanceiroModel.produtolancamento" Width="1.5" PointX="5.25" PointY="9" />
+        <EntityTypeShape EntityType="FinanceiroModel.produtovenda" Width="1.5" PointX="9.75" PointY="13.25" />
+        <EntityTypeShape EntityType="FinanceiroModel.tipopagamento" Width="1.5" PointX="10.5" PointY="9.75" />
+        <EntityTypeShape EntityType="FinanceiroModel.usuario" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="FinanceiroModel.venda" Width="1.5" PointX="7.5" PointY="13" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_categoria1" />
+        <AssociationConnector Association="FinanceiroModel.fk_imagemcontasaldo_contasaldo1" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_contasaldo1" />
+        <AssociationConnector Association="FinanceiroModel.fk_imagemestoque_estoque1" />
+        <AssociationConnector Association="FinanceiroModel.fk_produto_has_estoque_estoque1" />
+        <AssociationConnector Association="FinanceiroModel.fk_produto_has_estoque_estoque2" />
+        <AssociationConnector Association="FinanceiroModel.fk_imageminstituicao_instituicao1" />
+        <AssociationConnector Association="FinanceiroModel.fk_imagemproduto_produto1" />
+        <AssociationConnector Association="FinanceiroModel.fk_imagemusuario_usuario1" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_instituicao1" />
+        <AssociationConnector Association="FinanceiroModel.fk_venda_instituicao1" />
+        <AssociationConnector Association="FinanceiroModel.fk_lancamento_usuario1" />
+        <AssociationConnector Association="FinanceiroModel.fk_notafiscallancamento_lancamento1" />
+        <AssociationConnector Association="FinanceiroModel.fk_produtolancamento_lancamento1" />
+        <AssociationConnector Association="FinanceiroModel.fk_notafiscalvenda_venda1" />
+        <AssociationConnector Association="FinanceiroModel.fk_pagamento_tipopagamento1" />
+        <AssociationConnector Association="FinanceiroModel.fk_pagamento_venda1" />
+        <AssociationConnector Association="FinanceiroModel.fk_produto_has_estoque_produto1" />
+        <AssociationConnector Association="FinanceiroModel.fk_produto_has_estoque_produto2" />
+        <AssociationConnector Association="FinanceiroModel.fk_produtovenda_produtoemestoque1" />
+        <AssociationConnector Association="FinanceiroModel.fk_produtovenda_venda1" />
+        <AssociationConnector Association="FinanceiroModel.fk_venda_usuario1" />
+        <EntityTypeShape EntityType="FinanceiroModel.caixa" Width="1.5" PointX="5.25" PointY="17.125" />
+        <AssociationConnector Association="FinanceiroModel.fk_caixa_lancamento1" />
+        <AssociationConnector Association="FinanceiroModel.fk_logcaixa_caixa1" />
+        <AssociationConnector Association="FinanceiroModel.fk_venda_caixa1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

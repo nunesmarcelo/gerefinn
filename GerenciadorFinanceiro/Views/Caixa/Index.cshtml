@@ -1,0 +1,155 @@
+﻿@model IEnumerable<GerenciadorFinanceiro.Models.caixa>
+
+@{
+    /**/
+
+    ViewBag.Title = "Caixa";
+    ViewBag.TituloPagina = "Caixas Cadastrados";
+    Layout = "~/Views/Shared/_LayoutLiso.cshtml";
+}
+
+
+@*Se não tiverem caixas, ou se o último caixa já foi fechado, apareça a opção de abrir, senão, a de fechar.*@
+@if (Model.Count() == 0 || Model.OrderByDescending(x => x.id).FirstOrDefault().horafechamento != null)
+{
+    <div class="col-12 row mb-4 rounded align-items-center" style="margin: auto;height:50px;">
+        <span style="text-align:left;" class="h3 col-6"> Caixa Fechado!</span>
+        <div class="col-6" style="text-align:right;">
+            <span class="abrir" data-toggle="tooltip" title="Abrir o Caixa" style="cursor:pointer;display:inline-block"> <span class="fas fa-door-open" style="font-size:26pt; text-decoration:none;"></span></span>>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-12 row mb-4 rounded align-items-center" style="margin: auto; height:50px;">
+        <span style="text-align:left;" class="h3 col-6"> Caixa Aberto!</span>
+        <div class="col-6" style="text-align:right;">
+            <a href="~/Venda/Index" data-toggle="tooltip" title="Ir para vendas" style="cursor:pointer;display:inline-block"> <span class="fas fa-money-check-alt" style="font-size:26pt; text-decoration:none;"></span></a>
+            @*<button type="button" onclick="openwindow()" data-toggle="tooltip" title="Ir para vendas" style="cursor:pointer;display:inline-block"> <span class="fas fa-money-check-alt" style="font-size:26pt; text-decoration:none;"></span></button>*@
+
+            <span class="fechar" data-toggle="tooltip" title="Fechar o Caixa" style="cursor:pointer;display:inline-block"> <span class="fas fa-door-closed" style="font-size:26pt; text-decoration:none;"></span></span>
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-12 row mb-2 align-items-center" style="height:50px;margin:auto;">
+        <div class="shadow-lg rounded col-12 bg-primary h4 text-center align-items-center row text-white" style="height:50px;margin:auto;">
+            Últimos fechamentos
+        </div>
+
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="card ml-4 shadow-lg" style="width: 18rem;text-align:center;background-color:transparent;">
+            <div class="card-body shadow-lg pt-3 pb-2 rounded" style="opacity:1;">
+                @*<img class="card-img-top" src="~/Images/uncheck.png" alt="Card image cap">*@
+                <div class="col-12 card-title card-text" data-toggle="tooltip" title="Visualizar Caixa">
+                    <b>@Html.DisplayNameFor(model => model.valorabertura):</b>
+                    @Html.DisplayFor(modelItem => item.valorabertura) <hr />
+                </div>
+                <div class="col-12 card-title card-text">
+                    <b>@Html.DisplayNameFor(model => model.valorfechamento):</b>
+                    @if (item.valorfechamento == null)
+                    {
+                        <span>Aberto</span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.valorfechamento)
+                    }
+                    <hr />
+                </div>
+                <div class="col-12 card-title card-text">
+                    <b>@Html.DisplayNameFor(model => model.horaabertura):</b>
+                    @Html.DisplayFor(modelItem => item.horaabertura) <hr />
+                </div>
+                <div class="col-12 card-title card-text">
+                    <b>@Html.DisplayNameFor(model => model.horafechamento):</b>
+                    @if (item.horafechamento == null)
+                    {
+                        <span>Aberto</span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.horafechamento)
+                    }
+                    <hr />
+                </div>
+                <div class="col-12 card-title card-text">
+                    <b>@Html.DisplayNameFor(model => model.lancamento.descricao):</b>
+                    @Html.DisplayFor(modelItem => item.lancamento.descricao) <hr />
+                </div>
+                @if (item.horafechamento != null)
+                {
+                    <div id="com-fechamento" style="height:100px; width:100%;"></div>
+                }
+                else
+                {
+                    <div id="sem-fechamento" style="height:100px; width:100%;"></div>
+                }
+            </div>
+        </div>
+        @*@Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            <span data-id="@item.id" class="delete far fa-trash-alt" data-toggle="tooltip" title="Deletar Caixa" style="cursor:alias"></span>*@
+    }
+</div>
+
+<div class="modal" id="div-visualizacao">
+
+</div>
+
+<script type="text/javascript">
+    //window.onbeforeunload = function () {
+    //    //if (document.forms[0].btSalvou.value != 't') {
+    //    return ' Se você fechar essa janela irá perder tudo que você digitou até agora. ';
+    //    //}
+    //}
+
+
+    $(".edit").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Caixa/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".delete").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Caixa/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".abrir").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Caixa/Abrir/", function () {
+            $("#div-visualizacao").modal();
+        })
+    });
+
+    $(".fechar").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Caixa/Fechar/", function () {
+            $("#div-visualizacao").modal();
+        })
+    });
+</script>
+
+<style>
+    #com-fechamento {
+        background-color: white;
+        background: url("../Images/fechado.gif") center no-repeat;
+        background-size: contain;
+    }
+
+    #sem-fechamento {
+        background-color: white;
+        background: url("../Images/aberto.gif") center no-repeat;
+        background-size: contain;
+    }
+</style>
+

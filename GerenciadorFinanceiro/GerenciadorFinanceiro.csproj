@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -162,7 +165,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="AuxCodes\Data.cs" />
+    <Compile Include="AuxCodes\Date.cs" />
     <Compile Include="AuxCodes\PermissaoProvider.cs" />
     <Compile Include="AuxCodes\PermissoesRegra.cs" />
     <Compile Include="AuxCodes\Sec.cs" />
@@ -170,18 +173,18 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ContaSaldoController.cs" />
     <Compile Include="Controllers\EstoqueController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InstituicaoController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
-    <Compile Include="Controllers\LancamentoEstoqueController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ProdutoController.cs" />
-    <Compile Include="Controllers\RelatoriosController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VendaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstituicaoController.cs" />
     <Compile Include="Models\CadastrarLancamento.cs" />
+    <Compile Include="Models\CadastrarVenda.cs" />
+    <Compile Include="Models\caixa.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\categoria.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
@@ -206,16 +209,40 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\imagemcontasaldo.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\imagemestoque.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\imageminstituicao.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\imagemproduto.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\imagemusuario.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\instituicao.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lancamento.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\lancamentoestoque.cs">
+    <Compile Include="Models\logcaixa.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\notafiscallancamento.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\notafiscalvenda.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pagamento.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PesquisarPeriodo.cs" />
     <Compile Include="Models\produto.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
@@ -223,10 +250,23 @@
     <Compile Include="Models\produtoemestoque.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\produtolancamento.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\produtovenda.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\tipopagamento.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\usuario.cs">
       <DependentUpon>FinanceiroBanco.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\venda.cs">
+      <DependentUpon>FinanceiroBanco.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -293,25 +333,36 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\venda\bootstrap-select.min.css" />
+    <Content Include="Content\venda\jquery-ui.min.css" />
+    <Content Include="Content\venda\jquery-ui.theme.min.css" />
+    <Content Include="Content\venda\Venda.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\aberto.gif" />
     <Content Include="Images\aviao.png" />
+    <Content Include="Images\back.png" />
+    <Content Include="Images\check.png" />
     <Content Include="Images\clientes2.png" />
     <Content Include="Images\contasaldos2.png" />
     <Content Include="Images\cursos.gif" />
     <Content Include="Images\dres2.png" />
+    <Content Include="Images\fechado.gif" />
     <Content Include="Images\fornecedores2.png" />
     <Content Include="Images\fundo-grafico.jfif" />
+    <Content Include="Images\fundo-lancamento.png" />
     <Content Include="Images\fundo-quadrado-grafico.png" />
     <Content Include="Images\lancamento2.png" />
     <Content Include="Images\listagem.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\login.jpg" />
+    <Content Include="Images\menu-back.png" />
     <Content Include="Images\passivos2.png" />
     <Content Include="Images\relatorio.png" />
     <Content Include="Images\teste.png" />
+    <Content Include="Images\uncheck.png" />
     <Content Include="Models\FinanceiroBanco.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
@@ -340,6 +391,70 @@
     <Content Include="Models\FinanceiroBanco.edmx.diagram">
       <DependentUpon>FinanceiroBanco.edmx</DependentUpon>
     </Content>
+    <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
+    <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />
+    <Content Include="CodeTemplates\ApiControllerWithActions\Controller.cs.t4" />
+    <Content Include="CodeTemplates\ApiControllerWithActions\Controller.vb.t4" />
+    <Content Include="CodeTemplates\ApiControllerWithContext\Controller.cs.t4" />
+    <Content Include="CodeTemplates\ApiControllerWithContext\Controller.vb.t4" />
+    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.asax.cs.t4" />
+    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.asax.vb.t4" />
+    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.cs.t4" />
+    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\Global.vb.t4" />
+    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\WebApiConfig.cs.t4" />
+    <Content Include="CodeTemplates\ApiDependencyCodeGenerator\WebApiConfig.vb.t4" />
+    <Content Include="CodeTemplates\MvcArea\Area.cs.t4" />
+    <Content Include="CodeTemplates\MvcArea\Area.vb.t4" />
+    <Content Include="CodeTemplates\MvcArea\web.cs.t4" />
+    <Content Include="CodeTemplates\MvcArea\web.vb.t4" />
+    <Content Include="CodeTemplates\MvcControllerEmpty\Controller.cs.t4" />
+    <Content Include="CodeTemplates\MvcControllerEmpty\Controller.vb.t4" />
+    <Content Include="CodeTemplates\MvcControllerWithActions\Controller.cs.t4" />
+    <Content Include="CodeTemplates\MvcControllerWithActions\Controller.vb.t4" />
+    <Content Include="CodeTemplates\MvcControllerWithContext\Controller.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\BundleConfig.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\BundleConfig.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Error.cshtml" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Error.vbhtml" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\FilterConfig.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\FilterConfig.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.asax.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.asax.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Global.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\RouteConfig.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\RouteConfig.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\web.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\web.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_Layout.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_Layout.vb.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_ViewStart.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\_ViewStart.vb.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.asax.cs.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.asax.vb.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.cs.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\Global.vb.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\RouteConfig.cs.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\RouteConfig.vb.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\web.cs.t4" />
+    <Content Include="CodeTemplates\MvcMinimalDependencyCodeGenerator\web.vb.t4" />
+    <Content Include="CodeTemplates\MvcViewWithoutModel\Empty.cs.t4" />
+    <Content Include="CodeTemplates\MvcViewWithoutModel\Empty.vb.t4" />
+    <Content Include="CodeTemplates\MvcViewWithoutModel\Imports.include.t4" />
+    <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Details.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Empty.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
+    <Content Include="CodeTemplates\MvcView\List.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
+    <Content Include="CodeTemplates\ODataControllerWithActions\Controller.cs.t4" />
+    <Content Include="CodeTemplates\ODataControllerWithActions\Controller.vb.t4" />
+    <Content Include="CodeTemplates\ODataControllerWithContext\Controller.cs.t4" />
+    <Content Include="CodeTemplates\ODataControllerWithContext\Controller.vb.t4" />
+    <Content Include="CodeTemplates\MvcView\Create.cs.t4" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\bootstrap\bootstrap.bundle.js.map" />
     <Content Include="Scripts\bootstrap\bootstrap.bundle.min.js.map" />
@@ -352,9 +467,21 @@
     <Content Include="Scripts\bootstrap-css\bootstrap-reboot.min.css.map" />
     <Content Include="Scripts\bootstrap-css\bootstrap.css.map" />
     <Content Include="Scripts\bootstrap-css\bootstrap.min.css.map" />
+    <Content Include="Scripts\css\bootstrap-grid.css.map" />
+    <Content Include="Scripts\css\bootstrap-grid.min.css.map" />
+    <Content Include="Scripts\css\bootstrap-reboot.css.map" />
+    <Content Include="Scripts\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Scripts\css\bootstrap.css.map" />
+    <Content Include="Scripts\css\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
+    <Content Include="Scripts\css\bootstrap-grid.css" />
+    <Content Include="Scripts\css\bootstrap-grid.min.css" />
+    <Content Include="Scripts\css\bootstrap-reboot.css" />
+    <Content Include="Scripts\css\bootstrap-reboot.min.css" />
+    <Content Include="Scripts\css\bootstrap.css" />
+    <Content Include="Scripts\css\bootstrap.min.css" />
     <Content Include="Scripts\font-awesome-icones.css" />
     <Content Include="Scripts\funcoes.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -368,11 +495,61 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jquery\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery\popper.min.js" />
+    <Content Include="Scripts\js\bootstrap.bundle.js" />
+    <Content Include="Scripts\js\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\js\bootstrap.js" />
+    <Content Include="Scripts\js\bootstrap.min.js" />
     <Content Include="Scripts\mask\echarts.common.min.js" />
     <Content Include="Scripts\mask\jquery.mask.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\dist\mdc.animation.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\dist\mdc.animation.min.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\index.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\component.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\dist\mdc.base.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\dist\mdc.base.min.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\foundation.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\index.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\dist\mdc.elevation.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\dist\mdc.elevation.min.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\adapter.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\constants.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\dist\mdc.ripple.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\dist\mdc.ripple.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\dist\mdc.ripple.min.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\dist\mdc.ripple.min.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\foundation.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\index.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\util.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\selection-control\dist\mdc.selectionControl.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\selection-control\dist\mdc.selectionControl.min.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\selection-control\index.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\adapter.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\constants.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\dist\mdc.switch.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\dist\mdc.switch.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\dist\mdc.switch.min.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\dist\mdc.switch.min.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\foundation.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\index.js" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\dist\mdc.theme.css" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\dist\mdc.theme.min.css" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\titanic-master\.eslintrc.js" />
+    <Content Include="Scripts\titanic-master\demo\index.html" />
+    <Content Include="Scripts\titanic-master\demo\styles\demo.css" />
+    <Content Include="Scripts\titanic-master\dist\js\titanic.min.js" />
+    <Content Include="Scripts\titanic-master\dist\vendor\bodymovin.min.js" />
+    <Content Include="Scripts\titanic-master\docs\images\animated-icons-preview.gif" />
+    <Content Include="Scripts\titanic-master\docs\images\magritte.gif" />
+    <Content Include="Scripts\titanic-master\gulpfile.js" />
+    <Content Include="Scripts\titanic-master\src\index.html" />
+    <Content Include="Scripts\titanic-master\src\js\titanic-icon.js" />
+    <Content Include="Scripts\titanic-master\src\js\titanic.js" />
+    <Content Include="Scripts\venda\bootstrap-select.js" />
+    <Content Include="Scripts\venda\jquery-ui.min.js" />
+    <Content Include="Scripts\venda\Venda.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -385,67 +562,232 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Login\CadastrarUsuario.cshtml" />
-    <Content Include="Views\Relatorios\RelatorioPorData.cshtml" />
-    <Content Include="Views\Login\Negado.cshtml" />
-    <Content Include="Views\Categoria\CreateDespesa.cshtml" />
-    <Content Include="Views\Categoria\Delete.cshtml" />
-    <Content Include="Views\Categoria\Details.cshtml" />
-    <Content Include="Views\Categoria\IndexReceita.cshtml" />
-    <Content Include="Views\ContaSaldo\Create.cshtml" />
-    <Content Include="Views\ContaSaldo\Delete.cshtml" />
-    <Content Include="Views\ContaSaldo\Details.cshtml" />
-    <Content Include="Views\ContaSaldo\Edit.cshtml" />
-    <Content Include="Views\ContaSaldo\Index.cshtml" />
-    <Content Include="Views\Instituicao\CreateCliente.cshtml" />
-    <Content Include="Views\Instituicao\Delete.cshtml" />
-    <Content Include="Views\Instituicao\Details.cshtml" />
-    <Content Include="Views\Instituicao\Edit.cshtml" />
-    <Content Include="Views\Instituicao\IndexCliente.cshtml" />
-    <Content Include="Views\Usuario\Create.cshtml" />
-    <Content Include="Views\Usuario\Delete.cshtml" />
-    <Content Include="Views\Usuario\Details.cshtml" />
-    <Content Include="Views\Usuario\Edit.cshtml" />
-    <Content Include="Views\Usuario\Index.cshtml" />
-    <Content Include="Views\Categoria\IndexDespesa.cshtml" />
-    <Content Include="Views\Categoria\CreateReceita.cshtml" />
-    <Content Include="Views\Instituicao\IndexFornecedor.cshtml" />
-    <Content Include="Views\Instituicao\CreateFornecedor.cshtml" />
-    <Content Include="Views\Lancamento\CreateDespesa.cshtml" />
-    <Content Include="Views\Lancamento\Delete.cshtml" />
-    <Content Include="Views\Lancamento\Details.cshtml" />
-    <Content Include="Views\Lancamento\Edit.cshtml" />
-    <Content Include="Views\Lancamento\Index2.cshtml" />
-    <Content Include="Views\Relatorios\Index.cshtml" />
-    <Content Include="Views\Relatorios\PesquisarPeriodo.cshtml" />
-    <Content Include="Views\Produto\Create.cshtml" />
-    <Content Include="Views\Produto\Delete.cshtml" />
-    <Content Include="Views\Produto\Details.cshtml" />
-    <Content Include="Views\Produto\Edit.cshtml" />
-    <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAntigo.cshtml" />
+    <Content Include="Views\Shared\_LayoutVenda.cshtml" />
+    <Content Include="Views\Shared\_LayoutLiso.cshtml" />
+    <Content Include="Views\Create.cs.t4" />
     <Content Include="Views\Estoque\Create.cshtml" />
     <Content Include="Views\Estoque\Delete.cshtml" />
     <Content Include="Views\Estoque\Details.cshtml" />
     <Content Include="Views\Estoque\Edit.cshtml" />
     <Content Include="Views\Estoque\Index.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Entrada.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Delete.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Details.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Edit.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Listagem.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Saida.cshtml" />
-    <Content Include="Views\LancamentoEstoque\Index.cshtml" />
-    <Content Include="Views\Caixa\AbrirCaixa.cshtml" />
-    <Content Include="Views\Shared\_LayoutCaixa.cshtml" />
-    <Content Include="Views\Lancamento\CreateReceita.cshtml" />
-    <Content Include="Views\Lancamento\Index.cshtml" />
+    <Content Include="Views\Instituicao\CreateCliente.cshtml" />
+    <Content Include="Views\Instituicao\Delete.cshtml" />
+    <Content Include="Views\Instituicao\Details.cshtml" />
+    <Content Include="Views\Instituicao\Edit.cshtml" />
+    <Content Include="Views\Instituicao\IndexCliente.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Produto\Create.cshtml" />
+    <Content Include="Views\Produto\Delete.cshtml" />
+    <Content Include="Views\Produto\Details.cshtml" />
+    <Content Include="Views\Produto\Edit.cshtml" />
+    <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\Instituicao\IndexFornecedor.cshtml" />
+    <Content Include="Views\Instituicao\CreateFornecedor.cshtml" />
+    <Content Include="Views\ContaSaldo\Create.cshtml" />
+    <Content Include="Views\ContaSaldo\Delete.cshtml" />
+    <Content Include="Views\ContaSaldo\Details.cshtml" />
+    <Content Include="Views\ContaSaldo\Edit.cshtml" />
+    <Content Include="Views\ContaSaldo\Index.cshtml" />
+    <Content Include="Views\Categoria\CreateDespesa.cshtml" />
+    <Content Include="Views\Categoria\Delete.cshtml" />
+    <Content Include="Views\Categoria\Details.cshtml" />
     <Content Include="Views\Categoria\Edit.cshtml" />
-    <Content Include="Views\Shared\_LayoutLiso.cshtml" />
+    <Content Include="Views\Categoria\IndexDespesa.cshtml" />
+    <Content Include="Views\Categoria\CreateReceita.cshtml" />
+    <Content Include="Views\Categoria\IndexReceita.cshtml" />
+    <Content Include="Views\Lancamento\CreateReceita.cshtml" />
+    <Content Include="Views\Lancamento\Delete.cshtml" />
+    <Content Include="Views\Lancamento\Details.cshtml" />
+    <Content Include="Views\Lancamento\Edit.cshtml" />
+    <Content Include="Views\Lancamento\Index.cshtml" />
+    <Content Include="Views\Lancamento\CreateDespesa.cshtml" />
+    <Content Include="Views\Caixa\Abrir.cshtml" />
+    <Content Include="Views\Caixa\Delete.cshtml" />
+    <Content Include="Views\Caixa\Details.cshtml" />
+    <Content Include="Views\Caixa\Edit.cshtml" />
+    <Content Include="Views\Caixa\Index.cshtml" />
+    <Content Include="Views\Caixa\Fechar.cshtml" />
+    <Content Include="Views\Venda\Create.cshtml" />
+    <Content Include="Views\Venda\Delete.cshtml" />
+    <Content Include="Views\Venda\Details.cshtml" />
+    <Content Include="Views\Venda\Edit.cshtml" />
+    <Content Include="Views\Venda\Index.cshtml" />
+    <Content Include="Views\Venda\ProdutoPartialView.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Venda\PagamentoPartialView.cshtml" />
+    <Content Include="Scripts\titanic-master\.gitignore" />
+    <Content Include="Scripts\titanic-master\dist\icons\broken-link.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\buy.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\caps.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\chat.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\cheap.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\checkbox.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\clear-filters.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\cloud.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\delete.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\deposit-withdrawal.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\expand-arrow.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\expand.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\expensive.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\eye.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\facebook-like.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\facebook.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\folder.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\forward-arrow.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\heart.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\hourglass.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\idea.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\install.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\mailbox.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\menu-arrow.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\menu-close.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\menu-close2.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\menu-minus.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\mic.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\mute.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\no-mic.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\online.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\open-closed.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\open-message.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\pause.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\pin.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\power.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\refresh-wait.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\restart.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\right-left.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\rotate-phone.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\search-close.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\shield.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\shipped.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\shopping.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\smile.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\sorting-alphabet.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\sorting-numerical.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\speech.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\star.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\stop.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\switch.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\thumb.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\toggle.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\trash.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\twitter.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\unlock.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\up-down.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\volume-1.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\volume-2.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\youtube.json" />
+    <Content Include="Scripts\titanic-master\dist\icons\zoom.json" />
+    <Content Include="Scripts\titanic-master\menu-close.json" />
+    <Content Include="Scripts\titanic-master\package-lock.json" />
+    <Content Include="Scripts\titanic-master\package.json" />
+    <Content Include="Scripts\titanic-master\readme.md" />
+    <Content Include="Scripts\titanic-master\src\icons\broken-link.json" />
+    <Content Include="Scripts\titanic-master\src\icons\buy.json" />
+    <Content Include="Scripts\titanic-master\src\icons\caps.json" />
+    <Content Include="Scripts\titanic-master\src\icons\chat.json" />
+    <Content Include="Scripts\titanic-master\src\icons\cheap.json" />
+    <Content Include="Scripts\titanic-master\src\icons\checkbox.json" />
+    <Content Include="Scripts\titanic-master\src\icons\clear-filters.json" />
+    <Content Include="Scripts\titanic-master\src\icons\cloud.json" />
+    <Content Include="Scripts\titanic-master\src\icons\delete.json" />
+    <Content Include="Scripts\titanic-master\src\icons\deposit-withdrawal.json" />
+    <Content Include="Scripts\titanic-master\src\icons\expand-arrow.json" />
+    <Content Include="Scripts\titanic-master\src\icons\expand.json" />
+    <Content Include="Scripts\titanic-master\src\icons\expensive.json" />
+    <Content Include="Scripts\titanic-master\src\icons\eye.json" />
+    <Content Include="Scripts\titanic-master\src\icons\facebook-like.json" />
+    <Content Include="Scripts\titanic-master\src\icons\facebook.json" />
+    <Content Include="Scripts\titanic-master\src\icons\folder.json" />
+    <Content Include="Scripts\titanic-master\src\icons\forward-arrow.json" />
+    <Content Include="Scripts\titanic-master\src\icons\heart.json" />
+    <Content Include="Scripts\titanic-master\src\icons\hourglass.json" />
+    <Content Include="Scripts\titanic-master\src\icons\idea.json" />
+    <Content Include="Scripts\titanic-master\src\icons\install.json" />
+    <Content Include="Scripts\titanic-master\src\icons\mailbox.json" />
+    <Content Include="Scripts\titanic-master\src\icons\menu-arrow.json" />
+    <Content Include="Scripts\titanic-master\src\icons\menu-close.json" />
+    <Content Include="Scripts\titanic-master\src\icons\menu-close2.json" />
+    <Content Include="Scripts\titanic-master\src\icons\menu-minus.json" />
+    <Content Include="Scripts\titanic-master\src\icons\mic.json" />
+    <Content Include="Scripts\titanic-master\src\icons\mute.json" />
+    <Content Include="Scripts\titanic-master\src\icons\no-mic.json" />
+    <Content Include="Scripts\titanic-master\src\icons\online.json" />
+    <Content Include="Scripts\titanic-master\src\icons\open-closed.json" />
+    <Content Include="Scripts\titanic-master\src\icons\open-message.json" />
+    <Content Include="Scripts\titanic-master\src\icons\pause.json" />
+    <Content Include="Scripts\titanic-master\src\icons\pin.json" />
+    <Content Include="Scripts\titanic-master\src\icons\power.json" />
+    <Content Include="Scripts\titanic-master\src\icons\refresh-wait.json" />
+    <Content Include="Scripts\titanic-master\src\icons\restart.json" />
+    <Content Include="Scripts\titanic-master\src\icons\right-left.json" />
+    <Content Include="Scripts\titanic-master\src\icons\rotate-phone.json" />
+    <Content Include="Scripts\titanic-master\src\icons\search-close.json" />
+    <Content Include="Scripts\titanic-master\src\icons\shield.json" />
+    <Content Include="Scripts\titanic-master\src\icons\shipped.json" />
+    <Content Include="Scripts\titanic-master\src\icons\shopping.json" />
+    <Content Include="Scripts\titanic-master\src\icons\smile.json" />
+    <Content Include="Scripts\titanic-master\src\icons\sorting-alphabet.json" />
+    <Content Include="Scripts\titanic-master\src\icons\sorting-numerical.json" />
+    <Content Include="Scripts\titanic-master\src\icons\speech.json" />
+    <Content Include="Scripts\titanic-master\src\icons\star.json" />
+    <Content Include="Scripts\titanic-master\src\icons\stop.json" />
+    <Content Include="Scripts\titanic-master\src\icons\switch.json" />
+    <Content Include="Scripts\titanic-master\src\icons\thumb.json" />
+    <Content Include="Scripts\titanic-master\src\icons\toggle.json" />
+    <Content Include="Scripts\titanic-master\src\icons\trash.json" />
+    <Content Include="Scripts\titanic-master\src\icons\twitter.json" />
+    <Content Include="Scripts\titanic-master\src\icons\unlock.json" />
+    <Content Include="Scripts\titanic-master\src\icons\up-down.json" />
+    <Content Include="Scripts\titanic-master\src\icons\volume-1.json" />
+    <Content Include="Scripts\titanic-master\src\icons\volume-2.json" />
+    <Content Include="Scripts\titanic-master\src\icons\youtube.json" />
+    <Content Include="Scripts\titanic-master\src\icons\zoom.json" />
+    <Content Include="Scripts\titanic-master\visual-studio-code-snippet.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\_functions.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\animation\_variables.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\base\_mixins.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\mdc-elevation.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\_mixins.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\elevation\_variables.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\common.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\mdc-ripple.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\_functions.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\_keyframes.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\_mixins.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\ripple\_variables.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\rtl\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\rtl\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\rtl\_mixins.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\selection-control\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\mdc-switch.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\_functions.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\_mixins.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\switch\_variables.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\mdc-theme.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\package.json" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\README.md" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\_color-palette.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\_constants.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\_functions.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\_mixins.scss" />
+    <Content Include="Scripts\materials\node_modules\%40material\theme\_variables.scss" />
+    <Content Include="Scripts\materials\package-lock.json" />
+    <Content Include="Scripts\js\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\js\bootstrap.js.map" />
+    <Content Include="Scripts\js\bootstrap.min.js.map" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

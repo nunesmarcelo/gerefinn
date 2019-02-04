@@ -17,8 +17,9 @@ namespace GerenciadorFinanceiro.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public usuario()
         {
+            this.imagemusuario = new HashSet<imagemusuario>();
             this.lancamento = new HashSet<lancamento>();
-            this.lancamentoestoque = new HashSet<lancamentoestoque>();
+            this.venda = new HashSet<venda>();
         }
     
         public int id { get; set; }
@@ -35,11 +36,12 @@ namespace GerenciadorFinanceiro.Models
         public string cidade { get; set; }
         public string estado { get; set; }
         public string cep { get; set; }
-        public string confirmar_senha { get; set; }
-
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<imagemusuario> imagemusuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lancamento> lancamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<lancamentoestoque> lancamentoestoque { get; set; }
+        public virtual ICollection<venda> venda { get; set; }
     }
 }

@@ -1,0 +1,173 @@
+﻿@model GerenciadorFinanceiro.Models.CadastrarVenda
+
+@{
+    ViewBag.Title = "Venda";
+    ViewBag.TituloPagina = "Cadastro de Venda";
+    Layout = "~/Views/Shared/_LayoutVenda.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/venda/Venda.css" />
+<link rel="stylesheet" href="~/Content/venda/bootstrap-select.min.css" />
+<script type="text/javascript" src="~/Scripts/venda/Venda.js"></script>
+<script type="text/javascript" src="~/Scripts/venda/bootstrap-select.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        //Add o primeiro produto e pagamento
+        $.get('/Venda/AdicionarProduto', function (template) {
+            $("#listaProdutos").append(template);
+        });
+        $.get('/Venda/AdicionarPagamento', function (template) {
+            $("#listaPagamentos").append(template);
+        });
+
+        //Lista de produtos e pagamentos
+        $("#addProduto").click(function () {
+            $.get('/Venda/AdicionarProduto', function (template) {
+                $("#listaProdutos").append(template);
+            });
+        });
+        //Lista de produtos e pagamentos
+        $("#addPagamento").click(function () {
+            $.get('/Venda/AdicionarPagamento', function (template) {
+                $("#listaPagamentos").append(template);
+            });
+        });
+
+        // Auto Complete Automático do bootstrap
+        $('.selectpicker').selectpicker({
+            liveSearch: true,
+            showSubtext: true
+        });
+    });
+
+</script>
+
+@using (Html.BeginForm("Create", "Venda", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row col-12 align-items-center">
+
+        @* PRODUTOS DA VENDA *@
+
+        <div class="col-md-9 col-sm-12 text-center">
+
+            @* Lista dos produtos*@
+            <div class="col-12 shadow rounded" style=" height:60vh;  overflow:auto; ">
+                <div class="row col-12 ">
+                    <div class="col-6 text-left">
+                        <span style="font-size:16pt; font-family:'Trebuchet MS' serif; color:cornflowerblue">Produtos</span>
+                    </div>
+                    <div class="col-6 justify-content-lg-end">
+                        <a id="addProduto" href="#" style="float:right;"><span class="fas fa-plus"></span><span class="fas fa-box-open" style="font-size:26pt;"></span></a>
+                    </div>
+                </div>
+
+                <ul id="listaProdutos" style="list-style-type: none" class="list-inline">
+                    @foreach (var produto in Model.Produtos)
+                    {
+                    Html.RenderPartial("ProdutoPartialView", produto);
+                    }
+                </ul>
+            </div>
+
+            @* FORMAS DE PAGAMENTO *@
+
+            @* Lista dos pagamentos*@
+            <div class="col-12 shadow rounded" style="padding:5px;height:30vh;  overflow:auto; ">
+                <div class="row col-12 ">
+                    <div class="col-6 text-left">
+                        <span style="font-size:16pt; font-family:'Trebuchet MS' serif; color:cornflowerblue">Pagamento</span>
+                    </div>
+                    <div class="col-6 justify-content-lg-end">
+                        <a id="addPagamento" href="#" style="float:right;"><span class="fas fa-plus"></span><span class="fas fa-file-invoice-dollar" style="font-size:26pt;"></span></a>
+                    </div>
+                </div>
+
+                <ul id="listaPagamentos" style="list-style-type: none">
+                    @foreach (var pagamento in Model.Pagamentos)
+                    {
+                        Html.RenderPartial("PagamentoPartialView", pagamento);
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+
+
+            <div class="form-group row ">
+                    
+                    @Html.LabelFor(model => model.Venda.valortotal, htmlAttributes: new { @class = "control-label col-sm-12 requerido" })
+                <div class="col-sm-12 input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">R$</span>
+                    </div>
+                    @Html.EditorFor(model => model.Venda.valortotal, new { htmlAttributes = new { @class = "form-control", @required = true, @style = "text-transform: uppercase; font-size:22pt;", @id = "valor" , Value = "0,00" } })
+                    @Html.ValidationMessageFor(model => model.Venda.valortotal, "", new { @class = "text-danger" })
+                </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.caixa_id, "caixa_id", htmlAttributes: new { @class = "control-label col-sm-12 requerido " })
+                    <div class="col-sm-12">
+                        @Html.DropDownList("caixa_id", null, htmlAttributes: new { @class = "form-control selectpicker", @size = "1", @style = "text-transform: uppercase;", @id = "caixa_id", @data_show_subtext = "true", @data_live_search = "true" })
+                        @Html.ValidationMessageFor(model => model.Venda.caixa_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.usuario_id, "usuario_id", htmlAttributes: new { @class = "control-label col-sm-12 requerido" })
+                    <div class="col-sm-12">
+                        @Html.DropDownList("usuario_id", null, htmlAttributes: new { @class = "form-control selectpicker", @size = "1", @required = true, @style = "text-transform: uppercase", @id = "usuario_id", @data_show_subtext = "true", @data_live_search = "true" })
+                        @Html.ValidationMessageFor(model => model.Venda.usuario_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Venda.instituicao_id, "instituicao_id", htmlAttributes: new { @class = "control-label col-sm-12 requerido" })
+                    <div class="col-sm-12">
+                        @Html.DropDownList("instituicao_id", null, htmlAttributes: new { @class = "form-control selectpicker", @size = "1", @required = true, @style = "text-transform: uppercase", @id = "instituicao_id", @data_show_subtext = "true", @data_live_search = "true" })
+                        @Html.ValidationMessageFor(model => model.Venda.instituicao_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row container">
+                    @Html.LabelFor(model => model.Venda.concluida, htmlAttributes: new { @class = "control-label  col-sm-12 requerido" })
+                    <div class="col-sm-12 toggle">
+                        <input type="radio" id="choice1" name="choice" value="creative">
+                        <label for="choice1">Orçamento</label>
+
+                        <input type="radio" id="choice2" name="choice" value="productive">
+                        <label for="choice2" class="ml-4">Venda</label>
+
+                        <div id="flap"><span class="content">Venda</span></div>
+                        @*<div class="checkbox">
+                    <label class="quadrado">
+                        @Html.EditorFor(model => model.Venda.concluida, new { htmlAttributes = new { @class = "form-control", @style = "text-transform: uppercase", @id = "concluida" } })
+                        <span class="checkmark"></span>
+                    </label>
+                    @Html.ValidationMessageFor(model => model.Venda.concluida, "", new { @class = "text-danger" })
+                </div>*@
+                    </div>
+                </div>
+
+                <div class="form-group row col-12 mt-5">
+                    <div class="offset-md-2 col-md-10">
+                        <input type="submit" value="Salvar" class="btn btn-outline-success mr-3" style="width:100%;" />
+
+                        <a href="~/Lancamento/Index" class="btn btn-outline-danger" style="width:100%;">Cancelar Venda</a>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+}
+
+<script type="text/javascript" src="~/Scripts/funcoes.js"></script>
+
+

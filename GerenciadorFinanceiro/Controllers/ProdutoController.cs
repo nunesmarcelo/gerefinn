@@ -15,13 +15,14 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Produto
+        #region [ Index ] 
         public async Task<ActionResult> Index()
         {
             return View(await db.produto.ToListAsync());
         }
+        #endregion
 
-        // GET: Produto/Details/5
+        #region [ Details ] 
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,24 +36,20 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(produto);
         }
+        #endregion
 
-        // GET: Produto/Create
+        #region [ Create ] 
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Produto/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,nome,valorunitario,custounitario")] produto produto)
+        public async Task<ActionResult> Create([Bind(Include = "id,nome,valorunitario,custounitario,estoqueminimo,status")] produto produto)
         {
             if (ModelState.IsValid)
             {
-                produto.status = true;
-                produto.nome = produto.nome.ToUpper();
                 db.produto.Add(produto);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -60,8 +57,9 @@ namespace GerenciadorFinanceiro.Controllers
 
             return View(produto);
         }
+        #endregion
 
-        // GET: Produto/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,12 +74,9 @@ namespace GerenciadorFinanceiro.Controllers
             return View(produto);
         }
 
-        // POST: Produto/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,nome,valorunitario,custounitario,status")] produto produto)
+        public async Task<ActionResult> Edit([Bind(Include = "id,nome,valorunitario,custounitario,estoqueminimo,status")] produto produto)
         {
             if (ModelState.IsValid)
             {
@@ -91,8 +86,9 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(produto);
         }
+        #endregion
 
-        // GET: Produto/Delete/5
+        #region [ Delete ]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -107,7 +103,6 @@ namespace GerenciadorFinanceiro.Controllers
             return View(produto);
         }
 
-        // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -117,7 +112,9 @@ namespace GerenciadorFinanceiro.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region [ Dispose ]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -126,5 +123,7 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
     }
 }

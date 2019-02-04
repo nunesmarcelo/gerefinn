@@ -1,36 +1,88 @@
 ﻿@model GerenciadorFinanceiro.Models.instituicao
 
+
 @{
     ViewBag.Title = "Delete";
     Layout = null;
 }
+
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Deleção de Categoria</h5>
+            <h5 class="modal-title">Deleção de Instituição</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-
-        @using (Html.BeginForm("Delete", "Instituicao", FormMethod.Post))
-        {
-            <div class="modal-body">
-
+		@using (Html.BeginForm("Delete", "Instituicao", FormMethod.Post)) {
+			<div class="modal-body">
                 @Html.AntiForgeryToken()
-                <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5">
-                    <h3>Confirma exclusão?</h3>
-                    <div class="mt-3">
-                        @Html.DisplayNameFor(model => model.nome)  <b>@Html.DisplayFor(model => model.nome)</b>
+				 <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5" style="text-transform: uppercase;">
+                    <div class="col-12">
+                        <div class="h3">Confirma exclusão?</div>
                     </div>
+					<fieldset>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.nome) : <b>@Html.DisplayFor(model => model.nome)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.cnpj) : <b>@Html.DisplayFor(model => model.cnpj)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.email) : <b>@Html.DisplayFor(model => model.email)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.telefone1) : <b>@Html.DisplayFor(model => model.telefone1)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.telefone2) : <b>@Html.DisplayFor(model => model.telefone2)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.responsavel) : <b>@Html.DisplayFor(model => model.responsavel)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.rua) : <b>@Html.DisplayFor(model => model.rua)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.numero) : <b>@Html.DisplayFor(model => model.numero)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.bairro) : <b>@Html.DisplayFor(model => model.bairro)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.cidade) : <b>@Html.DisplayFor(model => model.cidade)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.estado) : <b>@Html.DisplayFor(model => model.estado)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.cep) : <b>@Html.DisplayFor(model => model.cep)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.fc) : <b>@Html.DisplayFor(model => model.fc)</b>
+                    </div>
+					</fieldset>
+				</div>	
 
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
-                </div>
-            </div>
-        }
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
+				</div>
+			</div>
+		}
     </div>
 </div>

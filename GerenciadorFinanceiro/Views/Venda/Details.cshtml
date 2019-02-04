@@ -1,0 +1,59 @@
+﻿@model GerenciadorFinanceiro.Models.venda
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>venda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.concluida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.concluida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valortotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.valortotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.instituicao.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.instituicao.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.caixa.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.caixa.id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -6,110 +6,201 @@
     Layout = "~/Views/Shared/_LayoutLiso.cshtml";
 }
 
-<div class="shadow-lg pt-4 pb-4 mb-3 rounded bg-white div-branca">
+
+<style>
+    .item-card {
+        background-color: rgba(255,255,255,0.5);
+        margin: 10px 0px;
+    }
+</style>
+
+<div class="shadow-lg pt-4 pb-4 mb-3 rounded bg-money div-branca">
 
     <div class="col-12 row">
         <div class="col-8">
-            <a href="~/Categoria/IndexReceita" class="btn btn-outline-info"> <span class="fas fa-money-check-alt"></span> Categorias de Receita</a>
-            <a href="~/Categoria/IndexDespesa" class="btn btn-outline-info"> <span class="fas fa-credit-card"></span> Categorias de Despesa</a>
+            <a href="~/Categoria/IndexReceita" class="btn btn-outline-info" data-toggle="tooltip" title="Categorias de Receita"> <span class="fas fa-money-check-alt" style="font-size:22pt;"></span> </a>
+            <a href="~/Categoria/IndexDespesa" class="btn btn-outline-info" data-toggle="tooltip" title="Categorias de Despesa"> <span class="fas fa-credit-card" style="font-size:22pt;"></span></a>
         </div>
         <div class="col-4 " style="text-align:right">
-            <a href="~/Lancamento/CreateReceita" class="btn btn-outline-success"> <span class="fas fa-plus"></span> Receita</a>
-            <a href="~/Lancamento/CreateDespesa" class="btn btn-outline-danger"><span class="fas fa-minus"></span> Despesa</a>
+            <a href="~/Lancamento/CreateReceita" class="btn btn-outline-success" data-toggle="tooltip" title="Cadastrar Receita"> <span class="fas fa-sign-in-alt" style="font-size:19pt;"></span></a>
+            <a href="~/Lancamento/CreateDespesa" class="btn btn-outline-danger"  data-toggle="tooltip" title="Cadastrar Despesa"><span class="fas fa-sign-out-alt" style="font-size:19pt;"></span></a>
         </div>
     </div>
 
 </div>
 
 
-
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-6 col-sm-12 mb-4 ">
-            <div class="shadow-lg pt-3 pb-2   rounded bg-white div-branca">
-                @* Descrição *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.descricao)</b>
-                    <a href="~/Lancamento/Details/@item.id">
-                        @Html.DisplayFor(modelItem => item.descricao)
-                    </a>
+        if (item.valortotal != 0)
+        {
+            <div class="card ml-4" style="width: 20rem;text-align:center; background: url('../Images/fundo-lancamento.png') top right ; background-color: rgba(255, 255, 155, 0.81) !important;background-blend-mode: color;">
+                <div class="card-body shadow-lg pt-3 pb-2   rounded  div-branca">
+
+                    @*<img class="card-img-top" src="~/Images/aviao.png" alt="Card image cap">*@
+
+                    @* Descrição *@
+
+                    <div class="col-12 item-card row align-items-center justify-content-center" style="font-size:14pt;color:darkblue;min-height:100px;text-transform:capitalize">
+                        @if (Html.DisplayFor(modelItem => item.descricao).ToString().Length > 20)
+                        {
+                            <span>@item.descricao.Substring(0, 20).ToLower()<br />@item.descricao.Substring(20).ToLower()</span>
+                        }
+                        else
+                        {
+                            @item.descricao.ToLower()
+                        }
+                    </div>
+
+                    @* Pago *@
+                    <div class="col-12 item-card">
+                        <span class="fa fa-hand-holding-usd"></span>  <b>@Html.DisplayNameFor(model => model.pago)</b>
+                        <br />
+                        @if (item.pago == true)
+                        {
+                            <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-check text-success" style="font-size:16pt;"></span>
+                        }
+                        else
+                        {
+                            <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-times text-danger" style="font-size:16pt;"></span>
+                        }
+                    </div>
+
+                    @* Vencimento *@
+                    <div class="col-12 item-card" style="font-size:12pt;">
+                        @*<b>@Html.DisplayNameFor(model => model.datavencimento)</b>*@
+                        <span class="fa fa-calendar-alt"></span>
+                        @if (item.datavencimento != null)
+                        {
+                            <span>@item.datavencimento.Value.ToShortDateString()</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </div>
+
+                    @* Valor *@
+                    <div class="col-12 item-card"  style="font-size:16pt;">
+                        @*<b>@Html.DisplayNameFor(model => model.valortotal):</b>*@
+                        <span class="fa fa-dollar-sign"></span>
+                        @Html.DisplayFor(modelItem => item.valortotal)
+                    </div>
+
+
+                    @* Descrição *@
+                    <div class="col-12 card-title ">
+                        @*<b>@Html.DisplayNameFor(model => model.descricao)</b>*@
+                        <span class="edit  btn-outline-success mr-5 " data-id="@item.id" data-toggle="tooltip" title="Visualizar Lançamento" style="font-size:22pt; border-radius:25px;">
+                            <span class="fa fa-eye"></span>
+                        </span>
+                        <span class="delete btn-outline-danger" data-id="@item.id" data-toggle="tooltip" title="Deletar Lançamento" style="font-size:22pt;border-radius:25px;">
+                            <span class="fa fa-trash"></span>
+                        </span>
+                    </div>
+
+                    @* Quantidade *@
+                    @*<div class="col-12">
+                            <b>@Html.DisplayNameFor(model => model.quantidade)</b>
+                            @Html.DisplayFor(modelItem => item.quantidade)
+                        </div>*@
+
+
+
+                    @* NF *@
+                    @*<div class="col-12">
+                            <b>NF:</b>
+                            @Html.DisplayFor(modelItem => item.numerotitulo)
+                        </div>*@
+
+                    @* Tipo *@
+                    @*<div class="col-12 item-card">
+                            <b>@Html.DisplayNameFor(model => model.categoria.tipo)</b>
+                            <br />
+
+                            @if (item.categoria.tipo.Equals("PC"))
+                            {
+                                <span> Passivo Circulante</span>
+                            }
+                            @if (item.categoria.tipo.Equals("PNC"))
+                            {
+                                <span> Passivo Não-Circulante</span>
+                            }
+                            @if (item.categoria.tipo.Equals("AC"))
+                            {
+                                <span>Ativo Circulante</span>
+                            }
+                            @if (item.categoria.tipo.Equals("ANC"))
+                            {
+                                <span>Ativo Não-Circulante</span>
+                            }
+                            @if (item.categoria.tipo.Equals("PL"))
+                            {
+                                <span>Patrimônio Líquido</span>
+                            }
+                        </div>*@
+
+                    @* Conta *@
+                    @*<div class="col-12 item-card">
+                            <b>@Html.DisplayNameFor(model => model.contasaldo.nome)</b>
+                            <br />
+                            @if (item.contasaldo != null)
+                            {
+                                <span>@item.contasaldo.nome</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </div>*@
+
                 </div>
-
-                @* Pago *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.pago)</b>
-                    @if (item.pago == true)
-                    {
-                        <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-check text-success" style="font-size:16pt;"></span>
-                    }
-                    else
-                    {
-                        <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-times text-danger" style="font-size:16pt;"></span>
-                    }
-                </div>
-
-                @* Quantidade *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.quantidade)</b>
-                    @Html.DisplayFor(modelItem => item.quantidade)
-                </div>
-
-                @* Valor *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.valor):</b>
-                    R$@Html.DisplayFor(modelItem => item.valor)
-                </div>
-
-                @* NF *@
-                <div class="col-12">
-                    <b>NF:</b>
-                    @Html.DisplayFor(modelItem => item.numerotitulo)
-                </div>
-
-                @* Tipo *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.categoria.tipo)</b>
-
-                    @if (item.categoria.tipo.Equals("PC"))
-                    {
-                        <span> Passivo Circulante</span>
-                    }
-                    @if (item.categoria.tipo.Equals("PNC"))
-                    {
-                        <span> Passivo Não-Circulante</span>
-                    }
-                    @if (item.categoria.tipo.Equals("AC"))
-                    {
-                        <span>Ativo Circulante</span>
-                    }
-                    @if (item.categoria.tipo.Equals("ANC"))
-                    {
-                        <span>Ativo Não-Circulante</span>
-                    }
-                    @if (item.categoria.tipo.Equals("PL"))
-                    {
-                        <span>Patrimônio Líquido</span>
-                    }
-                </div>
-
-                @* Vencimento *@
-                <div class="col-12">
-                    <b>@Html.DisplayNameFor(model => model.datavencimento)</b>
-                    @if (item.datavencimento != null)
-                    {
-                        <span>@item.datavencimento.Value.ToShortDateString()</span>
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </div>
-
-
-
             </div>
-
-        </div>
+        }
     }
 </div>
+
+
+<div class="modal" id="div-visualizacao">
+
+</div>
+
+
+<script type="text/javascript">
+    function pagar(id) {
+        $.ajax({
+            url: "Pagar/" + id,
+            type: "POST",
+            success: function (data) {
+                if (data.localeCompare("false") == 0) {
+                    $("#pago_" + id).addClass("fa-times text-danger").removeClass("fa-check text-success");
+                }
+                if (data.localeCompare("true") == 0) {
+                    $("#pago_" + id).addClass("fa-check text-success").removeClass("fa-times text-danger");
+                }
+                if (data.localeCompare("true") != 0 && data.localeCompare("false") != 0) {
+                    alert(JSON.stringify(data));
+                }
+
+            },
+            error: function (data) {
+                alert("Erro:" + JSON.stringify(data));
+            }
+        });
+    }
+
+    $(".edit").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Lancamento/Edit/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+
+    $(".delete").click(function () {
+        var id = $(this).attr("data-id");
+        $("#div-visualizacao").load("/Lancamento/Delete/" + id, function () {
+            $("#div-visualizacao").modal("show");
+        })
+    });
+</script>

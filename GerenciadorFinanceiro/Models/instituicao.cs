@@ -17,7 +17,9 @@ namespace GerenciadorFinanceiro.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public instituicao()
         {
+            this.imageminstituicao = new HashSet<imageminstituicao>();
             this.lancamento = new HashSet<lancamento>();
+            this.venda = new HashSet<venda>();
         }
     
         public int id { get; set; }
@@ -36,6 +38,10 @@ namespace GerenciadorFinanceiro.Models
         public string fc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<imageminstituicao> imageminstituicao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<lancamento> lancamento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<venda> venda { get; set; }
     }
 }

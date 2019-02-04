@@ -1,0 +1,55 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+
+
+@{
+    ViewBag.Title = "<#= ViewName#>";
+    Layout = null;
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Deleção de <#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+		@using (Html.BeginForm("Delete", "<#= ViewDataTypeShortName.ToUpper()[0] + ViewDataTypeShortName.Substring(1) #>", FormMethod.Post)) {
+			<div class="modal-body">
+                @Html.AntiForgeryToken()
+				 <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5" style="text-transform: uppercase;">
+                    <div class="col-12">
+                        <div class="h3">Confirma exclusão?</div>
+                    </div>
+					<fieldset>
+<#					foreach (PropertyMetadata property in ModelMetadata.Properties) {
+						if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+<#							if (property.IsAssociation && GetRelatedModelMetadata(property) == null) {
+								continue;
+							} 
+#>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>) : <b>@Html.DisplayFor(model => model.<#= GetValueExpression(property) #>)</b>
+                    </div>
+<#
+						}
+					}
+#>
+					</fieldset>
+				</div>	
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
+				</div>
+			</div>
+		}
+    </div>
+</div>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

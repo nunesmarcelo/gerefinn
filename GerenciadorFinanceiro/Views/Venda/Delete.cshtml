@@ -1,0 +1,56 @@
+﻿@model GerenciadorFinanceiro.Models.venda
+
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Deleção de Venda</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+		@using (Html.BeginForm("Delete", "Venda", FormMethod.Post)) {
+			<div class="modal-body">
+                @Html.AntiForgeryToken()
+				 <div class="dl-horizontal row col-12 ml-4 mb-5 mt-5" style="text-transform: uppercase;">
+                    <div class="col-12">
+                        <div class="h3">Confirma exclusão?</div>
+                    </div>
+					<fieldset>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.concluida) : <b>@Html.DisplayFor(model => model.concluida)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.valortotal) : <b>@Html.DisplayFor(model => model.valortotal)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.instituicao.nome) : <b>@Html.DisplayFor(model => model.instituicao.nome)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.usuario.nome) : <b>@Html.DisplayFor(model => model.usuario.nome)</b>
+                    </div>
+					<br />
+                    <div class="mt-3 row col-12">
+                        @Html.DisplayNameFor(model => model.caixa.id) : <b>@Html.DisplayFor(model => model.caixa.id)</b>
+                    </div>
+					</fieldset>
+				</div>	
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" value="Save" class="btn btn-outline-danger">Salvar</button>
+				</div>
+			</div>
+		}
+    </div>
+</div>

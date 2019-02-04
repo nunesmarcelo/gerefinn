@@ -15,18 +15,21 @@ namespace GerenciadorFinanceiro.Controllers
     {
         private FinanceiroBanco db = new FinanceiroBanco();
 
-        // GET: Instituicao
+        #region [ Index Fornecedor ]
         public async Task<ActionResult> IndexFornecedor()
         {
-            return View(await db.instituicao.Where(x=>x.fc.Equals("F")).ToListAsync());
+            return View(await db.instituicao.Where(x => x.fc.Equals("F")).ToListAsync());
         }
+        #endregion
 
+        #region [ Index Cliente ]
         public async Task<ActionResult> IndexCliente()
         {
             return View(await db.instituicao.Where(x => x.fc.Equals("C")).ToListAsync());
         }
+        #endregion
 
-        // GET: Instituicao/Details/5
+        #region [ Details ]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,35 +43,38 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(instituicao);
         }
+        #endregion
 
-        // GET: Instituicao/Create
+        #region [ Create Fornecedor ]
         public ActionResult CreateFornecedor()
         {
             return View();
         }
+        #endregion
 
+        #region [ Create Cliente ] 
         public ActionResult CreateCliente()
         {
             return View();
         }
+        #endregion
 
-        // POST: Instituicao/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        #region [ Create - POST ]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id,nome,cnpj,email,telefone1,telefone2,responsavel,rua,numero,bairro,cidade,estado,cep,fc")] instituicao instituicao)
         {
             if (ModelState.IsValid)
             {
+                db.instituicao.Add(instituicao);
                 instituicao.nome = instituicao.nome.ToUpper();
-                if(instituicao.responsavel != null)
+                if (instituicao.responsavel != null)
                 {
                     instituicao.responsavel = instituicao.responsavel.ToUpper();
                 }
                 db.instituicao.Add(instituicao);
                 await db.SaveChangesAsync();
-                if(instituicao.fc == "F")
+                if (instituicao.fc == "F")
                 {
                     return RedirectToAction("IndexFornecedor", "Instituicao");
                 }
@@ -76,15 +82,13 @@ namespace GerenciadorFinanceiro.Controllers
                 {
                     return RedirectToAction("IndexCliente", "Instituicao");
                 }
-                
             }
 
             return View(instituicao);
-           
-            
         }
+        #endregion
 
-        // GET: Instituicao/Edit/5
+        #region [ Edit ]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -98,19 +102,25 @@ namespace GerenciadorFinanceiro.Controllers
             }
             return View(instituicao);
         }
-
-        // POST: Instituicao/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id,nome,cnpj,email,telefone1,telefone2,responsavel,rua,numero,bairro,cidade,estado,cep,fc")] instituicao instituicao)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(instituicao).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                if(instituicao.fc == "F")
+                try
+                {
+                    db.Entry(instituicao).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    TempData["erro"] = "Erro ao modificar os dados. Por favor, tente novamente.";
+                }
+
+
+                if (instituicao.fc == "F")
                 {
                     return RedirectToAction("IndexFornecedor");
                 }
@@ -119,12 +129,12 @@ namespace GerenciadorFinanceiro.Controllers
                     return RedirectToAction("IndexCliente");
 
                 }
-
             }
             return View(instituicao);
         }
+        #endregion
 
-        // GET: Instituicao/Delete/5
+        #region [ Delete ]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,7 +149,6 @@ namespace GerenciadorFinanceiro.Controllers
             return View(instituicao);
         }
 
-        // POST: Instituicao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -149,7 +158,8 @@ namespace GerenciadorFinanceiro.Controllers
             try
             {
                 await db.SaveChangesAsync();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 TempData["erro"] = "Erro ao excluir, você possui lançamentos ligados à essa instituição. Para a proteção dos seus dados, é necessário excluir essa instituição primeiro.";
                 if (instituicao.fc == "F")
@@ -169,9 +179,11 @@ namespace GerenciadorFinanceiro.Controllers
             {
                 return RedirectToAction("IndexCliente");
             }
-            
-        }
 
+        }
+        #endregion
+
+        #region [ Dispose ] 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -180,5 +192,6 @@ namespace GerenciadorFinanceiro.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
     }
 }
