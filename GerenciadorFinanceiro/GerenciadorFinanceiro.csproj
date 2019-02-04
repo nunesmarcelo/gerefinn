@@ -343,6 +343,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\aberto.gif" />
     <Content Include="Images\aviao.png" />
+    <Content Include="Images\back.png" />
     <Content Include="Images\check.png" />
     <Content Include="Images\clientes2.png" />
     <Content Include="Images\contasaldos2.png" />
@@ -351,11 +352,13 @@
     <Content Include="Images\fechado.gif" />
     <Content Include="Images\fornecedores2.png" />
     <Content Include="Images\fundo-grafico.jfif" />
+    <Content Include="Images\fundo-lancamento.png" />
     <Content Include="Images\fundo-quadrado-grafico.png" />
     <Content Include="Images\lancamento2.png" />
     <Content Include="Images\listagem.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\login.jpg" />
+    <Content Include="Images\menu-back.png" />
     <Content Include="Images\passivos2.png" />
     <Content Include="Images\relatorio.png" />
     <Content Include="Images\teste.png" />
@@ -559,7 +562,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutAntigo.cshtml" />
     <Content Include="Views\Shared\_LayoutVenda.cshtml" />
     <Content Include="Views\Shared\_LayoutLiso.cshtml" />
     <Content Include="Views\Create.cs.t4" />
@@ -784,6 +787,7 @@
     <Content Include="Scripts\js\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\js\bootstrap.js.map" />
     <Content Include="Scripts\js\bootstrap.min.js.map" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
