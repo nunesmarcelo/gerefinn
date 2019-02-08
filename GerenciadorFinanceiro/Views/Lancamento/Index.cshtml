@@ -14,6 +14,169 @@
     }
 </style>
 
+<script>
+
+    $(document).ready(function () {
+        alfabeticaDescendente = false;
+        pagoPrimeiro = false;
+        vencimentoDescendente = false;
+        valorDescendente = false;
+    });
+
+
+    function buscar(texto) {
+        texto = texto.toLowerCase();
+        var qtdCards = $("#qtdCards").val();
+
+        //descricao , vencimento, pago , valor , pai
+        for (var i = 0; i <= qtdCards; i++) {
+            if (texto == "") {
+                $("#pai_" + i).removeClass("d-none");
+                continue;
+            }
+
+            if ($("#descricao_" + i).html().toLowerCase().indexOf(texto) >= 0) {
+                $("#pai_" + i).removeClass("d-none");
+                continue;
+            }
+
+            if ($("#vencimento_" + i).html().toLowerCase().indexOf(texto) >= 0) {
+                $("#pai_" + i).removeClass("d-none");
+                continue;
+            }
+            if ($("#valor_" + i).html().toLowerCase().indexOf(texto) >= 0) {
+                $("#pai_" + i).removeClass("d-none");
+                continue;
+            }
+            $("#pai_" + i).addClass("d-none");
+        }
+    }
+
+    //Remove os acentos para ordenar em ordem alfabética.
+    function retira_acentos(str) {
+        com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
+        sem_acento = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
+        novastr = "";
+        for (i = 0; i < str.length; i++) {
+            troca = false;
+            for (a = 0; a < com_acento.length; a++) {
+                if (str.substr(i, 1) == com_acento.substr(a, 1)) {
+                    novastr += sem_acento.substr(a, 1);
+                    troca = true;
+                    break;
+                }
+            }
+            if (troca == false) {
+                novastr += str.substr(i, 1);
+            }
+        }
+        return novastr;
+    }
+
+    function ordenar_ordem_alfabetica() {
+        var lista = [];
+        var qtdCards = $("#qtdCards").val();
+        
+        for (var i = 0; i <= qtdCards; i++) {
+            lista.push(retira_acentos($("#descricao_" + i).html()));
+        }
+        var ordenada = lista.sort();
+        for (var i = 0; i <= ordenada.length; i++) {
+            for (var j = 0; j <= qtdCards; j++) {
+                if (retira_acentos($("#descricao_" + j).html()) == ordenada[i]) {
+                    if (this.alfabeticaDescendente == false) {
+                        $("#pai_" + j).appendTo($("#div-cards"));
+                    } else {
+                        $("#pai_" + j).prependTo($("#div-cards"));
+                    }
+                    
+                }
+            }
+        }
+        this.alfabeticaDescendente = !this.alfabeticaDescendente;
+    }
+
+    function ordenar_pago() {
+        this.vencimentoDescendente = false;
+        ordenar_vencimento();
+        var qtdCards = $("#qtdCards").val();
+        for (i = 0; i <= qtdCards; i++) {
+            if ($("#pago_" + i).val() == true && this.pagoPrimeiro == true) {
+                $("#pai_" + i).appendTo($("#div-cards"));
+            }
+            if ($("#pago_" + i).val() == true && this.pagoPrimeiro == false) {
+                $("#pai_" + i).prependTo($("#div-cards"));
+            }
+            if ($("#pago_" + i).val() == false && this.pagoPrimeiro == true) {
+                $("#pai_" + i).appendTo($("#div-cards"));
+            }
+            if ($("#pago_" + i).val() == false && this.pagoPrimeiro == false) {
+                $("#pai_" + i).prependTo($("#div-cards"));
+            }
+        }
+        this.pagoPrimeiro = !this.pagoPrimeiro;
+    }
+
+    function ordenar_vencimento() {
+        var lista = [];
+        var qtdCards = $("#qtdCards").val();
+
+        var novo = "";
+
+        for (var i = 0; i <= qtdCards; i++) {
+            lista.push($("#vencimento_" + i).html());
+        }
+        var ordenada = lista.sort(function (a, b) {
+            if (parseInt(a.substr(6, 4) + a.substr(3, 2) + a.substr(0, 2)) > parseInt(b.substr(6, 4) + b.substr(3, 2) + b.substr(0, 2)))
+                return 1;
+            return -1;
+        });
+        for (var i = 0; i <= ordenada.length; i++) {
+            for (var j = 0; j <= qtdCards; j++) {
+                if ($("#vencimento_" + j).html() == ordenada[i]) {
+                    if (this.vencimentoDescendente == false) {
+                        $("#pai_" + j).appendTo($("#div-cards"));
+                    } else {
+                        $("#pai_" + j).prependTo($("#div-cards"));
+                    }
+
+                }
+            }
+        }
+        this.vencimentoDescendente = !this.vencimentoDescendente;
+    }
+
+    function ordenar_valor() {
+        this.vencimentoDescendente = false;
+        ordenar_vencimento();
+        var lista = [];
+        var qtdCards = $("#qtdCards").val();
+        
+        for (var i = 0; i <= qtdCards; i++) {
+            lista.push($("#valor_" + i).html());
+        }
+        var ordenada = lista.sort(function (a, b) {
+            if (parseFloat(a.replace(',', '.')) > parseFloat(b.replace(',', '.')))
+                return 1;
+            return -1;
+        });
+        for (var i = 0; i <= ordenada.length; i++) {
+            for (var j = 0; j <= qtdCards; j++) {
+                if ($("#valor_" + j).html() == ordenada[i]) {
+                    if (this.valorDescendente == false) {
+                        $("#pai_" + j).appendTo($("#div-cards"));
+                    } else {
+                        $("#pai_" + j).prependTo($("#div-cards"));
+                    }
+
+                }
+            }
+        }
+        this.valorDescendente = !this.valorDescendente;
+    }
+
+</script>
+
 <div class="shadow-lg pt-4 pb-4 mb-3 rounded bg-money div-branca">
 
     <div class="col-12 row">
@@ -23,143 +186,161 @@
         </div>
         <div class="col-4 " style="text-align:right">
             <a href="~/Lancamento/CreateReceita" class="btn btn-outline-success" data-toggle="tooltip" title="Cadastrar Receita"> <span class="fas fa-sign-in-alt" style="font-size:19pt;"></span></a>
-            <a href="~/Lancamento/CreateDespesa" class="btn btn-outline-danger"  data-toggle="tooltip" title="Cadastrar Despesa"><span class="fas fa-sign-out-alt" style="font-size:19pt;"></span></a>
+            <a href="~/Lancamento/CreateDespesa" class="btn btn-outline-danger" data-toggle="tooltip" title="Cadastrar Despesa"><span class="fas fa-sign-out-alt" style="font-size:19pt;"></span></a>
         </div>
     </div>
-
 </div>
 
+<div class="col-12 row mt-4 mb-5 ml-3">
+    <div class="col-sm-12 col-md-12  row">
+        <div class="col-12 row">Ordenar por:</div>
+        <div class="col-12 row">
 
-<div class="row">
+            <div class="col-sm-12 col-md-5 ml-0 mt-2">
+                <button type="button" onclick="ordenar_ordem_alfabetica()" class="btn btn-dark">Ordem Alfabética</button>
+                <button type="button" onclick="ordenar_pago()" class="btn btn-dark">Pago</button>
+                <button type="button" onclick="ordenar_vencimento()" class="btn btn-dark">Data Vencimento</button>
+                <button type="button" onclick="ordenar_valor()" class="btn btn-dark">Valor</button>
+            </div>
+            <div class="col-sm-12 col-md-7  justify-content-end row">
+                <div class="col-6 text-right ">
+                    <input type="text" class="form-control" id="autocomplete" name="autocomplete" onkeyup="buscar(this.value);" style="font-size:12pt;margin-top:0px !important" placeholder="Buscar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row " id="div-cards">
+    @{ int i = -1;}
     @foreach (var item in Model)
     {
         if (item.valortotal != 0)
         {
-            <div class="card ml-4" style="width: 20rem;text-align:center; background: url('../Images/fundo-lancamento.png') top right ; background-color: rgba(255, 255, 155, 0.81) !important;background-blend-mode: color;">
-                <div class="card-body shadow-lg pt-3 pb-2   rounded  div-branca">
+            i += 1;
+            <div id="pai_@i">
+                <div class="card ml-4 mb-4" style="width: 20rem;text-align:center; background: url('../Images/fundo-lancamento.png') top right ; background-color: rgba(250, 250, 250, 0.71) !important;background-blend-mode: color; @( item.categoria.rd == "D" ? "box-shadow: 1px 0px 0px 1px #FF495C;)" : "box-shadow: 1px 0px 0px 1px #3DDC97;)")">
+                    <div class="card-body shadow-lg pt-3 pb-2 rounded  div-branca">
 
-                    @*<img class="card-img-top" src="~/Images/aviao.png" alt="Card image cap">*@
+                        @*<img class="card-img-top" src="~/Images/aviao.png" alt="Card image cap">*@
 
-                    @* Descrição *@
+                        @* Descrição *@
 
-                    <div class="col-12 item-card row align-items-center justify-content-center" style="font-size:14pt;color:darkblue;min-height:100px;text-transform:capitalize">
-                        @if (Html.DisplayFor(modelItem => item.descricao).ToString().Length > 20)
-                        {
-                            <span>@item.descricao.Substring(0, 20).ToLower()<br />@item.descricao.Substring(20).ToLower()</span>
-                        }
-                        else
-                        {
-                            @item.descricao.ToLower()
-                        }
-                    </div>
+                        <div class="col-12 item-card row align-items-center justify-content-center" style="font-size:14pt;color:darkblue;min-height:100px;text-transform:capitalize">
+                            <span id="descricao_@i" style="max-width:150px;">@item.descricao.ToLower()</span>
+                        </div>
 
-                    @* Pago *@
-                    <div class="col-12 item-card">
-                        <span class="fa fa-hand-holding-usd"></span>  <b>@Html.DisplayNameFor(model => model.pago)</b>
-                        <br />
-                        @if (item.pago == true)
-                        {
-                            <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-check text-success" style="font-size:16pt;"></span>
-                        }
-                        else
-                        {
-                            <span onclick="pagar(@item.id)" id="pago_@item.id" class="fas fa-times text-danger" style="font-size:16pt;"></span>
-                        }
-                    </div>
-
-                    @* Vencimento *@
-                    <div class="col-12 item-card" style="font-size:12pt;">
-                        @*<b>@Html.DisplayNameFor(model => model.datavencimento)</b>*@
-                        <span class="fa fa-calendar-alt"></span>
-                        @if (item.datavencimento != null)
-                        {
-                            <span>@item.datavencimento.Value.ToShortDateString()</span>
-                        }
-                        else
-                        {
-                            <span>-</span>
-                        }
-                    </div>
-
-                    @* Valor *@
-                    <div class="col-12 item-card"  style="font-size:16pt;">
-                        @*<b>@Html.DisplayNameFor(model => model.valortotal):</b>*@
-                        <span class="fa fa-dollar-sign"></span>
-                        @Html.DisplayFor(modelItem => item.valortotal)
-                    </div>
-
-
-                    @* Descrição *@
-                    <div class="col-12 card-title ">
-                        @*<b>@Html.DisplayNameFor(model => model.descricao)</b>*@
-                        <span class="edit  btn-outline-success mr-5 " data-id="@item.id" data-toggle="tooltip" title="Visualizar Lançamento" style="font-size:22pt; border-radius:25px;">
-                            <span class="fa fa-eye"></span>
-                        </span>
-                        <span class="delete btn-outline-danger" data-id="@item.id" data-toggle="tooltip" title="Deletar Lançamento" style="font-size:22pt;border-radius:25px;">
-                            <span class="fa fa-trash"></span>
-                        </span>
-                    </div>
-
-                    @* Quantidade *@
-                    @*<div class="col-12">
-                            <b>@Html.DisplayNameFor(model => model.quantidade)</b>
-                            @Html.DisplayFor(modelItem => item.quantidade)
-                        </div>*@
-
-
-
-                    @* NF *@
-                    @*<div class="col-12">
-                            <b>NF:</b>
-                            @Html.DisplayFor(modelItem => item.numerotitulo)
-                        </div>*@
-
-                    @* Tipo *@
-                    @*<div class="col-12 item-card">
-                            <b>@Html.DisplayNameFor(model => model.categoria.tipo)</b>
+                        @* Pago *@
+                        <div class="col-12 item-card">
+                            <span class="fa fa-hand-holding-usd"></span>  <b>@Html.DisplayNameFor(model => model.pago)</b>
                             <br />
-
-                            @if (item.categoria.tipo.Equals("PC"))
+                            @if (item.pago == true)
                             {
-                                <span> Passivo Circulante</span>
-                            }
-                            @if (item.categoria.tipo.Equals("PNC"))
-                            {
-                                <span> Passivo Não-Circulante</span>
-                            }
-                            @if (item.categoria.tipo.Equals("AC"))
-                            {
-                                <span>Ativo Circulante</span>
-                            }
-                            @if (item.categoria.tipo.Equals("ANC"))
-                            {
-                                <span>Ativo Não-Circulante</span>
-                            }
-                            @if (item.categoria.tipo.Equals("PL"))
-                            {
-                                <span>Patrimônio Líquido</span>
-                            }
-                        </div>*@
-
-                    @* Conta *@
-                    @*<div class="col-12 item-card">
-                            <b>@Html.DisplayNameFor(model => model.contasaldo.nome)</b>
-                            <br />
-                            @if (item.contasaldo != null)
-                            {
-                                <span>@item.contasaldo.nome</span>
+                                <span onclick="pagar(@item.id,@i)" id="pago_@i" class="fas fa-check text-success" style="font-size:16pt;"></span>
                             }
                             else
                             {
-                                <span>-</span>
+                                <span onclick="pagar(@item.id,@i)" id="pago_@i" class="fas fa-times text-danger" style="font-size:16pt;"></span>
                             }
-                        </div>*@
+                        </div>
 
+                        @* Vencimento *@
+                        <div class="col-12 item-card" style="font-size:12pt;">
+                            @*<b>@Html.DisplayNameFor(model => model.datavencimento)</b>*@
+                            <span class="fa fa-calendar-alt"></span>
+                            @if (item.datavencimento != null)
+                            {
+                                <span id="vencimento_@i">@item.datavencimento.Value.ToShortDateString()</span>
+                            }
+                            else
+                            {
+                                <span id="vencimento_@i">-</span>
+                            }
+                        </div>
+
+                        @* Valor *@
+                        <div class="col-12 item-card" style="font-size:16pt;">
+                            @*<b>@Html.DisplayNameFor(model => model.valortotal):</b>*@
+                            <span class="fa fa-dollar-sign"></span>
+                            <span id="valor_@i">@Html.DisplayFor(modelItem => item.valortotal)</span>
+                        </div>
+
+
+                        @* Ações *@
+                        <div class="col-12 card-title ">
+                            @*<b>@Html.DisplayNameFor(model => model.descricao)</b>*@
+                            <span class="edit  btn-outline-success mr-5 " data-id="@item.id" data-toggle="tooltip" title="Visualizar Lançamento" style="font-size:22pt; border-radius:25px;">
+                                <span class="fa fa-eye"></span>
+                            </span>
+                            <span class="delete btn-outline-danger" data-id="@item.id" data-toggle="tooltip" title="Deletar Lançamento" style="font-size:22pt;border-radius:25px;">
+                                <span class="fa fa-trash"></span>
+                            </span>
+                        </div>
+
+                        @* Quantidade *@
+                        @*<div class="col-12">
+                                <b>@Html.DisplayNameFor(model => model.quantidade)</b>
+                                @Html.DisplayFor(modelItem => item.quantidade)
+                            </div>*@
+
+
+
+                        @* NF *@
+                        @*<div class="col-12">
+                                <b>NF:</b>
+                                @Html.DisplayFor(modelItem => item.numerotitulo)
+                            </div>*@
+
+                        @* Tipo *@
+                        @*<div class="col-12 item-card">
+                                <b>@Html.DisplayNameFor(model => model.categoria.tipo)</b>
+                                <br />
+
+                                @if (item.categoria.tipo.Equals("PC"))
+                                {
+                                    <span> Passivo Circulante</span>
+                                }
+                                @if (item.categoria.tipo.Equals("PNC"))
+                                {
+                                    <span> Passivo Não-Circulante</span>
+                                }
+                                @if (item.categoria.tipo.Equals("AC"))
+                                {
+                                    <span>Ativo Circulante</span>
+                                }
+                                @if (item.categoria.tipo.Equals("ANC"))
+                                {
+                                    <span>Ativo Não-Circulante</span>
+                                }
+                                @if (item.categoria.tipo.Equals("PL"))
+                                {
+                                    <span>Patrimônio Líquido</span>
+                                }
+                            </div>*@
+
+                        @* Conta *@
+                        @*<div class="col-12 item-card">
+                                <b>@Html.DisplayNameFor(model => model.contasaldo.nome)</b>
+                                <br />
+                                @if (item.contasaldo != null)
+                                {
+                                    <span>@item.contasaldo.nome</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>*@
+
+                    </div>
                 </div>
             </div>
+
         }
     }
 </div>
+@* Salva - para o uso do JS - a quantidade de cards da página. *@
+<input type="hidden" name="qtdCards" value="@i" id="qtdCards" />
 
 
 <div class="modal" id="div-visualizacao">
@@ -168,16 +349,16 @@
 
 
 <script type="text/javascript">
-    function pagar(id) {
+    function pagar(id, i) {
         $.ajax({
             url: "Pagar/" + id,
             type: "POST",
             success: function (data) {
                 if (data.localeCompare("false") == 0) {
-                    $("#pago_" + id).addClass("fa-times text-danger").removeClass("fa-check text-success");
+                    $("#pago_" + i).addClass("fa-times text-danger").removeClass("fa-check text-success");
                 }
                 if (data.localeCompare("true") == 0) {
-                    $("#pago_" + id).addClass("fa-check text-success").removeClass("fa-times text-danger");
+                    $("#pago_" + i).addClass("fa-check text-success").removeClass("fa-times text-danger");
                 }
                 if (data.localeCompare("true") != 0 && data.localeCompare("false") != 0) {
                     alert(JSON.stringify(data));
